@@ -1,4 +1,4 @@
-package com.example.newcosts;
+package com.touristskaya.expenses;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,8 +8,9 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 
-public class NewCostsListViewAdapter extends ArrayAdapter<String> {
-    public NewCostsListViewAdapter(Context context, String[] costs) {
+class ChosenPeriodActivityAdapter extends ArrayAdapter<String> {
+
+    public ChosenPeriodActivityAdapter(Context context, String[] costs) {
         super(context, R.layout.single_costs_row, costs);
     }
 
@@ -19,13 +20,10 @@ public class NewCostsListViewAdapter extends ArrayAdapter<String> {
         View singleCostsRow = inflater.inflate(R.layout.single_costs_row, parent, false);
 
         String textLine = getItem(position);
-        String[] textLineData = textLine.split("\\$");
 
-        String costType = textLineData[1];
-        String costValue = textLineData[2];
-
-        if (!"+".equals(costValue))
-            costValue = costValue + " руб.";
+        String costType = textLine.substring(0, textLine.lastIndexOf(Constants.SEPARATOR_DATE));
+        String costValue = textLine.substring(textLine.lastIndexOf(Constants.SEPARATOR_VALUE) + 1);
+        costValue = costValue + " руб.";
 
         TextView costTypeText = (TextView) singleCostsRow.findViewById(R.id.costType);
         TextView costValueText = (TextView) singleCostsRow.findViewById(R.id.costValue);
@@ -35,4 +33,5 @@ public class NewCostsListViewAdapter extends ArrayAdapter<String> {
 
         return singleCostsRow;
     }
+
 }

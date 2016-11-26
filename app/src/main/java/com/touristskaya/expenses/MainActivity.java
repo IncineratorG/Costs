@@ -1,4 +1,4 @@
-package com.example.newcosts;
+package com.touristskaya.expenses;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -186,12 +186,12 @@ public class MainActivity extends AppCompatActivity {
                 dialog.setContentView(R.layout.add_text_popup);
 
                 final EditText inputTextField = (EditText) dialog.findViewById(R.id.addTextPopup_edit_text);
-                inputTextField.setCursorVisible(false);
                 inputTextField.requestFocus();
                 if (note != null) {
                     inputTextField.setText(note);
                     inputTextField.setSelection(inputTextField.getText().length());
                 }
+                inputTextField.setCursorVisible(true);
 
                 // Отображаем клавиатуру
                 final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -437,11 +437,16 @@ public class MainActivity extends AppCompatActivity {
                     final AutoCompleteTextView inputTextField = (AutoCompleteTextView) dialog.findViewById(R.id.costTypeTextViewInAddNewCostTypePopup);
                     inputTextField.setCursorVisible(true);
                     inputTextField.setText(chosenCostTypeName);
+                    inputTextField.setSelection(inputTextField.getText().length());
 
                     // Инициализируем кнопки всплывающего окна
                     Button renameButton = (Button) dialog.findViewById(R.id.addNewCostTypeButton);
                     renameButton.setText("Переименовать");
                     Button cancelButton = (Button) dialog.findViewById(R.id.cancelButton);
+
+                    // Отображаем клавиатуру
+                    final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
 
                     // Устанавливаем слушатели на кнопки
                     renameButton.setOnClickListener(new View.OnClickListener() {
@@ -459,6 +464,7 @@ public class MainActivity extends AppCompatActivity {
                                     // Обновляем главный экран приложения (MainActivity)
                                     setCurrentOverallCosts_V2();
 
+                                    imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
                                     dialog.cancel();
                                     renameToast.show();
                                     mainEditDialog.cancel();
@@ -481,6 +487,7 @@ public class MainActivity extends AppCompatActivity {
                     cancelButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
                             dialog.cancel();
                         }
                     });

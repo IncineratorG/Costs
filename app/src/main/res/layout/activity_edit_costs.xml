@@ -4,7 +4,7 @@
     android:id="@+id/activity_edit_costs"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.newcosts.EditCostsActivity">
+    tools:context="com.touristskaya.expenses.EditCostsActivity">
 
     <LinearLayout
         android:orientation="vertical"

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.newcosts">
+    package="com.touristskaya.expenses">
 
     <application
         android:allowBackup="true"
@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name="com.touristskaya.expenses.MainActivity"
             android:label="Мои расходы"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
@@ -22,25 +22,25 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AddNewEvent"
+            android:name="com.touristskaya.expenses.AddNewEvent"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".StatisticMainScreenActivity"
+            android:name="com.touristskaya.expenses.StatisticMainScreenActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".StatisticDetailedActivity"
+            android:name="com.touristskaya.expenses.StatisticDetailedActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".StatisticCostTypeDetailedActivity"
+            android:name="com.touristskaya.expenses.StatisticCostTypeDetailedActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".StatisticChosePeriodActivity"
+            android:name="com.touristskaya.expenses.StatisticChosePeriodActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".StatisticChosenPeriodActivity"
+            android:name="com.touristskaya.expenses.StatisticChosenPeriodActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".EditCostsActivity"
+            android:name="com.touristskaya.expenses.EditCostsActivity"
             android:screenOrientation="portrait">
         </activity>
 

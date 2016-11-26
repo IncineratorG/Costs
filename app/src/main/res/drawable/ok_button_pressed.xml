@@ -7,7 +7,7 @@
         android:bottomRightRadius="0dp"
         />
     <solid
-        android:color="#1EE80C"
+        android:color="#FF9800"
         />
     <padding
         android:left="0dp"

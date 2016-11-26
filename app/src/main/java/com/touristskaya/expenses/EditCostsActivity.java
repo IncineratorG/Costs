@@ -1,4 +1,4 @@
-package com.example.newcosts;
+package com.touristskaya.expenses;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -8,7 +8,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -162,10 +161,10 @@ public class EditCostsActivity extends AppCompatActivity implements MyDatePicker
                 dialog.setContentView(R.layout.add_text_popup);
 
                 final EditText inputTextField = (EditText) dialog.findViewById(R.id.addTextPopup_edit_text);
-                inputTextField.setCursorVisible(false);
                 inputTextField.requestFocus();
                 inputTextField.setText(noteEditText.getText());
                 inputTextField.setSelection(inputTextField.getText().length());
+                inputTextField.setCursorVisible(true);
 
                 // Отображаем клавиатуру
                 final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);

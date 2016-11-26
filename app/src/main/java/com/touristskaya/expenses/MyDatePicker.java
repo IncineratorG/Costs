@@ -1,4 +1,4 @@
-package com.example.newcosts;
+package com.touristskaya.expenses;
 
 
 import android.app.Activity;
@@ -13,9 +13,7 @@ import android.widget.TextSwitcher;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Locale;
 
 public class MyDatePicker extends Dialog implements
         android.view.View.OnClickListener, ViewSwitcher.ViewFactory {
