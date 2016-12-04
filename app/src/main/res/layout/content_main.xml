@@ -45,7 +45,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/dayNumberMainActivity"
                 android:textColor="#FFFFFF"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:gravity="center" />
 
             <TextView
                 android:layout_width="match_parent"
