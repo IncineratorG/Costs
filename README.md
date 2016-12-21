@@ -8,8 +8,6 @@ https://play.google.com/store/apps/details?id=com.touristskaya.expenses
 
 ![3](https://cloud.githubusercontent.com/assets/12641895/19884427/cb7b75f4-a02a-11e6-829c-b04c3c800228.png)
 
-![4](https://cloud.githubusercontent.com/assets/12641895/19884428/cdde7ada-a02a-11e6-8777-a274e3806227.png)
-
 ![5](https://cloud.githubusercontent.com/assets/12641895/19884435/d0164918-a02a-11e6-8925-00227b628565.png)
 
 ![6](https://cloud.githubusercontent.com/assets/12641895/19884438/d2267728-a02a-11e6-92f6-3f41edc93e81.png)
