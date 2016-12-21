@@ -46,12 +46,12 @@
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
                 android:layout_weight="1"
                 android:weightSum="3">
 
                 <Button
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:text="Добавить"
                     android:textColor="@drawable/button_text_color"
@@ -71,7 +71,7 @@
 
             <Button
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
                 android:text="Отмена"
                 android:textColor="@drawable/button_text_color"
                 android:id="@+id/cancelButton"

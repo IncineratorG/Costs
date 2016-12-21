@@ -182,7 +182,6 @@
             android:layout_height="wrap_content"
             android:id="@+id/calendar_ok"
             android:layout_weight="1"
-            android:layout_margin="2dp"
             android:background="@drawable/calendar_buttons_style"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:textColor="@drawable/calendar_button_text_color"/>
@@ -199,7 +198,6 @@
             android:layout_height="wrap_content"
             android:id="@+id/calendar_cancel"
             android:layout_weight="1"
-            android:layout_margin="2dp"
             android:background="@drawable/calendar_buttons_style"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:textColor="@drawable/calendar_button_text_color"/>

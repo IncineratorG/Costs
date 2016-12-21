@@ -22,9 +22,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.touristskaya.expenses.AddNewEvent"
-            android:screenOrientation="portrait" />
-        <activity
             android:name="com.touristskaya.expenses.StatisticMainScreenActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -41,6 +38,10 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="com.touristskaya.expenses.EditCostsActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".ActivityInputData"
             android:screenOrientation="portrait">
         </activity>
 
