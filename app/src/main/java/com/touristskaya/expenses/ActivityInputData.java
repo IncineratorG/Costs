@@ -68,13 +68,15 @@ public class ActivityInputData extends AppCompatActivity implements MyDatePicker
         }
 
         yesterdayButton = (Button) findViewById(R.id.activity_input_data_date_yesterday_button);
-        todayButton = (Button) findViewById(R.id.activity_inpu_data_date_today_button);
+        todayButton = (Button) findViewById(R.id.activity_input_data_date_today_button);
         chooseDateButton = (Button) findViewById(R.id.activity_input_data_choose_date_button);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle(costNameString + ": " + costValueString + " руб.");
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setBackgroundDrawable(new ColorDrawable(Constants.HEADER_SYSTEM_COLOR));
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.activity_input_data_toolbar);
+//        setSupportActionBar(toolbar);
 
         currentString = previousValueString = "";
         plusPressed = false;
@@ -86,11 +88,86 @@ public class ActivityInputData extends AppCompatActivity implements MyDatePicker
             case R.id.activity_input_data_date_yesterday_button:
                 Calendar calendar = Calendar.getInstance();
                 calendar.add(Calendar.DAY_OF_MONTH, -1);
-                long milliseconds = calendar.getTimeInMillis();
-                saveData(milliseconds);
+                final long milliseconds = calendar.getTimeInMillis();
+
+                if ("".equals(previousValueString))
+                    saveData(milliseconds);
+                else {
+                    String currentValueString = inputValueEditText.getText().toString();
+                    double previousValue = 0.0;
+                    double currentValue = 0.0;
+                    if (!".".equals(previousValueString))
+                        previousValue = Double.parseDouble(previousValueString);
+                    if (!".".equals(currentValueString) && !"".equals(currentValueString))
+                        currentValue = Double.parseDouble(currentValueString);
+                    currentValue = currentValue + previousValue;
+
+                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+                    String message = "Сохранить " +
+                            previousValueString + " + " + currentValueString +
+                            " = " + currentValue + " .руб ?";
+
+                    dialogBuilder.setMessage(message);
+                    dialogBuilder.setCancelable(true);
+                    dialogBuilder.setNegativeButton("Отмена", null);
+                    final double finalCurrentValue = currentValue;
+                    final double finalCurrentValue1 = currentValue;
+                    dialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            saveData(finalCurrentValue, milliseconds);
+
+                            Intent intent = new Intent(ActivityInputData.this, MainActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            intent.putExtra("result", true);
+                            intent.putExtra("value", Constants.formatDigit(finalCurrentValue1));
+                            startActivity(intent);
+                        }
+                    });
+
+                    AlertDialog alertDialog = dialogBuilder.create();
+                    alertDialog.show();
+                }
                 break;
-            case R.id.activity_inpu_data_date_today_button:
-                saveData();
+            case R.id.activity_input_data_date_today_button:
+                if ("".equals(previousValueString))
+                    saveData();
+                else {
+                    String currentValueString = inputValueEditText.getText().toString();
+                    double previousValue = 0.0;
+                    double currentValue = 0.0;
+                    if (!".".equals(previousValueString))
+                        previousValue = Double.parseDouble(previousValueString);
+                    if (!".".equals(currentValueString) && !"".equals(currentValueString))
+                        currentValue = Double.parseDouble(currentValueString);
+                    currentValue = currentValue + previousValue;
+
+                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+                    String message = "Сохранить " +
+                            previousValueString + " + " + currentValueString +
+                            " = " + currentValue + " .руб ?";
+
+                    dialogBuilder.setMessage(message);
+                    dialogBuilder.setCancelable(true);
+                    dialogBuilder.setNegativeButton("Отмена", null);
+                    final double finalCurrentValue = currentValue;
+                    final double finalCurrentValue1 = currentValue;
+                    dialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            saveData(finalCurrentValue);
+
+                            Intent intent = new Intent(ActivityInputData.this, MainActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            intent.putExtra("result", true);
+                            intent.putExtra("value", Constants.formatDigit(finalCurrentValue1));
+                            startActivity(intent);
+                        }
+                    });
+
+                    AlertDialog alertDialog = dialogBuilder.create();
+                    alertDialog.show();
+                }
                 break;
             case R.id.activity_input_data_choose_date_button:
                 MyDatePicker datePicker = new MyDatePicker(ActivityInputData.this);
@@ -206,8 +283,8 @@ public class ActivityInputData extends AppCompatActivity implements MyDatePicker
 
                     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
                     String message = "Сохранить " +
-                                    previousValueString + " + " + currentValueString +
-                                    " = " + currentValue + " .руб ?";
+                            previousValueString + " + " + currentValueString +
+                            " = " + currentValue + " .руб ?";
 
                     dialogBuilder.setMessage(message);
                     dialogBuilder.setCancelable(true);
@@ -302,6 +379,16 @@ public class ActivityInputData extends AppCompatActivity implements MyDatePicker
 
         return true;
     }
+
+    private boolean saveData(double value, long milliseconds) {
+        String inputNoteString = inputNoteEditText.getText().toString();
+
+        // Сохраняем введённое значение в базу
+        CostsDB cdb = CostsDB.getInstance(this);
+        cdb.addCostInMilliseconds(costID, Constants.formatDigit(value), milliseconds, inputNoteString);
+
+        return true;
+    }
     // =============================================================================================
 
 
@@ -335,7 +422,7 @@ public class ActivityInputData extends AppCompatActivity implements MyDatePicker
         calendar.set(Calendar.DAY_OF_MONTH, pickedDay);
         calendar.set(Calendar.MONTH, pickedMonth - 1);
         calendar.set(Calendar.YEAR, pickedYear);
-        long pickedTimeInMilliseconds = calendar.getTimeInMillis();
+        final long pickedTimeInMilliseconds = calendar.getTimeInMillis();
 
         if (pickedTimeInMilliseconds > currentTimeInMilliseconds) {
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
@@ -348,7 +435,44 @@ public class ActivityInputData extends AppCompatActivity implements MyDatePicker
             AlertDialog alertDialog = dialogBuilder.create();
             alertDialog.show();
         } else {
-            saveData(pickedTimeInMilliseconds);
+            if ("".equals(previousValueString))
+                saveData(pickedTimeInMilliseconds);
+            else {
+                String currentValueString = inputValueEditText.getText().toString();
+                double previousValue = 0.0;
+                double currentValue = 0.0;
+                if (!".".equals(previousValueString))
+                    previousValue = Double.parseDouble(previousValueString);
+                if (!".".equals(currentValueString) && !"".equals(currentValueString))
+                    currentValue = Double.parseDouble(currentValueString);
+                currentValue = currentValue + previousValue;
+
+                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+                String message = "Сохранить " +
+                        previousValueString + " + " + currentValueString +
+                        " = " + currentValue + " .руб ?";
+
+                dialogBuilder.setMessage(message);
+                dialogBuilder.setCancelable(true);
+                dialogBuilder.setNegativeButton("Отмена", null);
+                final double finalCurrentValue = currentValue;
+                final double finalCurrentValue1 = currentValue;
+                dialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        saveData(finalCurrentValue, pickedTimeInMilliseconds);
+
+                        Intent intent = new Intent(ActivityInputData.this, MainActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.putExtra("result", true);
+                        intent.putExtra("value", Constants.formatDigit(finalCurrentValue1));
+                        startActivity(intent);
+                    }
+                });
+
+                AlertDialog alertDialog = dialogBuilder.create();
+                alertDialog.show();
+            }
         }
     }
 
