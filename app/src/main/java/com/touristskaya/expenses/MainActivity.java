@@ -110,8 +110,11 @@ public class MainActivity extends AppCompatActivity {
         if (bundle != null) {
             boolean success = bundle.getBoolean("result");
             if (success) {
-                RelativeLayout rootLayout = (RelativeLayout) findViewById(R.id.activity_main_root_layout);
-                Snackbar.make(rootLayout, "Значение сохранено", Snackbar.LENGTH_LONG).show();
+                String savedValue = bundle.getString("value");
+                if (savedValue != null) {
+                    RelativeLayout rootLayout = (RelativeLayout) findViewById(R.id.activity_main_root_layout);
+                    Snackbar.make(rootLayout, savedValue + " руб. сохранено", Snackbar.LENGTH_LONG).show();
+                }
             }
         }
 

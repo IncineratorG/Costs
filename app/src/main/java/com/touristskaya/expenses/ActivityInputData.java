@@ -213,6 +213,7 @@ public class ActivityInputData extends AppCompatActivity implements MyDatePicker
                     dialogBuilder.setCancelable(true);
                     dialogBuilder.setNegativeButton("Отмена", null);
                     final double finalCurrentValue = currentValue;
+                    final double finalCurrentValue1 = currentValue;
                     dialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -221,6 +222,7 @@ public class ActivityInputData extends AppCompatActivity implements MyDatePicker
                             Intent intent = new Intent(ActivityInputData.this, MainActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             intent.putExtra("result", true);
+                            intent.putExtra("value", Constants.formatDigit(finalCurrentValue1));
                             startActivity(intent);
                         }
                     });
@@ -262,6 +264,7 @@ public class ActivityInputData extends AppCompatActivity implements MyDatePicker
         // Возвращаемся на главный экран приложения
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("result", true);
+        intent.putExtra("value", inputValueString);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
 
@@ -293,6 +296,7 @@ public class ActivityInputData extends AppCompatActivity implements MyDatePicker
         // Возвращаемся на главный экран приложения
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("result", true);
+        intent.putExtra("value", inputValueString);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
 

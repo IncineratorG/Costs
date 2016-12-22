@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 
 public class DecimalDigitsInputFilter implements InputFilter {
 
-    Pattern mPattern;
+    private Pattern mPattern;
 
     public DecimalDigitsInputFilter() {
         mPattern = Pattern.compile("[0-9]*+((\\.[0-9]?)?)||(\\.)?");
@@ -17,6 +17,9 @@ public class DecimalDigitsInputFilter implements InputFilter {
 
     @Override
     public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+        if (dest.length() > 16)
+            return "";
+
         Matcher matcher = mPattern.matcher(dest);
         if (!matcher.matches())
             return "";
