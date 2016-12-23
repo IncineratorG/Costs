@@ -25,12 +25,14 @@ public class ActivityInputData extends AppCompatActivity implements MyDatePicker
 
     private TextView signTextView;
     private EditText inputValueEditText, inputNoteEditText;
-    private Button yesterdayButton, todayButton, chooseDateButton;
-    private String pickedDate;
-    private String lastEnteredCharacter, currentString, previousValueString;
+    private String previousValueString;
     private LinearLayout inputValueEditTextCursor;
-    private boolean plusPressed;
+    private boolean previousTokenWasPlus;
     private int costID;
+    private static final long CURRENT_DAY = -1;
+    private static final long PREVIOUS_DAY = -2;
+    private boolean hasStoredValue = false;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -67,10 +69,6 @@ public class ActivityInputData extends AppCompatActivity implements MyDatePicker
             inputNoteEditText.setSelection(inputNoteEditText.getText().length());
         }
 
-        yesterdayButton = (Button) findViewById(R.id.activity_input_data_date_yesterday_button);
-        todayButton = (Button) findViewById(R.id.activity_input_data_date_today_button);
-        chooseDateButton = (Button) findViewById(R.id.activity_input_data_choose_date_button);
-
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle(costNameString + ": " + costValueString + " руб.");
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -78,98 +76,23 @@ public class ActivityInputData extends AppCompatActivity implements MyDatePicker
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.activity_input_data_toolbar);
 //        setSupportActionBar(toolbar);
 
-        currentString = previousValueString = "";
-        plusPressed = false;
+        previousValueString = "";
+        previousTokenWasPlus = false;
     }
 
     // Обработчик нажатий кнопок выбора даты внесения расходов
     public void onDateButtonsClick(View view) {
         switch (view.getId()) {
             case R.id.activity_input_data_date_yesterday_button:
-                Calendar calendar = Calendar.getInstance();
-                calendar.add(Calendar.DAY_OF_MONTH, -1);
-                final long milliseconds = calendar.getTimeInMillis();
-
-                if ("".equals(previousValueString))
-                    saveData(milliseconds);
-                else {
-                    String currentValueString = inputValueEditText.getText().toString();
-                    double previousValue = 0.0;
-                    double currentValue = 0.0;
-                    if (!".".equals(previousValueString))
-                        previousValue = Double.parseDouble(previousValueString);
-                    if (!".".equals(currentValueString) && !"".equals(currentValueString))
-                        currentValue = Double.parseDouble(currentValueString);
-                    currentValue = currentValue + previousValue;
-
-                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-                    String message = "Сохранить " +
-                            previousValueString + " + " + currentValueString +
-                            " = " + currentValue + " .руб ?";
-
-                    dialogBuilder.setMessage(message);
-                    dialogBuilder.setCancelable(true);
-                    dialogBuilder.setNegativeButton("Отмена", null);
-                    final double finalCurrentValue = currentValue;
-                    final double finalCurrentValue1 = currentValue;
-                    dialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            saveData(finalCurrentValue, milliseconds);
-
-                            Intent intent = new Intent(ActivityInputData.this, MainActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            intent.putExtra("result", true);
-                            intent.putExtra("value", Constants.formatDigit(finalCurrentValue1));
-                            startActivity(intent);
-                        }
-                    });
-
-                    AlertDialog alertDialog = dialogBuilder.create();
-                    alertDialog.show();
-                }
+                addInputValues();
+                saveData(PREVIOUS_DAY);
                 break;
             case R.id.activity_input_data_date_today_button:
-                if ("".equals(previousValueString))
-                    saveData();
-                else {
-                    String currentValueString = inputValueEditText.getText().toString();
-                    double previousValue = 0.0;
-                    double currentValue = 0.0;
-                    if (!".".equals(previousValueString))
-                        previousValue = Double.parseDouble(previousValueString);
-                    if (!".".equals(currentValueString) && !"".equals(currentValueString))
-                        currentValue = Double.parseDouble(currentValueString);
-                    currentValue = currentValue + previousValue;
-
-                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-                    String message = "Сохранить " +
-                            previousValueString + " + " + currentValueString +
-                            " = " + currentValue + " .руб ?";
-
-                    dialogBuilder.setMessage(message);
-                    dialogBuilder.setCancelable(true);
-                    dialogBuilder.setNegativeButton("Отмена", null);
-                    final double finalCurrentValue = currentValue;
-                    final double finalCurrentValue1 = currentValue;
-                    dialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            saveData(finalCurrentValue);
-
-                            Intent intent = new Intent(ActivityInputData.this, MainActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            intent.putExtra("result", true);
-                            intent.putExtra("value", Constants.formatDigit(finalCurrentValue1));
-                            startActivity(intent);
-                        }
-                    });
-
-                    AlertDialog alertDialog = dialogBuilder.create();
-                    alertDialog.show();
-                }
+                addInputValues();
+                saveData(CURRENT_DAY);
                 break;
             case R.id.activity_input_data_choose_date_button:
+                addInputValues();
                 MyDatePicker datePicker = new MyDatePicker(ActivityInputData.this);
                 datePicker.show();
                 break;
@@ -178,28 +101,25 @@ public class ActivityInputData extends AppCompatActivity implements MyDatePicker
 
     // Обработчик нажатий кнопок цифровой клавиатуры
     public void onKeyboardClick(View view) {
-        if (inputValueEditText == null)
-            return;
-
-        boolean previousWasPlus = false;
-        if (plusPressed) {
-            inputValueEditText.setText("");
-            plusPressed = false;
-            previousWasPlus = true;
-        }
-
         Button pressedButton = (Button) view;
         String buttonLabel = String.valueOf(pressedButton.getText());
         String inputTextString = "";
 
+        // Если после нажатия на "+" снова нажимаем на "+" (2++++ и т.д.)
+        if (view.getId() == R.id.activity_input_data_add && previousTokenWasPlus)
+            return;
+
+        // Если после нажатия на "+" вводим другое число
+        if (previousTokenWasPlus && !(view.getId() == R.id.activity_input_data_equal)) {
+            inputValueEditText.setText("");
+            previousTokenWasPlus = false;
+        }
+
         switch (view.getId()) {
             case R.id.activity_input_data_zero:
                 inputTextString = String.valueOf(inputValueEditText.getText());
-                if (!"0".equals(inputTextString)) {
+                if (!"0".equals(inputTextString))
                     inputValueEditText.append(buttonLabel);
-                    lastEnteredCharacter = buttonLabel;
-                }
-
                 break;
             case R.id.activity_input_data_one:
             case R.id.activity_input_data_two:
@@ -211,25 +131,19 @@ public class ActivityInputData extends AppCompatActivity implements MyDatePicker
             case R.id.activity_input_data_eight:
             case R.id.activity_input_data_nine:
                 inputTextString = String.valueOf(inputValueEditText.getText());
-                if ("0".equals(inputTextString)) {
+                if ("0".equals(inputTextString))
                     inputValueEditText.setText(buttonLabel);
-                    lastEnteredCharacter = buttonLabel;
-                }
-                else {
+                else
                     inputValueEditText.append(buttonLabel);
-                    lastEnteredCharacter = buttonLabel;
-                }
                 break;
             case R.id.activity_input_data_dot:
                 inputTextString = String.valueOf(inputValueEditText.getText());
-                if (!inputTextString.contains(".")) {
+                if (!inputTextString.contains("."))
                     inputValueEditText.append(".");
-                    lastEnteredCharacter = ".";
-                }
                 break;
             case R.id.activity_input_data_del:
                 inputTextString = String.valueOf(inputValueEditText.getText());
-                if (inputTextString != null && inputTextString.length() != 0) {
+                if (inputTextString.length() != 0) {
                     inputTextString = inputTextString.substring(0, inputTextString.length() - 1);
                     inputValueEditText.setText(inputTextString);
                     inputValueEditText.setSelection(inputValueEditText.getText().length());
@@ -237,84 +151,110 @@ public class ActivityInputData extends AppCompatActivity implements MyDatePicker
                 break;
             case R.id.activity_input_data_add:
                 signTextView.setText("+");
-                if (!"".equals(previousValueString) && !".".equals(previousValueString)) {
-                    String currentValueString = inputValueEditText.getText().toString();
-                    double previousValue = Double.parseDouble(previousValueString);
-                    double currentValue = 0.0;
-                    if (!"".equals(currentValueString) && !".".equals(currentValueString))
-                        currentValue = Double.parseDouble(currentValueString);
-                    currentValue = currentValue + previousValue;
-                    inputValueEditText.setText(Constants.formatDigit(currentValue));
-                    inputValueEditText.setSelection(inputValueEditText.getText().length());
-                }
+                previousTokenWasPlus = true;
+                // Если после ввода следующего значения  был снова нажат "+" (1+2+)
+                if (hasStoredValue) {
+                    // Складываем введённые значения
+                    addInputValues();
 
-                previousValueString = inputValueEditText.getText().toString();
-                plusPressed = true;
+                    // Устанавливаем полученное значение как предыдущее (так как после символа "+"
+                    // ожидается ввод нового значения, с которым нужно будет сложить полученное)
+                    previousValueString = inputValueEditText.getText().toString();
+                    hasStoredValue = true;
+                } else {
+                    previousValueString = inputValueEditText.getText().toString();
+                    hasStoredValue = true;
+                }
                 break;
             case R.id.activity_input_data_equal:
-                signTextView.setText("");
-                if (!"".equals(previousValueString) && !".".equals(previousValueString)) {
-                    String currentValueString = inputValueEditText.getText().toString();
-                    double previousValue = Double.parseDouble(previousValueString);
-                    double currentValue = 0.0;
-                    if (previousWasPlus)
-                        currentValue = previousValue;
-                    if (!"".equals(currentValueString) && !".".equals(currentValueString))
-                        currentValue = Double.parseDouble(currentValueString);
-                    currentValue = currentValue + previousValue;
-                    inputValueEditText.setText(Constants.formatDigit(currentValue));
-                    inputValueEditText.setSelection(inputValueEditText.getText().length());
-                }
+                if (hasStoredValue) {
+                    signTextView.setText("");
+                    previousTokenWasPlus = false;
 
-                previousValueString = "";
+                    // Складываем введённые значения
+                    addInputValues();
+
+                    // Предыдущего значения больше нет, так как оно было сложено
+                    // с текущим и выведено на экран
+                    hasStoredValue = false;
+                    previousValueString = "";
+                }
                 break;
             case R.id.activity_input_data_ok:
-                if ("".equals(previousValueString))
-                    saveData();
-                else {
-                    String currentValueString = inputValueEditText.getText().toString();
-                    double previousValue = 0.0;
-                    double currentValue = 0.0;
-                    if (!".".equals(previousValueString))
-                        previousValue = Double.parseDouble(previousValueString);
-                    if (!".".equals(currentValueString) && !"".equals(currentValueString))
-                        currentValue = Double.parseDouble(currentValueString);
-                    currentValue = currentValue + previousValue;
-
-                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-                    String message = "Сохранить " +
-                            previousValueString + " + " + currentValueString +
-                            " = " + currentValue + " .руб ?";
-
-                    dialogBuilder.setMessage(message);
-                    dialogBuilder.setCancelable(true);
-                    dialogBuilder.setNegativeButton("Отмена", null);
-                    final double finalCurrentValue = currentValue;
-                    final double finalCurrentValue1 = currentValue;
-                    dialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            saveData(finalCurrentValue);
-
-                            Intent intent = new Intent(ActivityInputData.this, MainActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            intent.putExtra("result", true);
-                            intent.putExtra("value", Constants.formatDigit(finalCurrentValue1));
-                            startActivity(intent);
-                        }
-                    });
-
-                    AlertDialog alertDialog = dialogBuilder.create();
-                    alertDialog.show();
-                }
+                addInputValues();
+                saveData(CURRENT_DAY);
                 break;
         }
     }
 
-    // Показ окна при некорректном вводе данных
-    private void showAlertDialog() {
+    // Складывает текущее введённое значение с предыдущим
+    private void addInputValues() {
+        // Получаем и форматируем текущее и предыдущее введынные значения
+        String currentInputEditTextValueString = inputValueEditText.getText().toString();
+        if ("".equals(currentInputEditTextValueString) || ".".equals(currentInputEditTextValueString))
+            currentInputEditTextValueString = "0";
+        if ("".equals(previousValueString) || ".".equals(previousValueString))
+            previousValueString = "0";
+
+        double currentValue = 0.0;
+        double previousValue = 0.0;
+
+        // Приводим текущее и предыдущее значения к типу "double" и находим их сумму
+        try {
+            currentValue = Double.parseDouble(currentInputEditTextValueString);
+            previousValue = Double.parseDouble(previousValueString);
+        } catch (NumberFormatException e) {
+            showAlertDialogWithMessage("Что-то пошло не так");
+            return;
+        }
+        currentValue = currentValue + previousValue;
+
+        // Вставляем полученное значение в поле ввода значений
+        inputValueEditText.setText(Constants.formatDigit(currentValue));
+        inputValueEditText.setSelection(inputValueEditText.getText().length());
+    }
+
+    // Сохраняет введённое значение в базу
+    private boolean saveData(long milliseconds) {
+        String inputValueString = inputValueEditText.getText().toString();
+        String inputNoteString = inputNoteEditText.getText().toString();
+        CostsDB cdb = CostsDB.getInstance(this);
+        double inputValue = 0.0;
+
+        try {
+            inputValue = Double.parseDouble(inputValueString);
+        } catch (NumberFormatException e) {
+            showAlertDialogWithMessage("Что-то пошло не так");
+            return false;
+        }
+
+        // Если введённое значение = 0 - не сохраняем его
+        if (Double.compare(inputValue, 0.0) == 0) {
+            showAlertDialogWithMessage("Введите значение");
+            return false;
+        }
+
+        if (milliseconds == CURRENT_DAY) {
+            cdb.addCosts(inputValue, costID, inputNoteString);
+            returnToPreviousActivity(inputValueString);
+        } else if (milliseconds == PREVIOUS_DAY) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.add(Calendar.DAY_OF_MONTH, -1);
+            long millis = calendar.getTimeInMillis();
+            cdb.addCostInMilliseconds(costID, inputValueString, millis, inputNoteString);
+            returnToPreviousActivity(inputValueString);
+        } else {
+            cdb.addCostInMilliseconds(costID, inputValueString, milliseconds, inputNoteString);
+            returnToPreviousActivity(inputValueString);
+        }
+
+        return true;
+    }
+
+    // Показ всплывающего окна при некорректном вводе данных
+    private void showAlertDialogWithMessage(String message) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-        dialogBuilder.setMessage("Ввдеите сумму");
+        dialogBuilder.setMessage(message);
         dialogBuilder.setCancelable(true);
         dialogBuilder.setPositiveButton("Ok", null);
 
@@ -322,78 +262,16 @@ public class ActivityInputData extends AppCompatActivity implements MyDatePicker
         alertDialog.show();
     }
 
-    // ============================= Сохранение данных в базе ======================================
-    private boolean saveData() {
-        String inputValueString = inputValueEditText.getText().toString();
-        String inputNoteString = inputNoteEditText.getText().toString();
 
-        // Проверяем введённое значение
-        if ("".equals(inputValueString) || ".".equals(inputValueString)) {
-            showAlertDialog();
-            return false;
-        }
-
-        // Сохраняем введённое значение в базу
-        CostsDB cdb = CostsDB.getInstance(this);
-        double inputValue = Double.parseDouble(inputValueString);
-        cdb.addCosts(inputValue, costID, inputNoteString);
-
+    // После сохранения введённого значения возвращаемся к предыдущему экрану
+    private void returnToPreviousActivity(String savedValue) {
         // Возвращаемся на главный экран приложения
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("result", true);
-        intent.putExtra("value", inputValueString);
+        intent.putExtra("value", savedValue);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
-
-        return true;
     }
-
-    private boolean saveData(double value) {
-        String inputNoteString = inputNoteEditText.getText().toString();
-
-        // Сохраняем введённое значение в базу
-        CostsDB cdb = CostsDB.getInstance(this);
-        cdb.addCosts(value, costID, inputNoteString);
-
-        return true;
-    }
-
-    private boolean saveData(long milliseconds) {
-        String inputValueString = inputValueEditText.getText().toString();
-        String inputNoteString = inputNoteEditText.getText().toString();
-        if ("".equals(inputValueString) || ".".equals(inputValueString)) {
-            showAlertDialog();
-            return false;
-        }
-
-        // Сохраняем введённое значение в базу
-        CostsDB cdb = CostsDB.getInstance(this);
-        cdb.addCostInMilliseconds(costID, inputValueString, milliseconds, inputNoteString);
-
-        // Возвращаемся на главный экран приложения
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("result", true);
-        intent.putExtra("value", inputValueString);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-
-        return true;
-    }
-
-    private boolean saveData(double value, long milliseconds) {
-        String inputNoteString = inputNoteEditText.getText().toString();
-
-        // Сохраняем введённое значение в базу
-        CostsDB cdb = CostsDB.getInstance(this);
-        cdb.addCostInMilliseconds(costID, Constants.formatDigit(value), milliseconds, inputNoteString);
-
-        return true;
-    }
-    // =============================================================================================
-
-
-
-
 
 
     // Анимация курсора ввода значения расходов
@@ -409,7 +287,7 @@ public class ActivityInputData extends AppCompatActivity implements MyDatePicker
 
     @Override
     public void getPickedDate(String pickedDate) {
-        this.pickedDate = pickedDate;
+//        this.pickedDate = pickedDate;
         String[] pickedDateArray = pickedDate.split("\\.");
 
         int pickedDay = Integer.valueOf(pickedDateArray[0]);
@@ -425,54 +303,10 @@ public class ActivityInputData extends AppCompatActivity implements MyDatePicker
         final long pickedTimeInMilliseconds = calendar.getTimeInMillis();
 
         if (pickedTimeInMilliseconds > currentTimeInMilliseconds) {
-            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
             String message = "Выбранная дата ещё не наступила";
-
-            dialogBuilder.setMessage(message);
-            dialogBuilder.setCancelable(true);
-            dialogBuilder.setNegativeButton("Ok", null);
-
-            AlertDialog alertDialog = dialogBuilder.create();
-            alertDialog.show();
+            showAlertDialogWithMessage(message);
         } else {
-            if ("".equals(previousValueString))
-                saveData(pickedTimeInMilliseconds);
-            else {
-                String currentValueString = inputValueEditText.getText().toString();
-                double previousValue = 0.0;
-                double currentValue = 0.0;
-                if (!".".equals(previousValueString))
-                    previousValue = Double.parseDouble(previousValueString);
-                if (!".".equals(currentValueString) && !"".equals(currentValueString))
-                    currentValue = Double.parseDouble(currentValueString);
-                currentValue = currentValue + previousValue;
-
-                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-                String message = "Сохранить " +
-                        previousValueString + " + " + currentValueString +
-                        " = " + currentValue + " .руб ?";
-
-                dialogBuilder.setMessage(message);
-                dialogBuilder.setCancelable(true);
-                dialogBuilder.setNegativeButton("Отмена", null);
-                final double finalCurrentValue = currentValue;
-                final double finalCurrentValue1 = currentValue;
-                dialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        saveData(finalCurrentValue, pickedTimeInMilliseconds);
-
-                        Intent intent = new Intent(ActivityInputData.this, MainActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        intent.putExtra("result", true);
-                        intent.putExtra("value", Constants.formatDigit(finalCurrentValue1));
-                        startActivity(intent);
-                    }
-                });
-
-                AlertDialog alertDialog = dialogBuilder.create();
-                alertDialog.show();
-            }
+            saveData(pickedTimeInMilliseconds);
         }
     }
 
