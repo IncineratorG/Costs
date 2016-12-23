@@ -1,7 +1,6 @@
 package com.touristskaya.expenses;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -84,15 +83,15 @@ public class ActivityInputData extends AppCompatActivity implements MyDatePicker
     public void onDateButtonsClick(View view) {
         switch (view.getId()) {
             case R.id.activity_input_data_date_yesterday_button:
-                addInputValues();
+                calculateInputValues();
                 saveData(PREVIOUS_DAY);
                 break;
             case R.id.activity_input_data_date_today_button:
-                addInputValues();
+                calculateInputValues();
                 saveData(CURRENT_DAY);
                 break;
             case R.id.activity_input_data_choose_date_button:
-                addInputValues();
+                calculateInputValues();
                 MyDatePicker datePicker = new MyDatePicker(ActivityInputData.this);
                 datePicker.show();
                 break;
@@ -155,7 +154,7 @@ public class ActivityInputData extends AppCompatActivity implements MyDatePicker
                 // Если после ввода следующего значения  был снова нажат "+" (1+2+)
                 if (hasStoredValue) {
                     // Складываем введённые значения
-                    addInputValues();
+                    calculateInputValues();
 
                     // Устанавливаем полученное значение как предыдущее (так как после символа "+"
                     // ожидается ввод нового значения, с которым нужно будет сложить полученное)
@@ -172,7 +171,7 @@ public class ActivityInputData extends AppCompatActivity implements MyDatePicker
                     previousTokenWasPlus = false;
 
                     // Складываем введённые значения
-                    addInputValues();
+                    calculateInputValues();
 
                     // Предыдущего значения больше нет, так как оно было сложено
                     // с текущим и выведено на экран
@@ -181,14 +180,14 @@ public class ActivityInputData extends AppCompatActivity implements MyDatePicker
                 }
                 break;
             case R.id.activity_input_data_ok:
-                addInputValues();
+                calculateInputValues();
                 saveData(CURRENT_DAY);
                 break;
         }
     }
 
     // Складывает текущее введённое значение с предыдущим
-    private void addInputValues() {
+    private void calculateInputValues() {
         // Получаем и форматируем текущее и предыдущее введынные значения
         String currentInputEditTextValueString = inputValueEditText.getText().toString();
         if ("".equals(currentInputEditTextValueString) || ".".equals(currentInputEditTextValueString))

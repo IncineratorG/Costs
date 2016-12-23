@@ -110,7 +110,7 @@
                 android:layout_alignParentLeft="false"
                 android:layout_alignParentStart="false"
                 android:textAppearance="@style/TextAppearance.AppCompat"
-                android:textSize="18sp"
+                android:textSize="24sp"
                 android:hint="Заметка"
                 android:background="@drawable/activity_input_data_edittext_style"
                 android:layout_weight="1"
@@ -176,7 +176,10 @@
                         android:layout_weight="1"
                         android:background="@drawable/activity_input_data_buttons_style"
                         android:textColor="@android:color/white"
-                        android:onClick="onKeyboardClick" />
+                        android:onClick="onKeyboardClick"
+                        android:textSize="24sp"
+                        android:textAllCaps="false"
+                        android:textStyle="normal|bold" />
 
                     <Button
                         android:text="8"
@@ -186,7 +189,10 @@
                         android:layout_weight="1"
                         android:background="@drawable/activity_input_data_buttons_style"
                         android:textColor="@android:color/white"
-                        android:onClick="onKeyboardClick" />
+                        android:onClick="onKeyboardClick"
+                        android:textSize="24sp"
+                        android:textAllCaps="false"
+                        android:textStyle="normal|bold" />
 
                     <Button
                         android:text="9"
@@ -196,7 +202,10 @@
                         android:layout_weight="1"
                         android:background="@drawable/activity_input_data_buttons_style"
                         android:textColor="@android:color/white"
-                        android:onClick="onKeyboardClick" />
+                        android:onClick="onKeyboardClick"
+                        android:textSize="24sp"
+                        android:textAllCaps="false"
+                        android:textStyle="normal|bold" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -212,7 +221,10 @@
                         android:layout_weight="1"
                         android:background="@drawable/activity_input_data_buttons_style"
                         android:textColor="@android:color/white"
-                        android:onClick="onKeyboardClick" />
+                        android:onClick="onKeyboardClick"
+                        android:textSize="24sp"
+                        android:textAllCaps="false"
+                        android:textStyle="normal|bold" />
 
                     <Button
                         android:text="5"
@@ -222,7 +234,10 @@
                         android:layout_weight="1"
                         android:background="@drawable/activity_input_data_buttons_style"
                         android:textColor="@android:color/white"
-                        android:onClick="onKeyboardClick" />
+                        android:onClick="onKeyboardClick"
+                        android:textSize="24sp"
+                        android:textAllCaps="false"
+                        android:textStyle="normal|bold" />
 
                     <Button
                         android:text="6"
@@ -232,7 +247,10 @@
                         android:layout_weight="1"
                         android:background="@drawable/activity_input_data_buttons_style"
                         android:textColor="@android:color/white"
-                        android:onClick="onKeyboardClick" />
+                        android:onClick="onKeyboardClick"
+                        android:textSize="24sp"
+                        android:textAllCaps="false"
+                        android:textStyle="normal|bold" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -248,7 +266,10 @@
                         android:layout_weight="1"
                         android:background="@drawable/activity_input_data_buttons_style"
                         android:textColor="@android:color/white"
-                        android:onClick="onKeyboardClick" />
+                        android:onClick="onKeyboardClick"
+                        android:textSize="24sp"
+                        android:textAllCaps="false"
+                        android:textStyle="normal|bold" />
 
                     <Button
                         android:text="2"
@@ -258,7 +279,10 @@
                         android:layout_weight="1"
                         android:background="@drawable/activity_input_data_buttons_style"
                         android:textColor="@android:color/white"
-                        android:onClick="onKeyboardClick" />
+                        android:onClick="onKeyboardClick"
+                        android:textSize="24sp"
+                        android:textAllCaps="false"
+                        android:textStyle="normal|bold" />
 
                     <Button
                         android:text="3"
@@ -268,7 +292,10 @@
                         android:layout_weight="1"
                         android:background="@drawable/activity_input_data_buttons_style"
                         android:textColor="@android:color/white"
-                        android:onClick="onKeyboardClick" />
+                        android:onClick="onKeyboardClick"
+                        android:textSize="24sp"
+                        android:textAllCaps="false"
+                        android:textStyle="normal|bold" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -284,7 +311,10 @@
                         android:layout_weight="1"
                         android:background="@drawable/activity_input_data_buttons_style"
                         android:textColor="@android:color/white"
-                        android:onClick="onKeyboardClick" />
+                        android:onClick="onKeyboardClick"
+                        android:textSize="24sp"
+                        android:textAllCaps="false"
+                        android:textStyle="normal|bold" />
 
                     <Button
                         android:text="0"
@@ -294,7 +324,10 @@
                         android:layout_weight="1"
                         android:background="@drawable/activity_input_data_buttons_style"
                         android:textColor="@android:color/white"
-                        android:onClick="onKeyboardClick" />
+                        android:onClick="onKeyboardClick"
+                        android:textSize="24sp"
+                        android:textAllCaps="false"
+                        android:textStyle="normal|bold" />
 
                     <Button
                         android:text="Del"
@@ -304,7 +337,10 @@
                         android:layout_weight="1"
                         android:background="@drawable/activity_input_data_buttons_style"
                         android:textColor="@android:color/white"
-                        android:onClick="onKeyboardClick" />
+                        android:onClick="onKeyboardClick"
+                        android:textSize="18sp"
+                        android:textAllCaps="false"
+                        android:textStyle="normal|bold" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -323,7 +359,8 @@
                     android:background="@drawable/activity_input_data_buttons_style"
                     android:textColor="@android:color/white"
                     android:onClick="onKeyboardClick"
-                    android:id="@+id/activity_input_data_ok" />
+                    android:id="@+id/activity_input_data_ok"
+                    android:textSize="18sp" />
 
                 <Button
                     android:text="+"
@@ -355,7 +392,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:weightSum="3"
-            android:background="@color/veryDarkOrange">
+            android:background="@color/deepOrange">
 
             <Button
                 android:text="Вчера"
