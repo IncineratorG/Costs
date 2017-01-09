@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    app:layout_collapseParallaxMultiplier="0.0">
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:orientation="vertical"
@@ -17,9 +15,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/edit_cost_value_dialog_costDate"
-            android:textColor="#FFFFFF"
             android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp" />
+            android:layout_marginRight="5dp"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:textSize="24sp"
+            android:textColor="@android:color/white" />
 
         <LinearLayout
             android:orientation="vertical"
@@ -32,36 +32,41 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/edit_cost_value_dialog_costName"
-            android:textColor="#FFFFFF"
             android:layout_marginLeft="5dp"
             android:minHeight="25dp"
-            android:textSize="30sp"
             android:layout_marginRight="5dp"
-            android:gravity="center" />
+            android:gravity="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textSize="36sp"
+            android:textColor="@android:color/white"
+            android:textStyle="normal|bold" />
 
         <TextView
             android:text="TextView"
             android:background="#FF9800"
-            android:textColor="#FFFFFF"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/edit_cost_value_dialog_costValue"
             android:gravity="center"
             android:minHeight="25dp"
-            android:textAppearance="?android:textAppearanceLarge"
-            android:textSize="30sp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:layout_marginRight="5dp"
-            android:layout_marginLeft="5dp" />
+            android:layout_marginLeft="5dp"
+            android:textSize="36sp"
+            android:textColor="@android:color/white" />
 
         <TextView
             android:text="TextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/edit_cost_value_dialog_costNote"
-            android:textColor="#FFFFFF"
             android:layout_marginRight="5dp"
             android:layout_marginLeft="5dp"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:textSize="24sp"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="10dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -75,7 +80,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:weightSum="3"
-        android:layout_marginTop="1dp">
+        android:layout_marginTop="1dp"
+        android:background="@color/orange"
+        android:padding="1dp">
 
         <Button
             android:text="@string/edit_btn"
@@ -83,9 +90,12 @@
             android:layout_height="wrap_content"
             android:id="@+id/edit_cost_value_dialog_editButton"
             android:background="@drawable/keyboard_buttons_custom"
-            android:textColor="@drawable/button_text_color"
             android:layout_weight="1"
-            android:padding="4dp" />
+            android:padding="4dp"
+            style="?android:attr/borderlessButtonStyle"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:textSize="18sp"
+            android:textColor="@drawable/button_text_color" />
 
         <Button
             android:text="@string/delete_btn"
@@ -93,8 +103,11 @@
             android:layout_height="wrap_content"
             android:id="@+id/edit_cost_value_dialog_deleteButton"
             android:background="@drawable/keyboard_buttons_custom"
-            android:textColor="@drawable/button_text_color"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            style="?android:attr/borderlessButtonStyle"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:textSize="18sp"
+            android:textColor="@drawable/button_text_color" />
 
         <Button
             android:text="@string/cancel_btn"
@@ -102,7 +115,10 @@
             android:layout_height="wrap_content"
             android:id="@+id/edit_cost_value_dialog_cancelButton"
             android:background="@drawable/keyboard_buttons_custom"
-            android:textColor="@drawable/button_text_color"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            style="?android:attr/borderlessButtonStyle"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:textSize="18sp"
+            android:textColor="@drawable/button_text_color" />
     </LinearLayout>
 </LinearLayout>

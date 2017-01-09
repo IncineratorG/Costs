@@ -2,9 +2,9 @@ package com.touristskaya.expenses;
 
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -85,11 +85,11 @@ public class StatisticCostTypeDetailedActivity extends AppCompatActivity {
             detailedCostsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Intent editCostsIntent = new Intent(StatisticCostTypeDetailedActivity.this, EditCostsActivity.class);
-                    editCostsIntent.putExtra(Constants.DATA_ARRAY_LABEL, bundleDataArray);
-                    editCostsIntent.putExtra("dataForPreviousActivity", dataForPreviousActivity);
-                    editCostsIntent.putExtra("data", parent.getItemAtPosition(position).toString());
-                    startActivity(editCostsIntent);
+//                    Intent editCostsIntent = new Intent(StatisticCostTypeDetailedActivity.this, EditCostsActivity.class);
+//                    editCostsIntent.putExtra(Constants.DATA_ARRAY_LABEL, bundleDataArray);
+//                    editCostsIntent.putExtra("dataForPreviousActivity", dataForPreviousActivity);
+//                    editCostsIntent.putExtra("data", parent.getItemAtPosition(position).toString());
+//                    startActivity(editCostsIntent);
                 }
             });
         }

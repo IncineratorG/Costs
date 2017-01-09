@@ -7,7 +7,7 @@
     android:paddingLeft="0sp"
     android:paddingRight="0sp"
     android:paddingTop="0sp"
-    tools:context="com.touristskaya.expenses.StatisticMainScreenActivity">
+    tools:context="com.example.newcosts.StatisticMainScreenActivity">
 
     <LinearLayout
         android:orientation="vertical"
@@ -23,8 +23,7 @@
             android:textColor="@drawable/button_text_color"
             android:id="@+id/chosePeriodButton"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/keyboard_buttons_custom"
-            android:onClick="onChoseStatisticPeriodButtonClick" />
+            android:background="@drawable/keyboard_buttons_custom" />
 
         <LinearLayout
             android:orientation="horizontal"

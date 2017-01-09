@@ -2,9 +2,9 @@ package com.touristskaya.expenses;
 
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -94,7 +94,8 @@ public class StatisticDetailedActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 // app icon in action bar clicked; go home
-                Intent intent = new Intent(this, StatisticMainScreenActivity.class);
+                Intent intent = new Intent(this, MainActivityWithFragments.class);
+                intent.putExtra(Constants.TARGET_TAB, Constants.FRAGMENT_STATISTIC_MAIN_SCREEN);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 return true;

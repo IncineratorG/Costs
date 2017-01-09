@@ -16,10 +16,10 @@ import android.widget.ViewSwitcher;
 import java.util.Calendar;
 
 public class MyDatePicker extends Dialog implements
-        android.view.View.OnClickListener, ViewSwitcher.ViewFactory {
+        View.OnClickListener, ViewSwitcher.ViewFactory {
 
     private int pickedDay, pickedMonth, pickedYear;
-    private int MaxTextViewWidth;
+    private long milliseconds;
     private long dateInMilliseconds = 0;
     private Calendar calendar;
 
@@ -85,7 +85,7 @@ public class MyDatePicker extends Dialog implements
 
 
 //        Animation in = AnimationUtils.loadAnimation(activity,
-//                android.R.anim.fade_in);
+//                android.R.anim.fade_out);
 //        Animation out = AnimationUtils.loadAnimation(activity,
 //                android.R.anim.fade_out);
 

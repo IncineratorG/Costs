@@ -9,40 +9,31 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.touristskaya.expenses.MainActivity"
-            android:label="Мои расходы"
+            android:name=".StatisticDetailedActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".StatisticCostTypeDetailedActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".StatisticChosePeriodActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".StatisticChosenPeriodActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ActivityInputData"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateAlwaysHidden">
+            android:theme="@style/CustomAppStyle"/>
 
+        <activity
+            android:name=".MainActivityWithFragments"
+            android:screenOrientation="portrait"
+            android:theme="@style/CustomAppStyle">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name="com.touristskaya.expenses.StatisticMainScreenActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="com.touristskaya.expenses.StatisticDetailedActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="com.touristskaya.expenses.StatisticCostTypeDetailedActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="com.touristskaya.expenses.StatisticChosePeriodActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="com.touristskaya.expenses.StatisticChosenPeriodActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="com.touristskaya.expenses.EditCostsActivity"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity
-            android:name=".ActivityInputData"
-            android:screenOrientation="portrait">
         </activity>
 
 
