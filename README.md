@@ -2,24 +2,22 @@
 Программа для подсчёта расходов денежных средств - 
 https://play.google.com/store/apps/details?id=com.touristskaya.expenses
 
-![1](https://cloud.githubusercontent.com/assets/12641895/19884411/bcb6d5a4-a02a-11e6-98da-a0228a7debd6.png) 
 
-![screenshot_1482345414](https://cloud.githubusercontent.com/assets/12641895/21401510/adc5b048-c7c5-11e6-8096-e939d103cd20.png)
+![1](https://cloud.githubusercontent.com/assets/12641895/21774258/048ca616-d6a3-11e6-9802-af1195a0e0ed.png)
 
-![2](https://cloud.githubusercontent.com/assets/12641895/19884419/c5739a38-a02a-11e6-981e-2eaa2c4b8b13.png)
+![2](https://cloud.githubusercontent.com/assets/12641895/21774262/07501af4-d6a3-11e6-9e89-4f010f3b28ba.png)
 
-![3](https://cloud.githubusercontent.com/assets/12641895/19884427/cb7b75f4-a02a-11e6-829c-b04c3c800228.png)
+![3](https://cloud.githubusercontent.com/assets/12641895/21774268/094333d2-d6a3-11e6-89ba-c07830bfb954.png)
 
-![5](https://cloud.githubusercontent.com/assets/12641895/19884435/d0164918-a02a-11e6-8925-00227b628565.png)
+![4](https://cloud.githubusercontent.com/assets/12641895/21774271/0b01357a-d6a3-11e6-991b-651cc37b7ff0.png)
 
-![6](https://cloud.githubusercontent.com/assets/12641895/19884438/d2267728-a02a-11e6-92f6-3f41edc93e81.png)
+![5](https://cloud.githubusercontent.com/assets/12641895/21774276/0cf3e2c4-d6a3-11e6-833b-4dba9767a66c.png)
 
-![7](https://cloud.githubusercontent.com/assets/12641895/19884440/d3c9ba54-a02a-11e6-879f-0528973baffe.png)
+![6](https://cloud.githubusercontent.com/assets/12641895/21774279/0ec0ff24-d6a3-11e6-968e-4416a9397e61.png)
 
-![8](https://cloud.githubusercontent.com/assets/12641895/19884443/d5841376-a02a-11e6-9136-09941771c564.png)
+![7](https://cloud.githubusercontent.com/assets/12641895/21774282/10d1beb6-d6a3-11e6-85eb-eac2bd26db0e.png)
 
-![9](https://cloud.githubusercontent.com/assets/12641895/19884446/d72ad444-a02a-11e6-99fb-2aeee8647f59.png)
+![8](https://cloud.githubusercontent.com/assets/12641895/21774286/132b9b3c-d6a3-11e6-9551-b9387e705d03.png)
 
-![10](https://cloud.githubusercontent.com/assets/12641895/19884450/d8d9d664-a02a-11e6-88e0-5805e1bc2f76.png)
 
-![11](https://cloud.githubusercontent.com/assets/12641895/19884451/da47f058-a02a-11e6-8a30-ccf5447b7967.png)
+
