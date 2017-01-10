@@ -272,12 +272,6 @@ public class FragmentCurrentMonthScreen extends Fragment {
                                 String newCategoryName = inputTextField.getText().toString();
                                 int result = cdb.renameCostName(finalSelectedCategory1.getExpenseId_N(), newCategoryName);
 
-                                int selectedCategoryIndexInList = listOfActiveCostNames.indexOf(finalSelectedCategory1);
-                                System.out.println(selectedCategoryIndexInList);
-
-                                listOfActiveCostNames.get(selectedCategoryIndexInList).setExpenseName(newCategoryName);
-                                currentMonthScreenAdapter.notifyDataSetChanged();
-
                                 String messageToUser = "";
                                 switch (result) {
                                     case 0:
@@ -288,6 +282,11 @@ public class FragmentCurrentMonthScreen extends Fragment {
                                                 .append(newCategoryName)
                                                 .append("'")
                                                 .toString();
+
+                                        // Изменяем название категории в списке
+                                        int selectedCategoryIndexInList = listOfActiveCostNames.indexOf(finalSelectedCategory1);
+                                        listOfActiveCostNames.get(selectedCategoryIndexInList).setExpenseName(newCategoryName);
+                                        currentMonthScreenAdapter.notifyDataSetChanged();
                                         break;
                                     case 2:
                                         messageToUser = new StringBuilder()
