@@ -7,7 +7,7 @@
     android:paddingLeft="0sp"
     android:paddingRight="0sp"
     android:paddingTop="0sp"
-    tools:context="com.example.newcosts.StatisticChosenPeriodActivity">
+    tools:context=".StatisticChosenPeriodActivity">
 
     <LinearLayout
         android:orientation="vertical"
@@ -38,7 +38,7 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#FF9800"></LinearLayout>
+            android:background="#FF9800"/>
 
         <ListView
             android:layout_width="match_parent"
