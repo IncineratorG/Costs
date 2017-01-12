@@ -43,8 +43,8 @@ public class ExpensesListDialogFragment extends DialogFragment {
 
         final ListView expensesListView = (ListView) v.findViewById(R.id.expenses_list_dialog_listview);
 
-        AdapterExpensesListDialog adapterExpensesListDialog = new AdapterExpensesListDialog(getActivity(), data);
-        expensesListView.setAdapter(adapterExpensesListDialog);
+        AdapterExpensesListDialogListView adapterExpensesListDialogListView = new AdapterExpensesListDialogListView(getActivity(), data);
+        expensesListView.setAdapter(adapterExpensesListDialogListView);
         expensesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

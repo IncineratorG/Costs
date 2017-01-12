@@ -17,7 +17,7 @@ import java.util.List;
  * TODO: Add a class header comment
  */
 
-public class AdapterCurrentMonthScreenFragment extends RecyclerView.Adapter<AdapterCurrentMonthScreenFragment.FragmentCurrentMonthScreenViewHolder> {
+public class AdapterCurrentMonthScreenRecyclerView extends RecyclerView.Adapter<AdapterCurrentMonthScreenRecyclerView.FragmentCurrentMonthScreenViewHolder> {
 
     private OnItemClickListener clickListener;
     private List<ExpensesDataUnit> data;
@@ -31,7 +31,7 @@ public class AdapterCurrentMonthScreenFragment extends RecyclerView.Adapter<Adap
 
 
 
-    public AdapterCurrentMonthScreenFragment(List<ExpensesDataUnit> data, Context context, Fragment targetFragment) {
+    public AdapterCurrentMonthScreenRecyclerView(List<ExpensesDataUnit> data, Context context, Fragment targetFragment) {
         this.data = data;
         this.context = context;
         this.targetFragment = targetFragment;

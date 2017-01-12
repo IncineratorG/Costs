@@ -147,8 +147,8 @@ public class MyDatePicker extends Dialog implements
                 calendar.set(Calendar.DAY_OF_MONTH, pickedDay);
 
                 ChosenDayMonthTextView.setText(Constants.DAY_NAMES[calendar.get(Calendar.DAY_OF_WEEK)] + ", " +
-                        String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)) + " " +
-                        Constants.DECLENSION_MONTH_NAMES[calendar.get(Calendar.MONTH)]);
+                                               String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)) + " " +
+                                               Constants.DECLENSION_MONTH_NAMES[calendar.get(Calendar.MONTH)]);
                 break;
             case R.id.calendar_dayUp:
                 ++pickedDay;
@@ -159,8 +159,8 @@ public class MyDatePicker extends Dialog implements
                 calendar.set(Calendar.DAY_OF_MONTH, pickedDay);
 
                 ChosenDayMonthTextView.setText(Constants.DAY_NAMES[calendar.get(Calendar.DAY_OF_WEEK)] + ", " +
-                        String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)) + " " +
-                        Constants.DECLENSION_MONTH_NAMES[calendar.get(Calendar.MONTH)]);
+                                               String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)) + " " +
+                                               Constants.DECLENSION_MONTH_NAMES[calendar.get(Calendar.MONTH)]);
                 break;
 
 
@@ -180,8 +180,8 @@ public class MyDatePicker extends Dialog implements
                 calendar.set(Calendar.DAY_OF_MONTH, pickedDay);
 
                 ChosenDayMonthTextView.setText(Constants.DAY_NAMES[calendar.get(Calendar.DAY_OF_WEEK)] + ", " +
-                        String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)) + " " +
-                        Constants.DECLENSION_MONTH_NAMES[calendar.get(Calendar.MONTH)]);
+                                               String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)) + " " +
+                                               Constants.DECLENSION_MONTH_NAMES[calendar.get(Calendar.MONTH)]);
                 break;
             case R.id.calendar_monthUp:
                 ++pickedMonth;
@@ -199,8 +199,8 @@ public class MyDatePicker extends Dialog implements
                 calendar.set(Calendar.DAY_OF_MONTH, pickedDay);
 
                 ChosenDayMonthTextView.setText(Constants.DAY_NAMES[calendar.get(Calendar.DAY_OF_WEEK)] + ", " +
-                        String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)) + " " +
-                        Constants.DECLENSION_MONTH_NAMES[calendar.get(Calendar.MONTH)]);
+                                               String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)) + " " +
+                                               Constants.DECLENSION_MONTH_NAMES[calendar.get(Calendar.MONTH)]);
                 break;
 
 
@@ -218,8 +218,8 @@ public class MyDatePicker extends Dialog implements
                 calendar.set(Calendar.DAY_OF_MONTH, pickedDay);
 
                 ChosenDayMonthTextView.setText(Constants.DAY_NAMES[calendar.get(Calendar.DAY_OF_WEEK)] + ", " +
-                        String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)) + " " +
-                        Constants.DECLENSION_MONTH_NAMES[calendar.get(Calendar.MONTH)]);
+                                               String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)) + " " +
+                                               Constants.DECLENSION_MONTH_NAMES[calendar.get(Calendar.MONTH)]);
                 ChosenYearTextView.setText(String.valueOf(pickedYear));
                 break;
             case R.id.calendar_yearUp:
@@ -236,16 +236,16 @@ public class MyDatePicker extends Dialog implements
                 calendar.set(Calendar.DAY_OF_MONTH, pickedDay);
 
                 ChosenDayMonthTextView.setText(Constants.DAY_NAMES[calendar.get(Calendar.DAY_OF_WEEK)] + ", " +
-                        String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)) + " " +
-                        Constants.DECLENSION_MONTH_NAMES[calendar.get(Calendar.MONTH)]);
+                                               String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)) + " " +
+                                               Constants.DECLENSION_MONTH_NAMES[calendar.get(Calendar.MONTH)]);
                 ChosenYearTextView.setText(String.valueOf(pickedYear));
                 break;
 
 
             case R.id.calendar_ok:
                 String pickedDate = String.valueOf(pickedDay) + "." +
-                        String.valueOf(pickedMonth + 1) + "." +
-                        String.valueOf(pickedYear);
+                                    String.valueOf(pickedMonth + 1) + "." +
+                                    String.valueOf(pickedYear);
                 Callback.getPickedDate(pickedDate);
                 dismiss();
                 break;

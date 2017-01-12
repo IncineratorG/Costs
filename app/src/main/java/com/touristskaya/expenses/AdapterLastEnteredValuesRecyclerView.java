@@ -15,7 +15,7 @@ import java.util.List;
  * TODO: Add a class header comment
  */
 
-public class AdapterLastEnteredValuesFragment extends RecyclerView.Adapter<AdapterLastEnteredValuesFragment.FragmentLastEnteredValuesViewHolder> {
+public class AdapterLastEnteredValuesRecyclerView extends RecyclerView.Adapter<AdapterLastEnteredValuesRecyclerView.FragmentLastEnteredValuesViewHolder> {
 
     private OnItemClickListener clickListener;
     private List<ExpensesDataUnit> data;
@@ -27,7 +27,7 @@ public class AdapterLastEnteredValuesFragment extends RecyclerView.Adapter<Adapt
     }
 
 
-    public AdapterLastEnteredValuesFragment(List<ExpensesDataUnit> data, Context context) {
+    public AdapterLastEnteredValuesRecyclerView(List<ExpensesDataUnit> data, Context context) {
         this.data = data;
         this.context = context;
         calendar = Calendar.getInstance();
@@ -129,7 +129,7 @@ public class AdapterLastEnteredValuesFragment extends RecyclerView.Adapter<Adapt
             separatorLineLayout = (LinearLayout) itemView.findViewById(R.id.fragment_last_entered_values_note_separator_line);
             topLayout = (LinearLayout) itemView.findViewById(R.id.fragment_last_entered_values_top_layout);
             dateLayout = (LinearLayout) itemView.findViewById(R.id.fragment_last_entered_values_date_layout);
-            layoutWithText = (LinearLayout) itemView.findViewById(R.id.fragment_last_entered_values_layout_with_text);
+            layoutWithText = (LinearLayout) itemView.findViewById(R.id.fragment_statistic_main_screen_layout_with_text);
 
             itemView.setOnClickListener(this);
         }

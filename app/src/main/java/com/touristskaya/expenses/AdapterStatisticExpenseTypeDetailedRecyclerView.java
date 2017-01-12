@@ -15,19 +15,20 @@ import java.util.List;
  * TODO: Add a class header comment
  */
 
-public class AdapterLastEnteredValuesFragment_V2 extends RecyclerView.Adapter<AdapterLastEnteredValuesFragment_V2.FragmentLastEnteredValuesViewHolder_V2> {
-
-    private OnItemClickListener clickListener;
+public class AdapterStatisticExpenseTypeDetailedRecyclerView extends RecyclerView.Adapter<AdapterStatisticExpenseTypeDetailedRecyclerView.StatisticExpenseTypeDetailedViewHolder> {
+    private AdapterCurrentMonthScreenRecyclerView.OnItemClickListener clickListener;
     private List<ExpensesDataUnit> data;
     private Context context;
     private Calendar calendar;
+
 
     public interface OnItemClickListener {
         void onItemClick(View itemView, int position);
     }
 
 
-    public AdapterLastEnteredValuesFragment_V2(List<ExpensesDataUnit> data, Context context) {
+
+    public AdapterStatisticExpenseTypeDetailedRecyclerView(List<ExpensesDataUnit> data, Context context) {
         this.data = data;
         this.context = context;
         calendar = Calendar.getInstance();
@@ -39,13 +40,14 @@ public class AdapterLastEnteredValuesFragment_V2 extends RecyclerView.Adapter<Ad
     }
 
     @Override
-    public FragmentLastEnteredValuesViewHolder_V2 onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_last_entered_values_single_item_v2, parent, false);
-        return new FragmentLastEnteredValuesViewHolder_V2(v);
+    public StatisticExpenseTypeDetailedViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_statistic_expense_type_detailed_single_item, parent, false);
+        return new StatisticExpenseTypeDetailedViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(FragmentLastEnteredValuesViewHolder_V2 holder, int position) {
+    public void onBindViewHolder(StatisticExpenseTypeDetailedViewHolder holder, int position) {
+
         // Группируем список последних введённых значений по дате занесения элементов в базу
         if (position > 0 && (data.get(position - 1).getDay() == data.get(position).getDay() &&
                 data.get(position - 1).getMonth() == data.get(position).getMonth() &&
@@ -55,16 +57,33 @@ public class AdapterLastEnteredValuesFragment_V2 extends RecyclerView.Adapter<Ad
         }
         else
         {
+            // Отображаем дату
             calendar.setTimeInMillis(data.get(position).getMilliseconds());
             holder.dateLayout.setVisibility(View.VISIBLE);
-            holder.dateTextView.setText(new StringBuilder().append(Constants.DAY_NAMES[calendar.get(Calendar.DAY_OF_WEEK)])
+            holder.dateTextView.setText(new StringBuilder()
+                    .append(Constants.DAY_NAMES[calendar.get(Calendar.DAY_OF_WEEK)])
                     .append(", ")
                     .append(data.get(position).getDay())
                     .append(" ")
-                    .append(Constants.DECLENSION_MONTH_NAMES[data.get(position).getMonth() - 1]));
+                    .append(Constants.SHORT_MONTH_NAMES[data.get(position).getMonth()])
+                    .append(" ")
+                    .append(data.get(position).getYear()));
+
+            // Получаем величину расходов за один день
+            double overallExpenseValueForDay = data.get(position).getExpenseValueDouble();
+            int i = position + 1;
+            while (i < data.size()
+                    && data.get(i).getDay() == data.get(i - 1).getDay()
+                    && data.get(i).getMonth() == data.get(i - 1).getMonth()
+                    && data.get(i).getYear() == data.get(i - 1).getYear())
+            {
+                overallExpenseValueForDay = overallExpenseValueForDay + data.get(i).getExpenseValueDouble();
+                ++i;
+            }
+
+            holder.dateOverallValueTextView.setText(Constants.formatDigit(overallExpenseValueForDay) + " руб.");
         }
 
-        holder.expensesTypeTextView.setText(data.get(position).getExpenseName());
         holder.expensesValueTextView.setText(data.get(position).getExpenseValueString() + " руб.");
         holder.expensesNoteTextView.setVisibility(View.VISIBLE);
         holder.noteSeparatorLayout.setVisibility(View.VISIBLE);;
@@ -78,6 +97,7 @@ public class AdapterLastEnteredValuesFragment_V2 extends RecyclerView.Adapter<Ad
             holder.expensesNoteTextView.setVisibility(View.GONE);
             holder.noteSeparatorLayout.setVisibility(View.GONE);
         }
+
     }
 
     @Override
@@ -85,33 +105,32 @@ public class AdapterLastEnteredValuesFragment_V2 extends RecyclerView.Adapter<Ad
         super.onAttachedToRecyclerView(recyclerView);
     }
 
-    public void setClickListener(OnItemClickListener listener) {
+
+    public void setClickListener(AdapterCurrentMonthScreenRecyclerView.OnItemClickListener listener) {
         this.clickListener = listener;
     }
 
-
-
     // ===================================== View Holder ===========================================
-    public class FragmentLastEnteredValuesViewHolder_V2 extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class StatisticExpenseTypeDetailedViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private LinearLayout noteSeparatorLayout;
         private LinearLayout dateLayout;
-        private TextView expensesTypeTextView;
         private TextView expensesValueTextView;
         private TextView expensesNoteTextView;
         private TextView dateTextView;
+        private TextView dateOverallValueTextView;
 
 
-        public FragmentLastEnteredValuesViewHolder_V2(View itemView) {
+        public StatisticExpenseTypeDetailedViewHolder(View itemView) {
             super(itemView);
 
-            expensesTypeTextView = (TextView) itemView.findViewById(R.id.fragment_last_entered_values_expenses_type_textview);
-            expensesValueTextView = (TextView) itemView.findViewById(R.id.fragment_last_entered_values_expenses_value_textview);
-            expensesNoteTextView = (TextView) itemView.findViewById(R.id.fragment_last_entered_values_expenses_note_textview);
-            dateTextView = (TextView) itemView.findViewById(R.id.fragment_last_entered_values_date_textview);
+            expensesValueTextView = (TextView) itemView.findViewById(R.id.expense_type_detailed_single_item_expenses_value_textview);
+            expensesNoteTextView = (TextView) itemView.findViewById(R.id.expense_type_detailed_single_item_expenses_note_textview);
+            dateTextView = (TextView) itemView.findViewById(R.id.expense_type_detailed_single_item_date_textview);
+            dateOverallValueTextView = (TextView) itemView.findViewById(R.id.expense_type_detailed_single_item_date_overall_value_textview);
 
-            noteSeparatorLayout = (LinearLayout) itemView.findViewById(R.id.fragment_last_entered_values_layout_horizontal_note_separator);
-            dateLayout = (LinearLayout) itemView.findViewById(R.id.fragment_last_entered_values_date_layout);
+            noteSeparatorLayout = (LinearLayout) itemView.findViewById(R.id.expense_type_detailed_single_item_horizontal_note_separator);
+            dateLayout = (LinearLayout) itemView.findViewById(R.id.expense_type_detailed_single_item_date_layout);
 
             itemView.setOnClickListener(this);
         }
