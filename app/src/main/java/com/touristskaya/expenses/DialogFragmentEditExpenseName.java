@@ -15,12 +15,12 @@ import android.widget.TextView;
  * TODO: Add a class header comment
  */
 
-public class EditExpenseNameDialogFragment extends DialogFragment implements View.OnClickListener {
+public class DialogFragmentEditExpenseName extends DialogFragment implements View.OnClickListener {
     private static ExpensesDataUnit dataUnit;
 
-    static EditExpenseNameDialogFragment newInstance(ExpensesDataUnit data) {
+    static DialogFragmentEditExpenseName newInstance(ExpensesDataUnit data) {
         dataUnit = data;
-        return new EditExpenseNameDialogFragment();
+        return new DialogFragmentEditExpenseName();
     }
 
     @Override

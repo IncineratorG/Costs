@@ -15,7 +15,7 @@ import android.widget.ViewSwitcher;
 
 import java.util.Calendar;
 
-public class MyDatePicker extends Dialog implements
+public class DialogDatePicker extends Dialog implements
         View.OnClickListener, ViewSwitcher.ViewFactory {
 
     private int pickedDay, pickedMonth, pickedYear;
@@ -42,14 +42,14 @@ public class MyDatePicker extends Dialog implements
     }
 
 
-    public MyDatePicker(Activity activity) {
+    public DialogDatePicker(Activity activity) {
         super(activity);
         this.activity = activity;
 
         Callback = (MyDatePickerCallback) activity;
     }
 
-    public MyDatePicker(Activity activity, long dateInMilliseconds) {
+    public DialogDatePicker(Activity activity, long dateInMilliseconds) {
         super(activity);
         this.activity = activity;
         this.dateInMilliseconds = dateInMilliseconds;

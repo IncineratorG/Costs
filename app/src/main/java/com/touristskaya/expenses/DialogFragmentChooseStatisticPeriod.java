@@ -24,7 +24,7 @@ import java.util.GregorianCalendar;
  * TODO: Add a class header comment
  */
 
-public class ChooseStatisticPeriodDialogFragment extends DialogFragment implements View.OnClickListener, ViewSwitcher.ViewFactory {
+public class DialogFragmentChooseStatisticPeriod extends DialogFragment implements View.OnClickListener, ViewSwitcher.ViewFactory {
 
     private Context context;
     private Button OkButton, CancelButton;
@@ -52,8 +52,8 @@ public class ChooseStatisticPeriodDialogFragment extends DialogFragment implemen
     private Toast wrongDateToast;
 
 
-    static ChooseStatisticPeriodDialogFragment newInstance(Context context) {
-        return new ChooseStatisticPeriodDialogFragment();
+    static DialogFragmentChooseStatisticPeriod newInstance(Context context) {
+        return new DialogFragmentChooseStatisticPeriod();
     }
 
 

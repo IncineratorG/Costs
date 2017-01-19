@@ -9,7 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.widget.TextView;
 
-public class MainActivityWithFragments extends AppCompatActivity {
+public class ActivityMainWithFragments extends AppCompatActivity {
 
     private int PREVIOUS_ACTIVITY_INDEX = -1;
     private int TARGET_TAB = -1;
