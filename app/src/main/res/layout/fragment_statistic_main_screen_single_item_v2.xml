@@ -61,8 +61,19 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginBottom="5dp"
             android:background="@color/deeperGrey"/>
+
+        <TextView
+            android:text="458452 руб./мес."
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:textColor="@color/deeperGrey"
+            android:textStyle="normal|bold"
+            android:id="@+id/fragment_statistic_main_screen_per_month_value_textview"
+            android:layout_weight="1"
+            android:gravity="right|end"
+            android:layout_marginBottom="5dp" />
     </LinearLayout>
 
     <RelativeLayout
