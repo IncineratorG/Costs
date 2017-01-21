@@ -4,7 +4,7 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/fragment_statistic_main_screen_top_layout"
-    android:layout_marginTop="10dp">
+    android:layout_marginTop="15dp">
 
     <LinearLayout
         android:orientation="vertical"
@@ -16,64 +16,91 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:weightSum="1">
+            android:weightSum="1"
+            android:layout_marginBottom="1dp">
 
-            <TextView
-                android:text="TextView"
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:text="TextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/fragment_statistic_main_screen_year_textview"
+                    android:textAppearance="@style/TextAppearance.AppCompat"
+                    android:textSize="20sp"
+                    android:layout_marginLeft="10sp"
+                    android:layout_marginStart="10sp"
+                    android:textColor="@color/deeperGrey"
+                    android:textStyle="normal|bold"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:gravity="center" />
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="20dp"
+                    app:srcCompat="@drawable/arrow_right"
+                    android:id="@+id/imageView6"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
+                    android:layout_marginEnd="2dp"
+                    android:layout_marginStart="2dp"
+                    android:layout_weight="1"
+                    android:layout_gravity="center" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/fragment_statistic_main_screen_year_textview"
-                android:textAppearance="@style/TextAppearance.AppCompat"
-                android:textSize="20sp"
-                android:layout_marginLeft="10sp"
-                android:layout_marginTop="20sp"
-                android:layout_marginStart="10sp"
-                android:textColor="@color/deeperGrey"
-                android:textStyle="normal|bold"
-                android:layout_marginRight="5dp"
-                android:layout_marginEnd="5dp" />
+                android:paddingLeft="5dp"
+                android:paddingStart="5dp">
 
-            <ImageView
-                android:layout_width="25dp"
-                android:layout_height="20dp"
-                app:srcCompat="@drawable/arrow_right"
-                android:id="@+id/imageView6"
-                android:layout_gravity="bottom"
-                android:layout_marginLeft="2dp"
-                android:layout_marginRight="2dp"
-                android:layout_marginEnd="2dp"
-                android:layout_marginStart="2dp" />
+                <TextView
+                    android:text="TextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/fragment_statistic_main_screen_year_value_textview"
+                    android:textAppearance="@style/TextAppearance.AppCompat"
+                    android:textColor="@color/deeperGrey"
+                    android:textStyle="normal|bold"
+                    android:textSize="20sp"
+                    android:layout_gravity="bottom"
+                    android:gravity="bottom" />
 
-            <TextView
-                android:text="TextView"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:id="@+id/fragment_statistic_main_screen_year_value_textview"
-                android:textAppearance="@style/TextAppearance.AppCompat"
-                android:textColor="@color/deeperGrey"
-                android:textStyle="normal|bold"
-                android:textSize="20sp"
-                android:layout_gravity="bottom"
-                android:gravity="bottom" />
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/deeperGrey"></LinearLayout>
+
+                <TextView
+                    android:text="458452 руб./мес."
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.AppCompat"
+                    android:textColor="@color/deeperGrey"
+                    android:textStyle="normal|bold"
+                    android:id="@+id/fragment_statistic_main_screen_per_month_value_textview"
+                    android:layout_weight="1"
+                    android:textSize="12sp"
+                    android:gravity="center" />
+
+            </LinearLayout>
+
         </LinearLayout>
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/deeperGrey"/>
-
-        <TextView
-            android:text="458452 руб./мес."
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.AppCompat"
-            android:textColor="@color/deeperGrey"
-            android:textStyle="normal|bold"
-            android:id="@+id/fragment_statistic_main_screen_per_month_value_textview"
-            android:layout_weight="1"
-            android:gravity="right|end"
+            android:background="@color/deeperGrey"
             android:layout_marginBottom="5dp" />
+
     </LinearLayout>
 
     <RelativeLayout
