@@ -1,6 +1,7 @@
 package com.touristskaya.expenses;
 
 import android.content.Context;
+import android.support.annotation.UiThread;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +33,11 @@ public class AdapterStatisticExpenseTypeDetailedRecyclerView extends RecyclerVie
         this.data = data;
         this.context = context;
         calendar = Calendar.getInstance();
+    }
+
+    public void swapData(List<ExpensesDataUnit> newDataList) {
+        data = newDataList;
+        notifyDataSetChanged();
     }
 
     @Override

@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.Calendar;
@@ -72,12 +73,24 @@ public class AdapterCurrentMonthScreenRecyclerView extends RecyclerView.Adapter<
             holder.categoryValueTextView.setVisibility(View.GONE);
             holder.inCurrentMonthTextView.setVisibility(View.GONE);
             holder.arrowRight.setVisibility(View.GONE);
+
+            holder.topLayout.setOnLongClickListener(null);
         } else {
             holder.inCurrentMonthTextView.setVisibility(View.VISIBLE);
             holder.editCategoryImageView.setVisibility(View.VISIBLE);
             holder.categoryValueTextView.setVisibility(View.VISIBLE);
             holder.arrowRight.setVisibility(View.VISIBLE);
             holder.categoryValueTextView.setText(data.get(position).getExpenseValueString() + " руб.");
+
+            holder.topLayout.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    DialogFragmentEditExpenseName editExpenseNameDialogFragment = DialogFragmentEditExpenseName.newInstance(data.get(finalPosition));
+                    editExpenseNameDialogFragment.setTargetFragment(targetFragment, Constants.EDIT_EXPENSE_NAME_REQUEST_CODE);
+                    editExpenseNameDialogFragment.show(((AppCompatActivity) context).getSupportFragmentManager(), Constants.EDIT_DIALOG_TAG);
+                    return true;
+                }
+            });
         }
     }
 
@@ -99,6 +112,7 @@ public class AdapterCurrentMonthScreenRecyclerView extends RecyclerView.Adapter<
         private TextView categoryNameTextView;
         private TextView categoryValueTextView;
         private TextView inCurrentMonthTextView;
+        private LinearLayout topLayout;
 
 
         public FragmentCurrentMonthScreenViewHolder(View itemView) {
@@ -110,6 +124,7 @@ public class AdapterCurrentMonthScreenRecyclerView extends RecyclerView.Adapter<
             categoryValueTextView = (TextView) itemView.findViewById(R.id.current_month_single_item_value_textview);
             inCurrentMonthTextView = (TextView) itemView.findViewById(R.id.current_month_single_item_in_current_month_textview);
             arrowRight = (ImageView) itemView.findViewById(R.id.current_month_single_item_arrow_right_imageview);
+            topLayout = (LinearLayout) itemView.findViewById(R.id.current_month_single_item_top_layout);
 
             itemView.setOnClickListener(this);
         }
