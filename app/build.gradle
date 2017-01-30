@@ -8,8 +8,8 @@ android {
         applicationId "com.touristskaya.expenses"
         minSdkVersion 11
         targetSdkVersion 25
-        versionCode 16
-        versionName "1.128"
+        versionCode 17
+        versionName "1.129"
     }
     buildTypes {
         release {
