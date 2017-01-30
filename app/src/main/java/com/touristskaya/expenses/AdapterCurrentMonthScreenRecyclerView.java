@@ -74,7 +74,7 @@ public class AdapterCurrentMonthScreenRecyclerView extends RecyclerView.Adapter<
             holder.inCurrentMonthTextView.setVisibility(View.GONE);
             holder.arrowRight.setVisibility(View.GONE);
 
-            holder.topLayout.setOnLongClickListener(null);
+//            holder.topLayout.setOnLongClickListener(null);
         } else {
             holder.inCurrentMonthTextView.setVisibility(View.VISIBLE);
             holder.editCategoryImageView.setVisibility(View.VISIBLE);
@@ -82,15 +82,15 @@ public class AdapterCurrentMonthScreenRecyclerView extends RecyclerView.Adapter<
             holder.arrowRight.setVisibility(View.VISIBLE);
             holder.categoryValueTextView.setText(data.get(position).getExpenseValueString() + " руб.");
 
-            holder.topLayout.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    DialogFragmentEditExpenseName editExpenseNameDialogFragment = DialogFragmentEditExpenseName.newInstance(data.get(finalPosition));
-                    editExpenseNameDialogFragment.setTargetFragment(targetFragment, Constants.EDIT_EXPENSE_NAME_REQUEST_CODE);
-                    editExpenseNameDialogFragment.show(((AppCompatActivity) context).getSupportFragmentManager(), Constants.EDIT_DIALOG_TAG);
-                    return true;
-                }
-            });
+//            holder.topLayout.setOnLongClickListener(new View.OnLongClickListener() {
+//                @Override
+//                public boolean onLongClick(View v) {
+//                    DialogFragmentEditExpenseName editExpenseNameDialogFragment = DialogFragmentEditExpenseName.newInstance(data.get(finalPosition));
+//                    editExpenseNameDialogFragment.setTargetFragment(targetFragment, Constants.EDIT_EXPENSE_NAME_REQUEST_CODE);
+//                    editExpenseNameDialogFragment.show(((AppCompatActivity) context).getSupportFragmentManager(), Constants.EDIT_DIALOG_TAG);
+//                    return true;
+//                }
+//            });
         }
     }
 

@@ -99,6 +99,7 @@ public class FragmentCurrentMonthScreen extends Fragment {
         currentMonthScreenAdapter.setClickListener(new AdapterCurrentMonthScreenRecyclerView.OnItemClickListener() {
             @Override
             public void onItemClick(View itemView, int position) {
+
                 ExpensesDataUnit selectedDataUnit = listOfActiveCostNames.get(position);
                 // Переходим на экран ввода затрат по выбранной категории
                 if (selectedDataUnit.getExpenseId_N() != Integer.MIN_VALUE) {
