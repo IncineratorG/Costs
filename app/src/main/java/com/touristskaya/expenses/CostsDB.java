@@ -90,6 +90,31 @@ public class CostsDB extends SQLiteOpenHelper {
 
 
 
+    public boolean COSTS_DB_IS_EMPTY() {
+        String query = "SELECT * FROM " + TABLE_COST_NAMES;
+
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor c = null;
+        boolean costsDbIsEmpty = true;
+
+        try {
+            c = db.rawQuery(query, null);
+            if (c.moveToFirst())
+                costsDbIsEmpty = false;
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (c != null)
+                c.close();
+            if (db != null)
+                db.close();
+        }
+
+        return costsDbIsEmpty;
+    }
+
+
+
     // Возвращает список из ID и названий всех активных статей расходов
     public ExpensesDataUnit[] getActiveCostNames_V3() {
         String query = "SELECT " +
@@ -453,8 +478,7 @@ public class CostsDB extends SQLiteOpenHelper {
         return result;
     }
 
-    // Возвращает массив строк, состоящих из месяца, года и суммарного значения расходов
-    // за эти месяц и год, сгруппированные по месяцу и году в формате: 5$1989$575
+    // Возвращает суммарные значения расходов по месяцам
     public List<ExpensesDataUnit> getSumByMonthsList() {
         String query = "SELECT " +
                 MONTH + ", " +
@@ -466,7 +490,7 @@ public class CostsDB extends SQLiteOpenHelper {
 
         SQLiteDatabase db = getWritableDatabase();
         Cursor c = null;
-        List<ExpensesDataUnit> listOfEnteries = new ArrayList<>();
+        List<ExpensesDataUnit> listOfEntries = new ArrayList<>();
 
         try {
             c = db.rawQuery(query, null);
@@ -479,7 +503,7 @@ public class CostsDB extends SQLiteOpenHelper {
                 dataUnit.setExpenseValueDouble(c.getDouble(c.getColumnIndex("SUM")));
                 dataUnit.setExpenseValueString(Constants.formatDigit(c.getDouble(c.getColumnIndex("SUM"))));
 
-                listOfEnteries.add(dataUnit);
+                listOfEntries.add(dataUnit);
                 c.moveToNext();
             }
         } catch (Exception e) {
@@ -491,12 +515,11 @@ public class CostsDB extends SQLiteOpenHelper {
                 db.close();
         }
 
-        return listOfEnteries;
+        return listOfEntries;
     }
 
-    // Возвращает массив строк, состоящих из названия статьи расходов и суммарного
-    // значения расходов по этой статье за выбранный месяц в формате: Продукты$102520
-    public List<ExpensesDataUnit> getCostValuesArrayOnDate_V3(int month, int year) {
+    // Возвращает список статей расходов и суммарные значения по ним за выбранный месяц
+    public List<ExpensesDataUnit> getCostValuesListOnDate_V3(int month, int year) {
         String query = "SELECT " +
                 TABLE_COST_NAMES + "." + COST_NAME +
                 ", SUM(" + TABLE_COST_VALUES + "." + COST_VALUE + ") AS SUM, " +
@@ -546,7 +569,7 @@ public class CostsDB extends SQLiteOpenHelper {
     }
 
 
-    public List<ExpensesDataUnit> getCostValuesArrayOnDateAndCostName_V2(int month, int year, int id_n, String expenseName) {
+    public List<ExpensesDataUnit> getCostValuesListOnDateAndCostName_V2(int month, int year, int id_n, String expenseName) {
         String query = "SELECT " +
                 COST_VALUE + ", " +
                 DAY + ", " +
@@ -641,60 +664,7 @@ public class CostsDB extends SQLiteOpenHelper {
         return expensesDataUnitList;
     }
 
-    public String[] getCostsBetweenDates_V2(long initialDateInMilliseconds, long endingDateInMilliseconds) {
-        String query = "SELECT " +
-                TABLE_COST_NAMES + "." + COST_NAME +
-                ", SUM(" + TABLE_COST_VALUES + "." + COST_VALUE + ") AS SUM, " +
-                TABLE_COST_VALUES + "." + MONTH + ", " +
-                TABLE_COST_VALUES + "." + YEAR + ", " +
-                TABLE_COST_VALUES + "." + DATE_IN_MILLISECONDS + ", " +
-                TABLE_COST_VALUES + "." + ID_N_FK + ", " +
-                TABLE_COST_NAMES + "." + ID_N +
-                " FROM " + TABLE_COST_VALUES +
-                " INNER JOIN " + TABLE_COST_NAMES +
-                " ON " + TABLE_COST_VALUES + "." + ID_N_FK + " = " + TABLE_COST_NAMES + "." + ID_N +
-                " WHERE " + DATE_IN_MILLISECONDS + " BETWEEN " + initialDateInMilliseconds + " AND " + endingDateInMilliseconds +
-                " GROUP BY " + ID_N_FK +
-                " ORDER BY " + "SUM" + " DESC";
 
-        SQLiteDatabase db = getWritableDatabase();
-        Cursor c = null;
-        StringBuilder sb = new StringBuilder();
-        List<String> listOfEntries = new ArrayList<>();
-
-        try {
-            c = db.rawQuery(query, null);
-            c.moveToFirst();
-
-            while (!c.isAfterLast()) {
-                sb.append(c.getString(c.getColumnIndex(COST_NAME)));
-                sb.append(Constants.SEPARATOR_DATE);
-
-                sb.append(c.getString(c.getColumnIndex(MONTH)));
-                sb.append(".");
-                sb.append(c.getString(c.getColumnIndex(YEAR)));
-                sb.append(Constants.SEPARATOR_VALUE);
-
-                sb.append(Constants.formatDigit(c.getDouble(c.getColumnIndex("SUM"))));
-
-                listOfEntries.add(sb.toString());
-                sb.setLength(0);
-                c.moveToNext();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (c != null)
-                c.close();
-            if (db != null)
-                db.close();
-        }
-
-        String[] arrayOfEntries = new String[listOfEntries.size()];
-        listOfEntries.toArray(arrayOfEntries);
-
-        return arrayOfEntries;
-    }
     public List<ExpensesDataUnit> getCostsBetweenDates_V3(long initialDateInMilliseconds, long endingDateInMilliseconds) {
         String query = "SELECT " +
                 TABLE_COST_NAMES + "." + COST_NAME +

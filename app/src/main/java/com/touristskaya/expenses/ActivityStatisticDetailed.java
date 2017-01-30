@@ -69,7 +69,7 @@ public class ActivityStatisticDetailed extends AppCompatActivity {
                     toolBarTextView.setText(Constants.MONTH_NAMES[chosenMonthDataUnit.getMonth()] + " " + chosenMonthDataUnit.getYear());
 
                     // Получаем список статей расходов и суммарные значения по ним за выбранный месяц
-                    final List<ExpensesDataUnit> expensesDataUnitList = cdb.getCostValuesArrayOnDate_V3(chosenMonthDataUnit.getMonth(), chosenMonthDataUnit.getYear());
+                    final List<ExpensesDataUnit> expensesDataUnitList = cdb.getCostValuesListOnDate_V3(chosenMonthDataUnit.getMonth(), chosenMonthDataUnit.getYear());
                     double overallExpensesValueForChosenPeriod = 0.0;
                     for (ExpensesDataUnit dataUnit : expensesDataUnitList)
                         overallExpensesValueForChosenPeriod = overallExpensesValueForChosenPeriod + dataUnit.getExpenseValueDouble();

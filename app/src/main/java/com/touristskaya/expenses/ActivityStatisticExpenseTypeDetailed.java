@@ -108,7 +108,7 @@ public class ActivityStatisticExpenseTypeDetailed extends AppCompatActivity {
                         chosenExpenseTypeDataUnit.getYear());
 
                 // Получаем список всех расходов по выбранной катнгории за выбранной период
-                originalDataUnitList = cdb.getCostValuesArrayOnDateAndCostName_V2(chosenExpenseTypeDataUnit.getMonth(),
+                originalDataUnitList = cdb.getCostValuesListOnDateAndCostName_V2(chosenExpenseTypeDataUnit.getMonth(),
                         chosenExpenseTypeDataUnit.getYear(),
                         chosenExpenseTypeDataUnit.getExpenseId_N(),
                         chosenExpenseTypeDataUnit.getExpenseName());

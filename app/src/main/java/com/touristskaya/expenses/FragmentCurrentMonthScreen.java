@@ -71,6 +71,23 @@ public class FragmentCurrentMonthScreen extends Fragment {
 
         currentMonthTextView.setText("Всего за " + Constants.MONTH_NAMES[currentMonth]);
 
+        // При первом запуске программы заносим категории расходов по умолчанию
+        if (cdb.COSTS_DB_IS_EMPTY()) {
+            String[] initialCategoriesArray = new String[] {
+                    "Продукты",
+                    "Покупки",
+                    "Еда вне дома",
+                    "Транспорт",
+                    "Расходы на квартиру",
+                    "Развлечения",
+                    "Прочее"
+            };
+
+            for (String category : initialCategoriesArray)
+                cdb.addCostName(category);
+        }
+
+
         // Получаем массив активных категорий расходов, получаем сумму расходов по
         // каждой категории в текущем месяце и суммарное значение затрат за текущий месяц
         overallValueForCurrentMonth = 0.0;
