@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="FragmentCurrentMonthScreen_currentMonthTextView_Overall_for">Всего за</string>
+
+    <string name="FragmentCurrentMonthScreen_initialCategoriesArray_Products">Продукты</string>
+    <string name="FragmentCurrentMonthScreen_initialCategoriesArray_Purchases">Покупки</string>
+    <string name="FragmentCurrentMonthScreen_initialCategoriesArray_Street_food">Еда вне дома</string>
+    <string name="FragmentCurrentMonthScreen_initialCategoriesArray_Transport">Транспорт</string>
+    <string name="FragmentCurrentMonthScreen_initialCategoriesArray_Costs_for_apartment">Расходы на квартиру</string>
+    <string name="FragmentCurrentMonthScreen_initialCategoriesArray_Entertainment">Развлечения</string>
+    <string name="FragmentCurrentMonthScreen_initialCategoriesArray_Other">Прочее</string>
+
+    <string name="FragmentCurrentMonthScreen_Аdd_new_category">Добавить новую категрию</string>
+    <string name="FragmentCurrentMonthScreen_currency_rur">руб.</string>
+
+    <string name="FragmentCurrentMonthScreen_Category">Категория</string>
+    <string name="FragmentCurrentMonthScreen_created">создана</string>
+
+    <string name="FragmentCurrentMonthScreen_snackbar_Has_records_in_current_month">Нельзя удалить категорию по которой есть записи в текущем месяце</string>
+    <string name="FragmentCurrentMonthScreen_snackbar_Record_deleted">Запись удалена</string>
+    <string name="FragmentCurrentMonthScreen_Cancel">Отмена</string>
+    <string name="FragmentCurrentMonthScreen_snackbar_Record_restored">Запись восстановлена</string>
+    <string name="FragmentCurrentMonthScreen_addNewCostTypeButton_Rename">Переименовать</string>
+    <string name="FragmentCurrentMonthScreen_messageToUser_already_created">уже создана</string>
+</resources>

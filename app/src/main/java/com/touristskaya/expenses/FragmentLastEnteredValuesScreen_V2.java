@@ -97,8 +97,10 @@ public class FragmentLastEnteredValuesScreen_V2 extends Fragment {
                     // Отображаем сообщение об удалении выбранного элемента
                     // с возможностью его восстановления при нажатии кнопки "Отмена"
                     deleteItemSnackbar = Snackbar
-                            .make(recyclerView, "Запись удалена", Snackbar.LENGTH_LONG)
-                            .setAction("Отмена", new View.OnClickListener() {
+                            .make(recyclerView,
+                                    getResources().getString(R.string.FragmentLastEnteredValuesScreen_snackbar_rec_del),
+                                    Snackbar.LENGTH_LONG)
+                            .setAction(getResources().getString(R.string.FragmentLastEnteredValuesScreen_snackbar_Cancel), new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
                                     listOfLastEntries.add(selectedItemPosition, deletedItem);
@@ -112,7 +114,9 @@ public class FragmentLastEnteredValuesScreen_V2 extends Fragment {
                                                               deletedItem.getExpenseNoteString());
 
                                     Snackbar restoreItemSnackbar = Snackbar
-                                            .make(recyclerView, "Запись восстановлена", Snackbar.LENGTH_LONG);
+                                            .make(recyclerView,
+                                                    getResources().getString(R.string.FragmentLastEnteredValuesScreen_snackbar_Record_restored),
+                                                    Snackbar.LENGTH_LONG);
                                     restoreItemSnackbar.show();
                                 }
                             })
@@ -140,57 +144,4 @@ public class FragmentLastEnteredValuesScreen_V2 extends Fragment {
         if (deleteItemSnackbar != null)
             deleteItemSnackbar.dismiss();
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//    public void alertDialogCreate() {
-//                AlertDialog.Builder aBuilder = new AlertDialog.Builder(context);
-//                aBuilder.setView(R.layout.edit_cost_value_dialog);
-//
-//                aBuilder.setNegativeButton("Редактировать", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        System.out.println("EDIT");
-//                    }
-//                });
-//                aBuilder.setPositiveButton("Удалить", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        listOfLastEntries.remove(position);
-//                        lastEnteredValuesFragmentAdapter.notifyItemRemoved(position);
-//                    }
-//                });
-//
-//                AlertDialog dialog = aBuilder.create();
-//                dialog.show();
-//
-//                TextView dialogExpenseName = (TextView) dialog.findViewById(R.id.edit_cost_value_dialog_costName);
-//                dialogExpenseName.setText(listOfLastEntries.get(position).getExpenseName());
-//
-//                TextView dialogExpenseValue = (TextView) dialog.findViewById(R.id.edit_cost_value_dialog_costValue);
-//                dialogExpenseValue.setText(listOfLastEntries.get(position).getExpenseValueString());
-//
-//                TextView dialogExpenseNote = (TextView) dialog.findViewById(R.id.edit_cost_value_dialog_costNote);
-//                if (listOfLastEntries.get(position).HAS_NOTE)
-//                    dialogExpenseNote.setText(listOfLastEntries.get(position).getExpenseNoteString());
-//                else
-//                    dialogExpenseNote.setVisibility(View.GONE);
-//    }
 }

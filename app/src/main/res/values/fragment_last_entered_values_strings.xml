@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="FragmentLastEnteredValuesScreen_snackbar_rec_del">Запись удалена</string>
+    <string name="FragmentLastEnteredValuesScreen_snackbar_Cancel">Отмена</string>
+    <string name="FragmentLastEnteredValuesScreen_snackbar_Record_restored">Запись восстановлена</string>
+</resources>
