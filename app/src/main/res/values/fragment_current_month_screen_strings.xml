@@ -10,7 +10,7 @@
     <string name="FragmentCurrentMonthScreen_initialCategoriesArray_Entertainment">Развлечения</string>
     <string name="FragmentCurrentMonthScreen_initialCategoriesArray_Other">Прочее</string>
 
-    <string name="FragmentCurrentMonthScreen_Аdd_new_category">Добавить новую категрию</string>
+    <string name="FragmentCurrentMonthScreen_Аdd_new_category">Добавить новую категорию</string>
     <string name="FragmentCurrentMonthScreen_currency_rur">руб.</string>
 
     <string name="FragmentCurrentMonthScreen_Category">Категория</string>

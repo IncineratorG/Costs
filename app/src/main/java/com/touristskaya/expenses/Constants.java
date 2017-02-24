@@ -19,6 +19,8 @@ public class Constants {
             "Июл.", "Авг.", "Сен.", "Окт.", "Нояб.", "Дек." };
     public static final String[] DAY_NAMES = {"", "Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"};
 
+    public static final String SEPARATOR_VALUE = "$";
+    public static final String SEPARATOR_DATE = "#";
 
     public static final String EXPENSE_DATA_UNIT_LABEL = "expense_data_unit";
     public static final String EDIT_DIALOG_TAG = "edit_dialog_tag";
@@ -34,6 +36,9 @@ public class Constants {
     public static final int STATISTIC_DETAILED_ACTIVITY = 102;
     public static final int FRAGMENT_STATISTIC_MAIN_SCREEN = 103;
     public static final int EDIT_DATA_ACTIVITY = 104;
+    public static final int STATISTIC_COST_TYPE_DETAILED_ACTIVITY = 105;
+    public static final int STATISTIC_CHOSE_PERIOD_ACTIVITY = 106;
+    public static final int STATISTIC_CHOSEN_PERIOD_ACTIVITY = 107;
 
     public static final String SAVED_VALUE = "savedvalue";
 
@@ -58,6 +63,33 @@ public class Constants {
     public static final String DATA_FOR_STATISTIC_DETAILED_ACTIVITY = "for_statistic_detailed_activity";
     public static final String DATA_FOR_STATISTIC_COST_TYPE_DETAILED_ACTIVITY = "for_cost_type_detailed_activity";
 
+    public static final String BACKUP_FOLDER_NAME_DELIMITER = "@#@";
+
+
+    public static boolean mainActivityFragmentsDataIsActual = false;
+    private static boolean currentMonthFragmentDataIsLoaded = false;
+    private static boolean lastEnteredValuesFragmentDataIsLoaded = false;
+    private static boolean statisticMainScreenFragmentDataIsLoaded = false;
+
+    public static void currentMonthFragmentDataIsActual(boolean isActual) {
+        currentMonthFragmentDataIsLoaded = isActual;
+        setMainActivityFragmentsDataIsActual();
+    }
+    public static void lastEnteredValuesFragmentDataIsActual(boolean isActual) {
+        lastEnteredValuesFragmentDataIsLoaded = isActual;
+        setMainActivityFragmentsDataIsActual();
+    }
+    public static void statisticMainScreenFragmentDataIsActual(boolean isActual) {
+        statisticMainScreenFragmentDataIsLoaded = isActual;
+        setMainActivityFragmentsDataIsActual();
+    }
+
+    private static void setMainActivityFragmentsDataIsActual() {
+        if (currentMonthFragmentDataIsLoaded && lastEnteredValuesFragmentDataIsLoaded && statisticMainScreenFragmentDataIsLoaded)
+            mainActivityFragmentsDataIsActual = true;
+        else
+            mainActivityFragmentsDataIsActual = false;
+    }
 
 
 

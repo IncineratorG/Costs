@@ -21,10 +21,10 @@ import java.util.List;
 public class FragmentLastEnteredValuesScreen_V2 extends Fragment {
     private Context context;
     private RecyclerView recyclerView;
-    private List<ExpensesDataUnit> listOfLastEntries;
+    private List<DataUnitExpenses> listOfLastEntries;
     private AdapterLastEnteredValuesRecyclerView_V2 lastEnteredValuesFragmentAdapter;
     private int selectedItemPosition = -1;
-    private CostsDB cdb;
+    private DB_Costs cdb;
 
     private Snackbar deleteItemSnackbar;
 
@@ -53,7 +53,7 @@ public class FragmentLastEnteredValuesScreen_V2 extends Fragment {
         super.onResume();
 
         // Получаем последние введённые значения
-        cdb = CostsDB.getInstance(context);
+        cdb = DB_Costs.getInstance(context);
         listOfLastEntries = cdb.getLastEntries_V3(100);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
@@ -73,6 +73,7 @@ public class FragmentLastEnteredValuesScreen_V2 extends Fragment {
             }
         });
         recyclerView.setAdapter(lastEnteredValuesFragmentAdapter);
+        Constants.lastEnteredValuesFragmentDataIsActual(true);
     }
 
     // Обработка результата нажатия кнопок в диалоговом окне, отображающемся
@@ -84,7 +85,8 @@ public class FragmentLastEnteredValuesScreen_V2 extends Fragment {
         if (requestCode == Constants.EDIT_EXPENSE_RECORD_DIALOG_REQUEST_CODE) {
             switch (resultCode) {
                 case Constants.DELETE_ITEM:
-                    final ExpensesDataUnit deletedItem = listOfLastEntries.get(selectedItemPosition);
+                    Constants.lastEnteredValuesFragmentDataIsActual(false);
+                    final DataUnitExpenses deletedItem = listOfLastEntries.get(selectedItemPosition);
 
                     // Удаляем выбранный элемент
                     listOfLastEntries.remove(selectedItemPosition);
@@ -125,7 +127,8 @@ public class FragmentLastEnteredValuesScreen_V2 extends Fragment {
 
                     break;
                 case Constants.EDIT_ITEM:
-                    ExpensesDataUnit editedItem = listOfLastEntries.get(selectedItemPosition);
+                    Constants.lastEnteredValuesFragmentDataIsActual(false);
+                    DataUnitExpenses editedItem = listOfLastEntries.get(selectedItemPosition);
                     Intent inputDataActivityIntent = new Intent(context, ActivityInputData.class);
                     inputDataActivityIntent.putExtra(Constants.EXPENSE_DATA_UNIT_LABEL, editedItem);
                     inputDataActivityIntent.putExtra(Constants.ACTIVITY_INPUT_DATA_MODE, Constants.EDIT_MODE);

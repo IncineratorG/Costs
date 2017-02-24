@@ -21,7 +21,8 @@ import java.util.List;
 public class AdapterCurrentMonthScreenRecyclerView extends RecyclerView.Adapter<AdapterCurrentMonthScreenRecyclerView.FragmentCurrentMonthScreenViewHolder> {
 
     private OnItemClickListener clickListener;
-    private List<ExpensesDataUnit> data;
+    private OnItemLongClickListener longClickListener;
+    private List<DataUnitExpenses> data;
     private Context context;
     private Calendar calendar;
     private Fragment targetFragment;
@@ -29,10 +30,13 @@ public class AdapterCurrentMonthScreenRecyclerView extends RecyclerView.Adapter<
     public interface OnItemClickListener {
         void onItemClick(View itemView, int position);
     }
+    public interface OnItemLongClickListener {
+        void onItemLongClick(View itemView, int position);
+    }
 
 
 
-    public AdapterCurrentMonthScreenRecyclerView(List<ExpensesDataUnit> data, Context context, Fragment targetFragment) {
+    public AdapterCurrentMonthScreenRecyclerView(List<DataUnitExpenses> data, Context context, Fragment targetFragment) {
         this.data = data;
         this.context = context;
         this.targetFragment = targetFragment;
@@ -69,28 +73,16 @@ public class AdapterCurrentMonthScreenRecyclerView extends RecyclerView.Adapter<
         // При обработке пункта "Добавить новую категорию" необходимо
         // скрыть ненужные элементы
         if (data.get(position).getExpenseId_N() == Integer.MIN_VALUE) {
-            holder.editCategoryImageView.setVisibility(View.GONE);
-            holder.categoryValueTextView.setVisibility(View.GONE);
-            holder.inCurrentMonthTextView.setVisibility(View.GONE);
-            holder.arrowRight.setVisibility(View.GONE);
-
-//            holder.topLayout.setOnLongClickListener(null);
+            holder.editCategoryImageView.setVisibility(View.INVISIBLE);
+            holder.categoryValueTextView.setVisibility(View.INVISIBLE);
+            holder.inCurrentMonthTextView.setVisibility(View.INVISIBLE);
+            holder.arrowRight.setVisibility(View.INVISIBLE);
         } else {
             holder.inCurrentMonthTextView.setVisibility(View.VISIBLE);
             holder.editCategoryImageView.setVisibility(View.VISIBLE);
             holder.categoryValueTextView.setVisibility(View.VISIBLE);
             holder.arrowRight.setVisibility(View.VISIBLE);
             holder.categoryValueTextView.setText(data.get(position).getExpenseValueString() + " руб.");
-
-//            holder.topLayout.setOnLongClickListener(new View.OnLongClickListener() {
-//                @Override
-//                public boolean onLongClick(View v) {
-//                    DialogFragmentEditExpenseName editExpenseNameDialogFragment = DialogFragmentEditExpenseName.newInstance(data.get(finalPosition));
-//                    editExpenseNameDialogFragment.setTargetFragment(targetFragment, Constants.EDIT_EXPENSE_NAME_REQUEST_CODE);
-//                    editExpenseNameDialogFragment.show(((AppCompatActivity) context).getSupportFragmentManager(), Constants.EDIT_DIALOG_TAG);
-//                    return true;
-//                }
-//            });
         }
     }
 
@@ -103,9 +95,14 @@ public class AdapterCurrentMonthScreenRecyclerView extends RecyclerView.Adapter<
     public void setClickListener(OnItemClickListener listener) {
         this.clickListener = listener;
     }
+    public void setLongClickListener(OnItemLongClickListener listener) {
+        this.longClickListener = listener;
+    }
+
 
     // ===================================== View Holder ===========================================
-    public class FragmentCurrentMonthScreenViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class FragmentCurrentMonthScreenViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener,
+            View.OnLongClickListener {
 
         private ImageView editCategoryImageView;
         private ImageView arrowRight;
@@ -127,6 +124,7 @@ public class AdapterCurrentMonthScreenRecyclerView extends RecyclerView.Adapter<
             topLayout = (LinearLayout) itemView.findViewById(R.id.current_month_single_item_top_layout);
 
             itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(this);
         }
 
         @Override
@@ -135,5 +133,12 @@ public class AdapterCurrentMonthScreenRecyclerView extends RecyclerView.Adapter<
                 clickListener.onItemClick(v, getAdapterPosition());
         }
 
+
+        @Override
+        public boolean onLongClick(View v) {
+            if (longClickListener != null)
+                longClickListener.onItemLongClick(v, getAdapterPosition());
+            return true;
+        }
     }
 }

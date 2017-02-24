@@ -46,10 +46,10 @@ public class FragmentStatisticMainScreen extends Fragment {
     public void onResume() {
         super.onResume();
 
-        CostsDB cdb = CostsDB.getInstance(context);
+        DB_Costs cdb = DB_Costs.getInstance(context);
 
         // Получаем суммарные значения за месяц и год
-        final List<ExpensesDataUnit> sumByMonthList = cdb.getSumByMonthsList();
+        final List<DataUnitExpenses> sumByMonthList = cdb.getSumByMonthsList();
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -65,6 +65,7 @@ public class FragmentStatisticMainScreen extends Fragment {
             }
         });
         recyclerView.setAdapter(statisticMainScreenRecyclerViewAdapter);
+        Constants.statisticMainScreenFragmentDataIsActual(true);
     }
 
     // Вызов диалога ручного задания периода просмотра статистики расходов
@@ -82,8 +83,8 @@ public class FragmentStatisticMainScreen extends Fragment {
 
         if (requestCode == Constants.CHOOSE_STATISTIC_PERIOD_REQUEST_CODE) {
             if (resultCode == Constants.CHOOSE_STATISTIC_PERIOD_RESULT_CODE) {
-                ExpensesDataUnit startingDateDataUnit = null;
-                ExpensesDataUnit endingDateDataUnit = null;
+                DataUnitExpenses startingDateDataUnit = null;
+                DataUnitExpenses endingDateDataUnit = null;
 
                 if (data == null)
                     return;

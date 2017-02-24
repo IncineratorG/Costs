@@ -30,8 +30,8 @@
         android:layout_alignParentStart="true">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:id="@+id/curren_month_screen_month_textview"
             android:layout_weight="1"
             android:gravity="right|center_vertical|end"
@@ -41,7 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             app:srcCompat="@drawable/arrow_right"
-            android:id="@+id/imageView" />
+            android:id="@+id/current_month_screen_arrow_right_imageview" />
 
         <LinearLayout
             android:orientation="vertical"
@@ -65,7 +65,8 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/deeperGrey"></LinearLayout>
+                android:background="@color/deeperGrey"
+                android:id="@+id/current_month_screen_overall_value_underline"/>
         </LinearLayout>
 
     </LinearLayout>

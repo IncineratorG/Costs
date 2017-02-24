@@ -24,8 +24,8 @@
             android:layout_weight="1"
             android:textAppearance="@style/TextAppearance.AppCompat"
             android:textSize="18sp"
-            android:singleLine="true"
-            android:maxLines="1"
+            android:singleLine="false"
+            android:maxLines="2"
             android:ellipsize="end"
             android:textStyle="normal|bold" />
     </LinearLayout>
@@ -46,7 +46,8 @@
             android:gravity="right|end"
             android:layout_gravity="center"
             android:maxLines="1"
-            android:ellipsize="end"/>
+            android:ellipsize="end"
+            android:singleLine="true" />
     </LinearLayout>
 
 </LinearLayout>

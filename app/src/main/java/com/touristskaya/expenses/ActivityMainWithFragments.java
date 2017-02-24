@@ -20,10 +20,6 @@ public class ActivityMainWithFragments extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_with_fragments);
 
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.activity_main_toolbar);
-        toolbar.setTitle("Мои расходы");
-        setSupportActionBar(toolbar);
-
         final TabLayout mainActivityTabLayout = (TabLayout) findViewById(R.id.activity_main_tab_layout);
         mainActivityTabLayout.addTab(mainActivityTabLayout.newTab().setText("Tab 1"));
         mainActivityTabLayout.addTab(mainActivityTabLayout.newTab().setText("Tab 2"));
@@ -50,6 +46,7 @@ public class ActivityMainWithFragments extends AppCompatActivity {
 
 
         final ViewPager mainActivityViewPager = (ViewPager) findViewById(R.id.activity_main_viewpager);
+        mainActivityViewPager.setOffscreenPageLimit(mainActivityTabLayout.getTabCount());
         final AdapterMainActivityPager mainActivityViewPagerAdapter = new AdapterMainActivityPager
                 (getSupportFragmentManager(), mainActivityTabLayout.getTabCount());
         mainActivityViewPager.setAdapter(mainActivityViewPagerAdapter);
@@ -58,12 +55,8 @@ public class ActivityMainWithFragments extends AppCompatActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 mainActivityViewPager.setCurrentItem(tab.getPosition());
-                mainActivityViewPagerAdapter.notifyDataSetChanged();
-
-//                Fragment f = (Fragment) mainActivityViewPagerAdapter.instantiateItem(null, 0);
-//                View view = f.getView();
-//                TextView tv = (TextView) view.findViewById(R.id.current_month_screen_overall_value_textview);
-//                tv.setText("none");
+                if (!Constants.mainActivityFragmentsDataIsActual)
+                    mainActivityViewPagerAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -95,15 +88,19 @@ public class ActivityMainWithFragments extends AppCompatActivity {
             switch (TARGET_TAB) {
                 case Constants.FRAGMENT_CURRENT_MONTH_SCREEN:
                     selectedTab = mainActivityTabLayout.getTabAt(0);
-                    selectedTab.select();
+                    if (selectedTab != null)
+                        selectedTab.select();
                     break;
                 case Constants.FRAGMENT_LAST_ENTERED_VALUES_SCREEN:
                     selectedTab = mainActivityTabLayout.getTabAt(1);
-                    selectedTab.select();
+                    if (selectedTab != null)
+                        selectedTab.select();
                     break;
                 case Constants.FRAGMENT_STATISTIC_MAIN_SCREEN:
+                    Constants.mainActivityFragmentsDataIsActual = true;
                     selectedTab = mainActivityTabLayout.getTabAt(2);
-                    selectedTab.select();
+                    if (selectedTab != null)
+                        selectedTab.select();
             }
         }
     }

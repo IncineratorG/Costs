@@ -17,9 +17,9 @@ import java.util.Calendar;
  */
 
 public class DialogFragmentEdit extends DialogFragment implements View.OnClickListener {
-    private static ExpensesDataUnit dataUnit;
+    private static DataUnitExpenses dataUnit;
 
-    static DialogFragmentEdit newInstance(ExpensesDataUnit data) {
+    static DialogFragmentEdit newInstance(DataUnitExpenses data) {
         dataUnit = data;
         return new DialogFragmentEdit();
     }
