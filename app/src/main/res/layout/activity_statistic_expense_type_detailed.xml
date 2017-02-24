@@ -26,7 +26,7 @@
             android:background="@drawable/activity_input_data_buttons_style" />
 
         <TextView
-            android:text="Чтение расходов из SMS"
+            android:text="toolbar"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:textAppearance="@style/TextAppearance.AppCompat"
@@ -69,9 +69,6 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
             android:background="@color/orange"
             android:paddingBottom="15dp"
             android:paddingTop="15dp"
@@ -126,7 +123,7 @@
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@android:color/white"></LinearLayout>
+                    android:background="@android:color/white"/>
 
                 <TextView
                     android:text="52147 руб./день"

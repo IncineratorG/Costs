@@ -18,7 +18,7 @@
 
         <TextView
             android:text="TextView"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/activity_statistic_detailed_single_item_expense_name_textview"
             android:layout_weight="1"
@@ -38,7 +38,7 @@
 
         <TextView
             android:text="TextView"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/activity_statistic_detailed_single_item_expense_value_textview"
             android:layout_weight="1"
