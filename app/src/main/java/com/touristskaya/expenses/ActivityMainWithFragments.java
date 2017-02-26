@@ -1,5 +1,6 @@
 package com.touristskaya.expenses;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
@@ -7,6 +8,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class ActivityMainWithFragments extends AppCompatActivity {
@@ -26,6 +29,16 @@ public class ActivityMainWithFragments extends AppCompatActivity {
         mainActivityTabLayout.addTab(mainActivityTabLayout.newTab().setText("Tab 3"));
         mainActivityTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
+
+        // Переходим на экран сохранение данных на Google Drive
+        ImageView backupDataImageView = (ImageView) findViewById(R.id.activity_main_backup_data_imageview);
+        backupDataImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent backupDataActivity = new Intent(ActivityMainWithFragments.this, ActivityBackupData.class);
+                startActivity(backupDataActivity);
+            }
+        });
 
 
         TextView tabTextView = (TextView) LayoutInflater.from(this).inflate(R.layout.activity_main_with_fragments_custom_tab, null);
