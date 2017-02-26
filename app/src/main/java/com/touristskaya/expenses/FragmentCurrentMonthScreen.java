@@ -247,6 +247,10 @@ public class FragmentCurrentMonthScreen extends Fragment {
 
     // Обрабатываем длительное нажатие на элемент списка расходов
     public void onRecyclerViewItemLongClick(View itemView, int position) {
+        DataUnitExpenses selectedDataUnit = listOfActiveCostNames.get(position);
+        if (selectedDataUnit.getExpenseId_N() == Integer.MIN_VALUE)
+            return;
+
         DialogFragmentEditExpenseName editExpenseNameDialogFragment = DialogFragmentEditExpenseName.newInstance(listOfActiveCostNames.get(position));
         editExpenseNameDialogFragment.setTargetFragment(FragmentCurrentMonthScreen.this, Constants.EDIT_EXPENSE_NAME_REQUEST_CODE);
         editExpenseNameDialogFragment.show(getFragmentManager(), Constants.EDIT_DIALOG_TAG);
