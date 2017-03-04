@@ -34,7 +34,9 @@ public class DialogFragmentEdit extends DialogFragment implements View.OnClickLi
         calendar.setTimeInMillis(milliseconds);
 
         TextView costValueTextView = (TextView) v.findViewById(R.id.edit_cost_value_dialog_costValue);
-        costValueTextView.setText(dataUnit.getExpenseValueString() + " руб.");
+        costValueTextView.setText(dataUnit.getExpenseValueString() + " " +
+                                    getResources().getString(R.string.rur_string) +
+                                    getResources().getString(R.string.dot_sign_string));
         TextView costNameTextView = (TextView) v.findViewById(R.id.edit_cost_value_dialog_costName);
         costNameTextView.setText(dataUnit.getExpenseName());
         TextView costDateTextView = (TextView) v.findViewById(R.id.edit_cost_value_dialog_costDate);

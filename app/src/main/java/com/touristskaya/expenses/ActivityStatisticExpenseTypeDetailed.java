@@ -72,7 +72,9 @@ public class ActivityStatisticExpenseTypeDetailed extends AppCompatActivity {
         expenseNameTextView.setText(chosenExpenseTypeDataUnit.getExpenseName());
 
         // Отображаем суммарные расходоы по выбранной категории за выбранный период
-        expenseValueTextView.setText(chosenExpenseTypeDataUnit.getExpenseValueString() + " руб.");
+        expenseValueTextView.setText(chosenExpenseTypeDataUnit.getExpenseValueString() + " " +
+                                        getResources().getString(R.string.rur_string) +
+                                        getResources().getString(R.string.dot_sign_string));
 
         switch (STATISTIC_DETAILED_ACTIVITY_MODE) {
             case Constants.STATISTIC_DETAILED_ACTIVITY_MODE_BY_MONTHS: {
@@ -95,7 +97,10 @@ public class ActivityStatisticExpenseTypeDetailed extends AppCompatActivity {
 
                 // Устанавливаем средний расход в день
                 double averageExpensesPerDay = chosenExpenseTypeDataUnit.getExpenseValueDouble() / daysInMonth;
-                perDayExpensesTextView.setText(Constants.formatDigit(averageExpensesPerDay) + " руб./день");
+                perDayExpensesTextView.setText(Constants.formatDigit(averageExpensesPerDay) + " " +
+                                                getResources().getString(R.string.rur_string) +
+                                                getResources().getString(R.string.dot_sign_string) + "/" +
+                                                getResources().getString(R.string.asetd_perDayExpensesTextView_day_string));
 
                 // Отображаем выбранный период просмотра
                 toolBarTextView.setText(Constants.MONTH_NAMES[chosenExpenseTypeDataUnit.getMonth()] + " " +
@@ -106,8 +111,6 @@ public class ActivityStatisticExpenseTypeDetailed extends AppCompatActivity {
                         chosenExpenseTypeDataUnit.getYear(),
                         chosenExpenseTypeDataUnit.getExpenseId_N(),
                         chosenExpenseTypeDataUnit.getExpenseName());
-//                currentDataUnitList = originalDataUnitList;
-//                sortedListsList.add(currentDataUnitList);
 
                 expenseTypeDetailedAdapter = new AdapterStatisticExpenseTypeDetailedRecyclerView(originalDataUnitList, this);
                 recyclerView.setAdapter(expenseTypeDetailedAdapter);
@@ -127,7 +130,10 @@ public class ActivityStatisticExpenseTypeDetailed extends AppCompatActivity {
 
                 // Устанавливаем средний расход в день
                 double averageExpensesPerDay = chosenExpenseTypeDataUnit.getExpenseValueDouble() / chosenAmountOfDays;
-                perDayExpensesTextView.setText(Constants.formatDigit(averageExpensesPerDay) + " руб./день");
+                perDayExpensesTextView.setText(Constants.formatDigit(averageExpensesPerDay) + " " +
+                                                getResources().getString(R.string.rur_string) +
+                                                getResources().getString(R.string.dot_sign_string) + "/" +
+                                                getResources().getString(R.string.asetd_perDayExpensesTextView_day_string));
 
                 // Отображаем выбранный период просмотра
                 toolBarTextView.setText(new StringBuilder()
@@ -148,7 +154,6 @@ public class ActivityStatisticExpenseTypeDetailed extends AppCompatActivity {
                         endingDateDataUnit.getMilliseconds(),
                         chosenExpenseTypeDataUnit.getExpenseName(),
                         chosenExpenseTypeDataUnit.getExpenseId_N());
-//                currentDataUnitList = new ArrayList<>(originalDataUnitList);
 
                 expenseTypeDetailedAdapter = new AdapterStatisticExpenseTypeDetailedRecyclerView(originalDataUnitList, this);
                 recyclerView.setAdapter(expenseTypeDetailedAdapter);

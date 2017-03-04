@@ -18,19 +18,15 @@ import java.util.List;
  * TODO: Add a class header comment
  */
 
-public class FragmentLastEnteredValuesScreen_V2 extends Fragment {
+public class FragmentLastEnteredValuesScreen extends Fragment {
     private Context context;
     private RecyclerView recyclerView;
     private List<DataUnitExpenses> listOfLastEntries;
-    private AdapterLastEnteredValuesRecyclerView_V2 lastEnteredValuesFragmentAdapter;
+    private AdapterLastEnteredValuesRecyclerView lastEnteredValuesFragmentAdapter;
     private int selectedItemPosition = -1;
     private DB_Costs cdb;
 
     private Snackbar deleteItemSnackbar;
-
-
-
-
 
 
     @Override
@@ -61,14 +57,14 @@ public class FragmentLastEnteredValuesScreen_V2 extends Fragment {
 
         // При нажатии на элемент списка появляется диалоговое окно, из которого можно
         // удалить или изменить выбранную запись
-        lastEnteredValuesFragmentAdapter = new AdapterLastEnteredValuesRecyclerView_V2(listOfLastEntries, context);
-        lastEnteredValuesFragmentAdapter.setClickListener(new AdapterLastEnteredValuesRecyclerView_V2.OnItemClickListener() {
+        lastEnteredValuesFragmentAdapter = new AdapterLastEnteredValuesRecyclerView(listOfLastEntries, context);
+        lastEnteredValuesFragmentAdapter.setClickListener(new AdapterLastEnteredValuesRecyclerView.OnItemClickListener() {
             @Override
             public void onItemClick(View itemView, final int position) {
                 selectedItemPosition = position;
 
                 DialogFragmentEdit editDialogFragment = DialogFragmentEdit.newInstance(listOfLastEntries.get(position));
-                editDialogFragment.setTargetFragment(FragmentLastEnteredValuesScreen_V2.this, Constants.EDIT_EXPENSE_RECORD_DIALOG_REQUEST_CODE);
+                editDialogFragment.setTargetFragment(FragmentLastEnteredValuesScreen.this, Constants.EDIT_EXPENSE_RECORD_DIALOG_REQUEST_CODE);
                 editDialogFragment.show(getFragmentManager(), Constants.EDIT_DIALOG_TAG);
             }
         });
@@ -100,9 +96,9 @@ public class FragmentLastEnteredValuesScreen_V2 extends Fragment {
                     // с возможностью его восстановления при нажатии кнопки "Отмена"
                     deleteItemSnackbar = Snackbar
                             .make(recyclerView,
-                                    getResources().getString(R.string.FragmentLastEnteredValuesScreen_snackbar_rec_del),
+                                    getResources().getString(R.string.flev_deleteItemSnackbar_string),
                                     Snackbar.LENGTH_LONG)
-                            .setAction(getResources().getString(R.string.FragmentLastEnteredValuesScreen_snackbar_Cancel), new View.OnClickListener() {
+                            .setAction(getResources().getString(R.string.flev_deleteItemSnackbar_action_cancel_string), new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
                                     listOfLastEntries.add(selectedItemPosition, deletedItem);
@@ -117,7 +113,7 @@ public class FragmentLastEnteredValuesScreen_V2 extends Fragment {
 
                                     Snackbar restoreItemSnackbar = Snackbar
                                             .make(recyclerView,
-                                                    getResources().getString(R.string.FragmentLastEnteredValuesScreen_snackbar_Record_restored),
+                                                    getResources().getString(R.string.flev_restoreItemSnackbar_string),
                                                     Snackbar.LENGTH_LONG);
                                     restoreItemSnackbar.show();
                                 }

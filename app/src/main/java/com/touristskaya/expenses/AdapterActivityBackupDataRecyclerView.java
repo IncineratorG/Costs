@@ -93,19 +93,12 @@ public class AdapterActivityBackupDataRecyclerView extends RecyclerView.Adapter<
     // ===================================== View Holder ===========================================
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-//        private LinearLayout descriptionTopLayout;
-//        private LinearLayout backupDateLayout;
-//        private LinearLayout descriptionBodyLayout;
         private TextView backupDateTextView;
         private TextView deviceDescriptionTextView;
 
 
         public ViewHolder(View itemView) {
             super(itemView);
-//
-//            descriptionTopLayout = (LinearLayout) itemView.findViewById(R.id.backup_data_single_item_backup_description_layout);
-//            backupDateLayout = (LinearLayout) itemView.findViewById(R.id.backup_data_single_item_backup_date_layout);
-//            descriptionBodyLayout = (LinearLayout) itemView.findViewById(R.id.backup_data_single_item_backup_description_body_layout);
 
             backupDateTextView = (TextView) itemView.findViewById(R.id.backup_data_single_item_backup_date_textview);
             deviceDescriptionTextView = (TextView) itemView.findViewById(R.id.backup_data_single_item_device_description_textview);

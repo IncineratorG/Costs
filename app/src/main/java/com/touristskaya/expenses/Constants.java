@@ -9,6 +9,7 @@ import java.text.NumberFormat;
 import java.util.Locale;
 
 public class Constants {
+
     public static final String[] DECLENSION_MONTH_NAMES = {"Января", "Февраля", "Марта", "Апреля",
             "Мая", "Июня", "Июля", "Августа",
             "Сентября", "Октября", "Ноября", "Декабря"};

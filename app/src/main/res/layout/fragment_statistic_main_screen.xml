@@ -15,7 +15,7 @@
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_above="@+id/button_divider">
+        android:layout_above="@+id/statistic_main_screen__choose_period_button_divider">
 
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
@@ -32,16 +32,16 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_above="@+id/chosePeriodButton"
+        android:layout_above="@+id/statistic_main_screen_chose_period_button"
         android:background="@color/orange"
-        android:id="@+id/button_divider"></LinearLayout>
+        android:id="@+id/statistic_main_screen__choose_period_button_divider"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Задать период"
+        android:text="@string/statistic_main_screen_chose_period_button_string"
         android:textColor="@drawable/button_text_color_black"
-        android:id="@+id/chosePeriodButton"
+        android:id="@+id/statistic_main_screen_chose_period_button"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/keyboard_buttons_custom"
         android:layout_alignParentBottom="true" />

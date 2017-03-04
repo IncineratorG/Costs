@@ -43,10 +43,10 @@
             android:clickable="true"
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
-            android:layout_height="36dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_width="54dp" />
+            android:layout_width="54dp"
+            android:layout_height="36dp" />
 
     </RelativeLayout>
 

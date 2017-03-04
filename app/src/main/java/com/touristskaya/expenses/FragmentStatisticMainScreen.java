@@ -30,7 +30,7 @@ public class FragmentStatisticMainScreen extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View statisticMainScreenView = inflater.inflate(R.layout.fragment_statistic_main_screen, container, false);
-        chooseStatisticPeriodButton = (Button) statisticMainScreenView.findViewById(R.id.chosePeriodButton);
+        chooseStatisticPeriodButton = (Button) statisticMainScreenView.findViewById(R.id.statistic_main_screen_chose_period_button);
         chooseStatisticPeriodButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,7 +55,7 @@ public class FragmentStatisticMainScreen extends Fragment {
         recyclerView.setLayoutManager(linearLayoutManager);
 
         AdapterStatisticMainScreenRecyclerView statisticMainScreenRecyclerViewAdapter = new AdapterStatisticMainScreenRecyclerView(sumByMonthList, context);
-        statisticMainScreenRecyclerViewAdapter.setClickListener(new AdapterLastEnteredValuesRecyclerView_V2.OnItemClickListener() {
+        statisticMainScreenRecyclerViewAdapter.setClickListener(new AdapterLastEnteredValuesRecyclerView.OnItemClickListener() {
             @Override
             public void onItemClick(View itemView, int position) {
                 Intent statisticDetailedActivityIntent = new Intent(context, ActivityStatisticDetailed.class);

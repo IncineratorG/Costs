@@ -33,7 +33,7 @@
                 android:layout_marginStart="5dp" />
 
             <TextView
-                android:text="Электроника"
+                android:text="@string/current_month_single_item_category_textview_string"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/current_month_single_item_category_textview"
@@ -60,7 +60,7 @@
                 android:layout_gravity="end">
 
                 <TextView
-                    android:text="В текущем месяце"
+                    android:text="@string/current_month_single_item_in_current_month_textview_string"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:id="@+id/current_month_single_item_in_current_month_textview"
@@ -73,7 +73,7 @@
                     android:id="@+id/current_month_single_item_arrow_right_imageview" />
 
                 <TextView
-                    android:text="500 руб."
+                    android:text="@string/current_month_single_item_value_textview_string"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:id="@+id/current_month_single_item_value_textview"

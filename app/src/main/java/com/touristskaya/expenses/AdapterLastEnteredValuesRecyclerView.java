@@ -15,7 +15,7 @@ import java.util.List;
  * TODO: Add a class header comment
  */
 
-public class AdapterLastEnteredValuesRecyclerView extends RecyclerView.Adapter<AdapterLastEnteredValuesRecyclerView.FragmentLastEnteredValuesViewHolder> {
+public class AdapterLastEnteredValuesRecyclerView extends RecyclerView.Adapter<AdapterLastEnteredValuesRecyclerView.FragmentLastEnteredValuesViewHolder_V2> {
 
     private OnItemClickListener clickListener;
     private List<DataUnitExpenses> data;
@@ -39,18 +39,17 @@ public class AdapterLastEnteredValuesRecyclerView extends RecyclerView.Adapter<A
     }
 
     @Override
-    public FragmentLastEnteredValuesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_last_entered_values_single_item, parent, false);
-        return new FragmentLastEnteredValuesViewHolder(v);
+    public FragmentLastEnteredValuesViewHolder_V2 onCreateViewHolder(ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_last_entered_values_screen_single_item, parent, false);
+        return new FragmentLastEnteredValuesViewHolder_V2(v);
     }
 
     @Override
-    public void onBindViewHolder(FragmentLastEnteredValuesViewHolder holder, int position) {
-
+    public void onBindViewHolder(FragmentLastEnteredValuesViewHolder_V2 holder, int position) {
         // Группируем список последних введённых значений по дате занесения элементов в базу
         if (position > 0 && (data.get(position - 1).getDay() == data.get(position).getDay() &&
-                             data.get(position - 1).getMonth() == data.get(position).getMonth() &&
-                             data.get(position - 1).getYear() == data.get(position).getYear()))
+                data.get(position - 1).getMonth() == data.get(position).getMonth() &&
+                data.get(position - 1).getYear() == data.get(position).getYear()))
         {
             holder.dateLayout.setVisibility(View.GONE);
         }
@@ -66,25 +65,21 @@ public class AdapterLastEnteredValuesRecyclerView extends RecyclerView.Adapter<A
         }
 
         holder.expensesTypeTextView.setText(data.get(position).getExpenseName());
-        holder.expensesValueTextView.setText(data.get(position).getExpenseValueString() + " руб.");
+        holder.expensesValueTextView.setText(data.get(position).getExpenseValueString() + " " +
+                                                context.getResources().getString(R.string.rur_string) +
+                                                context.getResources().getString(R.string.dot_sign_string));
         holder.expensesNoteTextView.setVisibility(View.VISIBLE);
-        holder.separatorLineLayout.setVisibility(View.VISIBLE);;
+        holder.noteSeparatorLayout.setVisibility(View.VISIBLE);;
 
         // Если у элемента нет заметки - убираем соответсвующее поле
         if (!data.get(position).getExpenseNoteString().equals("")) {
             holder.expensesNoteTextView.setVisibility(View.VISIBLE);
-            holder.separatorLineLayout.setVisibility(View.VISIBLE);
+            holder.noteSeparatorLayout.setVisibility(View.VISIBLE);
             holder.expensesNoteTextView.setText(data.get(position).getExpenseNoteString());
         } else {
             holder.expensesNoteTextView.setVisibility(View.GONE);
-            holder.separatorLineLayout.setVisibility(View.GONE);
+            holder.noteSeparatorLayout.setVisibility(View.GONE);
         }
-
-        holder.editLayout.setClickable(false);
-        holder.deleteLayout.setClickable(false);
-
-        holder.hiddenDataTextView.setText("0");
-        holder.layoutWithText.clearAnimation();
     }
 
     @Override
@@ -99,37 +94,26 @@ public class AdapterLastEnteredValuesRecyclerView extends RecyclerView.Adapter<A
 
 
     // ===================================== View Holder ===========================================
-    public class FragmentLastEnteredValuesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private LinearLayout layoutWithText;
-        private LinearLayout editLayout;
-        private LinearLayout deleteLayout;
-        private LinearLayout separatorLineLayout;
-        private LinearLayout topLayout;
+    public class FragmentLastEnteredValuesViewHolder_V2 extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+        private LinearLayout noteSeparatorLayout;
         private LinearLayout dateLayout;
-        private TextView hiddenDataTextView;
         private TextView expensesTypeTextView;
         private TextView expensesValueTextView;
         private TextView expensesNoteTextView;
         private TextView dateTextView;
 
 
-        public FragmentLastEnteredValuesViewHolder(View itemView) {
+        public FragmentLastEnteredValuesViewHolder_V2(View itemView) {
             super(itemView);
 
-            hiddenDataTextView = (TextView) itemView.findViewById(R.id.fragment_last_entered_values_hidden_data_textview);
-            hiddenDataTextView.setText("0");
-            hiddenDataTextView.setVisibility(View.GONE);
             expensesTypeTextView = (TextView) itemView.findViewById(R.id.fragment_last_entered_values_expenses_type_textview);
             expensesValueTextView = (TextView) itemView.findViewById(R.id.fragment_last_entered_values_expenses_value_textview);
             expensesNoteTextView = (TextView) itemView.findViewById(R.id.fragment_last_entered_values_expenses_note_textview);
             dateTextView = (TextView) itemView.findViewById(R.id.fragment_last_entered_values_date_textview);
 
-            editLayout = (LinearLayout) itemView.findViewById(R.id.fragment_last_entered_values_edit_layout);
-            deleteLayout = (LinearLayout) itemView.findViewById(R.id.fragment_last_entered_values_delete_layout);
-            separatorLineLayout = (LinearLayout) itemView.findViewById(R.id.fragment_last_entered_values_note_separator_line);
-            topLayout = (LinearLayout) itemView.findViewById(R.id.fragment_last_entered_values_top_layout);
+            noteSeparatorLayout = (LinearLayout) itemView.findViewById(R.id.fragment_last_entered_values_layout_horizontal_note_separator);
             dateLayout = (LinearLayout) itemView.findViewById(R.id.fragment_last_entered_values_date_layout);
-            layoutWithText = (LinearLayout) itemView.findViewById(R.id.fragment_statistic_main_screen_layout_with_text);
 
             itemView.setOnClickListener(this);
         }

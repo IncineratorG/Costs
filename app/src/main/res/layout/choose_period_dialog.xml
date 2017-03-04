@@ -295,7 +295,7 @@
         android:weightSum="2">
 
         <Button
-            android:text="@string/calendar_ok"
+            android:text="@string/choose_period_dialog_ok_button_string"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/choose_period_ok"
@@ -311,7 +311,7 @@
             android:background="#FF9800"/>
 
         <Button
-            android:text="@string/calendar_cancel"
+            android:text="@string/choose_period_dialog_cancel_button_string"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/choose_period_cancel"

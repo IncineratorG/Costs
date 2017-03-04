@@ -22,7 +22,7 @@ public class AdapterMainActivityPager extends FragmentStatePagerAdapter {
                 FragmentCurrentMonthScreen tab1 = new FragmentCurrentMonthScreen();
                 return tab1;
             case 1:
-                FragmentLastEnteredValuesScreen_V2 tab2 = new FragmentLastEnteredValuesScreen_V2();
+                FragmentLastEnteredValuesScreen tab2 = new FragmentLastEnteredValuesScreen();
                 return tab2;
             case 2:
                 FragmentStatisticMainScreen tab3 = new FragmentStatisticMainScreen();

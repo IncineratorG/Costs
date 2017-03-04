@@ -52,7 +52,7 @@ public class FragmentCurrentMonthScreen extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View currentMonthScreenView = inflater.inflate(R.layout.fragment_current_month_screen, container, false);
         recyclerView = (RecyclerView) currentMonthScreenView.findViewById(R.id.current_month_screen_recycler_view);
-        currentMonthTextView = (TextView) currentMonthScreenView.findViewById(R.id.curren_month_screen_month_textview);
+        currentMonthTextView = (TextView) currentMonthScreenView.findViewById(R.id.current_month_screen_month_textview);
         overallValueTextView = (TextView) currentMonthScreenView.findViewById(R.id.current_month_screen_overall_value_textview);
 
         return currentMonthScreenView;
@@ -71,7 +71,7 @@ public class FragmentCurrentMonthScreen extends Fragment {
         currentYear = calendar.get(Calendar.YEAR);
         currentDay = calendar.get(Calendar.DAY_OF_MONTH);
 
-        currentMonthTextView.setText(getResources().getString(R.string.FragmentCurrentMonthScreen_currentMonthTextView_Overall_for)
+        currentMonthTextView.setText(getResources().getString(R.string.fcm_currentMonthTextView_string)
                                         + " "
                                         + Constants.MONTH_NAMES[currentMonth]);
 
@@ -79,13 +79,13 @@ public class FragmentCurrentMonthScreen extends Fragment {
         // При первом запуске программы заносим категории расходов по умолчанию
         if (cdb.COSTS_DB_IS_EMPTY()) {
             String[] initialCategoriesArray = new String[] {
-                    getResources().getString(R.string.FragmentCurrentMonthScreen_initialCategoriesArray_Products),
-                    getResources().getString(R.string.FragmentCurrentMonthScreen_initialCategoriesArray_Purchases),
-                    getResources().getString(R.string.FragmentCurrentMonthScreen_initialCategoriesArray_Street_food),
-                    getResources().getString(R.string.FragmentCurrentMonthScreen_initialCategoriesArray_Transport),
-                    getResources().getString(R.string.FragmentCurrentMonthScreen_initialCategoriesArray_Costs_for_apartment),
-                    getResources().getString(R.string.FragmentCurrentMonthScreen_initialCategoriesArray_Entertainment),
-                    getResources().getString(R.string.FragmentCurrentMonthScreen_initialCategoriesArray_Other)
+                    getResources().getString(R.string.fcm_initialCategoriesArray_Products_string),
+                    getResources().getString(R.string.fcm_initialCategoriesArray_Purchases_string),
+                    getResources().getString(R.string.fcm_initialCategoriesArray_Street_food_string),
+                    getResources().getString(R.string.fcm_initialCategoriesArray_Transport_string),
+                    getResources().getString(R.string.fcm_initialCategoriesArray_Costs_for_apartment_string),
+                    getResources().getString(R.string.fcm_initialCategoriesArray_Entertainment_string),
+                    getResources().getString(R.string.fcm_initialCategoriesArray_Other_string)
             };
 
             for (String category : initialCategoriesArray)
@@ -108,13 +108,14 @@ public class FragmentCurrentMonthScreen extends Fragment {
         // Последним элементом списка явлеятся пункт "Добавить новую категорию"
         DataUnitExpenses addNewCategoryDataUnit = new DataUnitExpenses();
         addNewCategoryDataUnit.setExpenseId_N(Integer.MIN_VALUE);
-        addNewCategoryDataUnit.setExpenseName(getResources().getString(R.string.FragmentCurrentMonthScreen_Аdd_new_category));
+        addNewCategoryDataUnit.setExpenseName(getResources().getString(R.string.fcm_addNewCategoryDataUnit_string));
         addNewCategoryDataUnit.setExpenseValueString("+");
         listOfActiveCostNames.add(addNewCategoryDataUnit);
         // Устанавливаем суммарное значение затрат за текущий месяц
         overallValueTextView.setText(Constants.formatDigit(overallValueForCurrentMonth)
                                             + " "
-                                            + getResources().getString(R.string.FragmentCurrentMonthScreen_currency_rur));
+                                            + getResources().getString(R.string.rur_string)
+                                            + getResources().getString(R.string.dot_sign_string));
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -189,7 +190,9 @@ public class FragmentCurrentMonthScreen extends Fragment {
                     String newExpenseName = inputTextField.getText().toString();
                     // Если название не введено - показываем сообщение
                     if (newExpenseName.isEmpty()) {
-                        Toast emptyNameToast = Toast.makeText(context, "Введите название категории", Toast.LENGTH_SHORT);
+                        Toast emptyNameToast = Toast.makeText(context,
+                                getResources().getString(R.string.fcm_emptyNameToast_string),
+                                Toast.LENGTH_SHORT);
                         emptyNameToast.setGravity(Gravity.CENTER, 0, 0);
                         emptyNameToast.show();
 
@@ -223,11 +226,11 @@ public class FragmentCurrentMonthScreen extends Fragment {
                     // Сообщаем пользователю о добавлении новой категории
                     Snackbar newCategoryCreatedSnackbar = Snackbar
                             .make(recyclerView,
-                                    getResources().getString(R.string.FragmentCurrentMonthScreen_Category)
+                                    getResources().getString(R.string.fcm_messageToUser_Category_string)
                                             + " '"
                                             + newExpenseName
                                             + "' "
-                                            + getResources().getString(R.string.FragmentCurrentMonthScreen_created),
+                                            + getResources().getString(R.string.fcm_newCategoryCreatedSnackbar_created_string),
                                     Snackbar.LENGTH_LONG);
                     newCategoryCreatedSnackbar.show();
                 }
@@ -277,11 +280,11 @@ public class FragmentCurrentMonthScreen extends Fragment {
                         // Если по выбранной на удаление категории нет записей в
                         //  текущем месяце - её можно удалить
                         if (selectedCategory.getExpenseValueDouble() > 0) {
-                            Snackbar hasRecordsInCurrentMonth = Snackbar
+                            Snackbar hasRecordsInCurrentMonthSnackbar = Snackbar
                                     .make(recyclerView,
-                                            getResources().getString(R.string.FragmentCurrentMonthScreen_snackbar_Has_records_in_current_month),
+                                            getResources().getString(R.string.fcm_hasRecordsInCurrentMonthSnackbar_string),
                                             Snackbar.LENGTH_LONG);
-                            hasRecordsInCurrentMonth.show();
+                            hasRecordsInCurrentMonthSnackbar.show();
                         } else {
                             // Удаляем выбранную категорию расходов
                             final int selectedCategoryIndexInList = listOfActiveCostNames.indexOf(selectedCategory);
@@ -294,9 +297,9 @@ public class FragmentCurrentMonthScreen extends Fragment {
                             final DataUnitExpenses finalSelectedCategory = selectedCategory;
                             deleteCategorySnackbar = Snackbar
                                     .make(recyclerView,
-                                            getResources().getString(R.string.FragmentCurrentMonthScreen_snackbar_Record_deleted),
+                                            getResources().getString(R.string.fcm_deleteCategorySnackbar_string),
                                             Snackbar.LENGTH_LONG)
-                                    .setAction(getResources().getString(R.string.FragmentCurrentMonthScreen_Cancel), new View.OnClickListener() {
+                                    .setAction(getResources().getString(R.string.fcm_deleteCategorySnackbar_action_cancel_string), new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
                                             listOfActiveCostNames.add(selectedCategoryIndexInList, finalSelectedCategory);
@@ -307,7 +310,7 @@ public class FragmentCurrentMonthScreen extends Fragment {
 
                                             Snackbar restoreItemSnackbar = Snackbar
                                                     .make(recyclerView,
-                                                            getResources().getString(R.string.FragmentCurrentMonthScreen_snackbar_Record_restored),
+                                                            getResources().getString(R.string.fcm_restoreItemSnackbar_string),
                                                             Snackbar.LENGTH_LONG);
                                             restoreItemSnackbar.show();
                                         }
@@ -339,7 +342,7 @@ public class FragmentCurrentMonthScreen extends Fragment {
 
                         // Инициализируем кнопки всплывающего окна
                         Button addNewCostTypeButton = (Button) dialog.findViewById(R.id.edit_expense_type_popup_rename_expense_type_button);
-                        addNewCostTypeButton.setText(getResources().getString(R.string.FragmentCurrentMonthScreen_addNewCostTypeButton_Rename));
+                        addNewCostTypeButton.setText(getResources().getString(R.string.fcm_addNewCostTypeButton_string));
                         Button cancelButton = (Button) dialog.findViewById(R.id.edit_expense_type_popup_cancel_button);
 
                         // Устанавливаем слушатели на кнопки
@@ -370,9 +373,9 @@ public class FragmentCurrentMonthScreen extends Fragment {
                                         break;
                                     case 2:
                                         messageToUser = new StringBuilder()
-                                                .append(getResources().getString(R.string.FragmentCurrentMonthScreen_Category) + " '")
+                                                .append(getResources().getString(R.string.fcm_messageToUser_Category_string) + " '")
                                                 .append(newCategoryName)
-                                                .append("' " + getResources().getString(R.string.FragmentCurrentMonthScreen_messageToUser_already_created))
+                                                .append("' " + getResources().getString(R.string.fcm_messageToUser_already_created_string))
                                                 .toString();
                                         break;
                                 }

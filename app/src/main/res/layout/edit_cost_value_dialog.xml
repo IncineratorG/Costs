@@ -90,7 +90,7 @@
         android:padding="1dp">
 
         <Button
-            android:text="@string/edit_btn"
+            android:text="@string/edit_cost_value_dialog_edit_button_string"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/edit_cost_value_dialog_editButton"
@@ -103,7 +103,7 @@
             android:textColor="@drawable/button_text_color_black" />
 
         <Button
-            android:text="@string/delete_btn"
+            android:text="@string/edit_cost_value_dialog_delete_button_string"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/edit_cost_value_dialog_deleteButton"
@@ -115,7 +115,7 @@
             android:textColor="@drawable/button_text_color_black" />
 
         <Button
-            android:text="@string/cancel_btn"
+            android:text="@string/edit_cost_value_dialog_cancel_button_string"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/edit_cost_value_dialog_cancelButton"
