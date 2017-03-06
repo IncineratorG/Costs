@@ -106,70 +106,69 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="1dp"
         android:clickable="false"
         android:focusable="false"
-        android:background="@drawable/fragment_last_entered_values_single_item_border">
+        android:padding="1dp">
 
         <LinearLayout
-            android:orientation="horizontal"
+            android:id="@+id/fragment_statistic_main_screen_layout_with_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/fragment_statistic_main_screen_single_item_style"
-            android:id="@+id/fragment_statistic_main_screen_layout_with_text">
+            android:orientation="horizontal">
 
             <LinearLayout
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:orientation="horizontal">
 
                 <TextView
-                    android:text="TextView"
+                    android:id="@+id/fragment_statistic_main_screen_month_textview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/fragment_statistic_main_screen_month_textview"
-                    android:layout_weight="1"
-                    android:textAppearance="@style/TextAppearance.AppCompat"
-                    android:textSize="20sp"
-                    android:layout_marginLeft="5sp"
-                    android:layout_marginStart="5sp"
-                    android:gravity="left|start"
-                    android:textStyle="normal|bold"
                     android:layout_gravity="center_vertical"
                     android:layout_marginEnd="5sp"
+                    android:layout_marginLeft="5sp"
                     android:layout_marginRight="5sp"
-                    android:textColor="@drawable/button_text_color_black" />
+                    android:layout_marginStart="5sp"
+                    android:layout_weight="1"
+                    android:gravity="left|start"
+                    android:text="TextView"
+                    android:textAppearance="@style/TextAppearance.AppCompat"
+                    android:textColor="@drawable/button_text_color_black"
+                    android:textSize="20sp"
+                    android:textStyle="normal|bold" />
             </LinearLayout>
 
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp">
+                android:orientation="vertical"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp">
 
                 <LinearLayout
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.5">
+                    android:layout_weight="0.5"
+                    android:orientation="horizontal">
 
                     <TextView
-                        android:text="TextView"
+                        android:id="@+id/fragment_statistic_main_screen_expenses_value_textview"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/fragment_statistic_main_screen_expenses_value_textview"
-                        android:layout_weight="1"
-                        android:textAppearance="@style/TextAppearance.AppCompat"
-                        android:textSize="20sp"
-                        android:gravity="right|end"
                         android:layout_marginEnd="5sp"
-                        android:layout_marginRight="5sp"
                         android:layout_marginLeft="5sp"
+                        android:layout_marginRight="5sp"
                         android:layout_marginStart="5sp"
-                        android:textColor="@drawable/button_text_color_grey" />
+                        android:layout_weight="1"
+                        android:gravity="right|end"
+                        android:text="TextView"
+                        android:textAppearance="@style/TextAppearance.AppCompat"
+                        android:textColor="@drawable/button_text_color_grey"
+                        android:textSize="20sp" />
                 </LinearLayout>
 
             </LinearLayout>
