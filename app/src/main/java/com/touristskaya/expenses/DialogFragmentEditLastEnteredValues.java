@@ -16,12 +16,12 @@ import java.util.Calendar;
  * TODO: Add a class header comment
  */
 
-public class DialogFragmentEdit extends DialogFragment implements View.OnClickListener {
+public class DialogFragmentEditLastEnteredValues extends DialogFragment implements View.OnClickListener {
     private static DataUnitExpenses dataUnit;
 
-    static DialogFragmentEdit newInstance(DataUnitExpenses data) {
+    static DialogFragmentEditLastEnteredValues newInstance(DataUnitExpenses data) {
         dataUnit = data;
-        return new DialogFragmentEdit();
+        return new DialogFragmentEditLastEnteredValues();
     }
 
     @Override

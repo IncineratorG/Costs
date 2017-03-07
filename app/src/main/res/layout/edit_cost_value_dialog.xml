@@ -103,16 +103,16 @@
             android:textColor="@drawable/button_text_color_black" />
 
         <Button
-            android:text="@string/edit_cost_value_dialog_delete_button_string"
+            android:id="@+id/edit_cost_value_dialog_deleteButton"
+            style="?android:attr/borderlessButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/edit_cost_value_dialog_deleteButton"
-            android:background="@drawable/keyboard_buttons_custom"
             android:layout_weight="1"
-            style="?android:attr/borderlessButtonStyle"
+            android:background="@drawable/keyboard_buttons_custom"
+            android:text="@string/edit_cost_value_dialog_delete_button_string"
             android:textAppearance="@style/TextAppearance.AppCompat"
-            android:textSize="18sp"
-            android:textColor="@drawable/button_text_color_black" />
+            android:textColor="@drawable/button_text_color_black"
+            android:textSize="18sp" />
 
         <Button
             android:text="@string/edit_cost_value_dialog_cancel_button_string"

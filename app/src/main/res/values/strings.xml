@@ -134,6 +134,10 @@
 
     <!-- fragment_statistic_main_screen_single_item.xml -->
 
+    <!-- AdapterStatisticMainScreenRecyclerView.java -->
+    <string name="asmsrv_yearTextView_string">-й год</string>
+    <string name="asmsrv_perMonthValueTextView_string">мес</string>
+
     <!-- FragmentStatisticMainScreenScreen.java -->
     <!-- ======================================================================================= -->
 
@@ -228,5 +232,15 @@
     <!-- choose_period_dialog.xml -->
     <string name="choose_period_dialog_ok_button_string">OK</string>
     <string name="choose_period_dialog_cancel_button_string">Отмена</string>
+    <string name="choose_period_starting_date_textview_string">Начальная дата</string>
+    <string name="choose_period_ending_date_textview_string">Конечная дата</string>
+    <!-- ======================================================================================= -->
+
+
+    <!-- ========================= EDIT_EXPENSE_TYPE_POPUP.XML ================================= -->
+    <!-- edit_expense_type_popup.xml -->
+    <string name="edit_expense_type_popup_expense_type_textview_string">Название категории</string>
+    <string name="edit_expense_type_popup_rename_expense_type_button_string">Добавить</string>
+    <string name="edit_expense_type_popup_cancel_button_string">Отмена</string>
     <!-- ======================================================================================= -->
 </resources>

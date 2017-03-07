@@ -63,7 +63,7 @@ public class FragmentLastEnteredValuesScreen extends Fragment {
             public void onItemClick(View itemView, final int position) {
                 selectedItemPosition = position;
 
-                DialogFragmentEdit editDialogFragment = DialogFragmentEdit.newInstance(listOfLastEntries.get(position));
+                DialogFragmentEditLastEnteredValues editDialogFragment = DialogFragmentEditLastEnteredValues.newInstance(listOfLastEntries.get(position));
                 editDialogFragment.setTargetFragment(FragmentLastEnteredValuesScreen.this, Constants.EDIT_EXPENSE_RECORD_DIALOG_REQUEST_CODE);
                 editDialogFragment.show(getFragmentManager(), Constants.EDIT_DIALOG_TAG);
             }

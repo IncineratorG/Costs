@@ -415,7 +415,6 @@ public class ActivityBackupData extends AppCompatActivity implements GoogleApiCl
                 // Если папка не найдена - прекращаем обработку
                 if (metadataBuffer.getCount() <= 0) {
                     Log.i(TAG, "NO BACKUP DATA FOUND");
-//                    currentDefaultString = "Данные резервной копии не найдены";
                     statusTextView.setText(getResources().getString(R.string.abd_statusTextView_noBackupDataFound_string));
                     createBackupDataButton.setEnabled(true);
                     createBackupDataButton.setTextColor(getResources().getColorStateList(R.color.button_text_color));
@@ -436,8 +435,6 @@ public class ActivityBackupData extends AppCompatActivity implements GoogleApiCl
                 // Если папка с резервной копией найдена - ищем подпапки
                 // резервной копии внутри этой папки
                 Log.i(TAG, "ROOT BACKUP FOLDER FOUND");
-//                currentDefaultString = "Папка резервной копии найдена";
-//                statusTextView.setText("Данные резервной копии найдены");
                 ROOT_BACKUP_FOLDER_FOLDER = ROOT_BACKUP_FOLDER_ID.asDriveFolder();
                 ROOT_BACKUP_FOLDER_FOLDER.listChildren(googleApiClient).setResultCallback(new ResultCallback<DriveApi.MetadataBufferResult>() {
                     @Override
