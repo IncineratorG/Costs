@@ -34,7 +34,7 @@
     <string name="abd_statusTextView_backupDataFound_string">Резервные копии найдены</string>
     <string name="abd_restoreButton_string">Восстановить</string>
     <string name="abd_restoreFromChosenBackupItemDialogBuilder_Title_string">Внимние!</string>
-    <string name="abd_restoreFromChosenBackupItemDialogBuilder_Message_string">Все записи рвсходов будут заменены записями из выбранной резервной копии.</string>
+    <string name="abd_restoreFromChosenBackupItemDialogBuilder_Message_string">Все записи расходов будут заменены записями из выбранной резервной копии.</string>
     <string name="abd_restoreFromChosenBackupItemDialogBuilder_continue_button_string">Продолжить</string>
     <string name="abd_restoreFromChosenBackupItemDialogBuilder_cancel_button_string">Отмена</string>
     <string name="abd_deleteButton_string">Удалить</string>
@@ -120,6 +120,10 @@
     <!-- fragment_last_entered_values_screen.xml-->
 
     <!-- fragment_last_entered_values_screen_single_item.xml -->
+
+    <!-- AdapterLastEnteredValues.java -->
+    <string name="flev_today_string">Сегодня</string>
+    <string name="flev_yesterday_string">Вчера</string>
 
     <!-- FragmentLastEnteredValuesScreen.java -->
     <string name="flev_deleteItemSnackbar_string">Запись удалена</string>

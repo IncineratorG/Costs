@@ -83,9 +83,9 @@ public class DB_Costs extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_COST_NAMES);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_COST_VALUES);
-        onCreate(db);
+//        db.execSQL("DROP TABLE IF EXISTS " + TABLE_COST_NAMES);
+//        db.execSQL("DROP TABLE IF EXISTS " + TABLE_COST_VALUES);
+//        onCreate(db);
     }
 
     public boolean COSTS_DB_IS_EMPTY() {
@@ -184,6 +184,7 @@ public class DB_Costs extends SQLiteOpenHelper {
         return tableCostValuesDataList;
     }
 
+    // Удаляет все данные из TABLE_COST_NAMES
     public void deleteTableCostNames() {
         String query = "DELETE FROM " + TABLE_COST_NAMES;
         SQLiteDatabase db = getWritableDatabase();
@@ -194,6 +195,7 @@ public class DB_Costs extends SQLiteOpenHelper {
             db.close();
     }
 
+    // Удаляет все данные из TABLE_COST_VALUES
     public void deleteTableCostValues() {
         String query = "DELETE FROM " + TABLE_COST_VALUES;
         SQLiteDatabase db = getWritableDatabase();
@@ -204,6 +206,7 @@ public class DB_Costs extends SQLiteOpenHelper {
             db.close();
     }
 
+    // Заменяет все данные TABLE_COST_NAMES данными из списка restoringDataList
     public void restoreTableCostNames(List<DataUnitTableCostNames> restoringDataList) {
         deleteTableCostNames();
 
@@ -244,7 +247,6 @@ public class DB_Costs extends SQLiteOpenHelper {
         if (db != null)
             db.close();
     }
-
     public void restoreTableCostValues(DataUnitTableCostValues restoringData) {
 //        deleteTableCostValues();
 
