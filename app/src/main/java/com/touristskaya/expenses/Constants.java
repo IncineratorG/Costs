@@ -20,8 +20,8 @@ public class Constants {
             "Июл.", "Авг.", "Сен.", "Окт.", "Нояб.", "Дек." };
     public static final String[] DAY_NAMES = {"", "Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"};
 
-    public static final String SEPARATOR_VALUE = "$";
-    public static final String SEPARATOR_DATE = "#";
+//    public static final String SEPARATOR_VALUE = "$";
+//    public static final String SEPARATOR_DATE = "#";
 
     public static final String EXPENSE_DATA_UNIT_LABEL = "expense_data_unit";
     public static final String EDIT_DIALOG_TAG = "edit_dialog_tag";
@@ -44,14 +44,13 @@ public class Constants {
     public static final String SAVED_VALUE = "savedvalue";
 
     public static final int EDIT_EXPENSE_RECORD_DIALOG_REQUEST_CODE = 777;
+    public static final int EDIT_EXPENSE_NAME_REQUEST_CODE = 778;
     public static final int DELETE_ITEM = 11;
     public static final int EDIT_ITEM = 12;
 
     public static final String ACTIVITY_INPUT_DATA_MODE = "ai_mode";
     public static final int EDIT_MODE = 1111;
     public static final int INPUT_MODE = 1112;
-
-    public static final int EDIT_EXPENSE_NAME_REQUEST_CODE = 778;
 
     public static final int CHOOSE_STATISTIC_PERIOD_REQUEST_CODE = 555;
     public static final int CHOOSE_STATISTIC_PERIOD_RESULT_CODE = 556;
@@ -67,6 +66,7 @@ public class Constants {
     public static final String BACKUP_FOLDER_NAME_DELIMITER = "@#@";
 
 
+    // ================ Следим за изменением данных в ActivityMainWithFragments ====================
     public static boolean mainActivityFragmentsDataIsActual = false;
     private static boolean currentMonthFragmentDataIsLoaded = false;
     private static boolean lastEnteredValuesFragmentDataIsLoaded = false;
@@ -91,6 +91,10 @@ public class Constants {
         else
             mainActivityFragmentsDataIsActual = false;
     }
+    // =============================================================================================
+
+
+    public static long EDITED_ITEM_MILLISECONDS = -1;
 
 
 

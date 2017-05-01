@@ -1,10 +1,17 @@
 package com.touristskaya.expenses;
 
+import android.animation.AnimatorSet;
+import android.animation.ArgbEvaluator;
+import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -30,12 +37,14 @@ public class AdapterLastEnteredValuesRecyclerView extends RecyclerView.Adapter<A
     private int yesterdayMonth;
     private int yesterdayYear;
 
+    private long millisecondsOfItemToAnimate = -1;
+
     public interface OnItemClickListener {
         void onItemClick(View itemView, int position);
     }
 
 
-    public AdapterLastEnteredValuesRecyclerView(List<DataUnitExpenses> data, Context context) {
+    public AdapterLastEnteredValuesRecyclerView(List<DataUnitExpenses> data, Context context, long millisecondsOfItemToAnimate) {
         this.data = data;
         this.context = context;
         calendar = Calendar.getInstance();
@@ -49,6 +58,8 @@ public class AdapterLastEnteredValuesRecyclerView extends RecyclerView.Adapter<A
         yesterdayDay = calendar.get(Calendar.DAY_OF_MONTH);
         yesterdayMonth = calendar.get(Calendar.MONTH);
         yesterdayYear = calendar.get(Calendar.YEAR);
+
+        this.millisecondsOfItemToAnimate = millisecondsOfItemToAnimate;
     }
 
     @Override
@@ -81,6 +92,23 @@ public class AdapterLastEnteredValuesRecyclerView extends RecyclerView.Adapter<A
         } else {
             holder.expensesNoteTextView.setVisibility(View.GONE);
             holder.noteSeparatorLayout.setVisibility(View.GONE);
+        }
+
+        // Анимируем элемент, который мы редактировали
+        if (millisecondsOfItemToAnimate != -1 &&
+                data.get(position).getMilliseconds() == millisecondsOfItemToAnimate)
+        {
+            ObjectAnimator animation1 = ObjectAnimator.ofFloat(holder.itemContainerLayout, "translationX", 0f, 100f);
+            ObjectAnimator animation2 = ObjectAnimator.ofFloat(holder.itemContainerLayout, "translationX", 100f, -100f);
+            ObjectAnimator animation3 = ObjectAnimator.ofFloat(holder.itemContainerLayout, "translationX", -100f, 0f);
+
+            AnimatorSet animatorSet = new AnimatorSet();
+            animatorSet.setStartDelay(800);
+            animatorSet.playSequentially(animation1, animation2, animation3);
+            animatorSet.setDuration(200);
+            animatorSet.start();
+
+            millisecondsOfItemToAnimate = -1;
         }
     }
 
@@ -125,11 +153,15 @@ public class AdapterLastEnteredValuesRecyclerView extends RecyclerView.Adapter<A
 
 
 
+
+
+
     // ===================================== View Holder ===========================================
     public class FragmentLastEnteredValuesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private LinearLayout noteSeparatorLayout;
         private LinearLayout dateLayout;
+        private LinearLayout itemContainerLayout;
         private TextView expensesTypeTextView;
         private TextView expensesValueTextView;
         private TextView expensesNoteTextView;
@@ -146,6 +178,7 @@ public class AdapterLastEnteredValuesRecyclerView extends RecyclerView.Adapter<A
 
             noteSeparatorLayout = (LinearLayout) itemView.findViewById(R.id.fragment_last_entered_values_layout_horizontal_note_separator);
             dateLayout = (LinearLayout) itemView.findViewById(R.id.fragment_last_entered_values_date_layout);
+            itemContainerLayout = (LinearLayout) itemView.findViewById(R.id.fragment_last_entered_values_layout_with_text);
 
             itemView.setOnClickListener(this);
         }

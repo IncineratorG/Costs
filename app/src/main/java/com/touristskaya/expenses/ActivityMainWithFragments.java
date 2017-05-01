@@ -67,6 +67,8 @@ public class ActivityMainWithFragments extends AppCompatActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 mainActivityViewPager.setCurrentItem(tab.getPosition());
+                // Обновляем содержимое "mainActivityViewPager" только когда
+                // пользователь что-либо ввёл или изменил
                 if (!Constants.mainActivityFragmentsDataIsActual)
                     mainActivityViewPagerAdapter.notifyDataSetChanged();
             }
@@ -93,10 +95,10 @@ public class ActivityMainWithFragments extends AppCompatActivity {
 
             if (savedValue != null && !"".equals(savedValue)) {
                 Snackbar savedValueSnackbar = Snackbar.make(mainActivityViewPager,
-                        savedValue + " " +                                                              // 250
+                        savedValue + " " +                             // 250
                                 getResources().getString(R.string.rur_string) +                                // руб
-                                getResources().getString(R.string.dot_sign_string) + " " +                   // .
-                                getResources().getString(R.string.savedValueSnackbar_saved_string),     // сохранено
+                                getResources().getString(R.string.dot_sign_string) + " " +                            // .
+                                getResources().getString(R.string.savedValueSnackbar_saved_string),                           // сохранено
                         Snackbar.LENGTH_LONG);
                 savedValueSnackbar.show();
             }
@@ -121,4 +123,5 @@ public class ActivityMainWithFragments extends AppCompatActivity {
             }
         }
     }
+    
 }

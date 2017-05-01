@@ -66,7 +66,7 @@
     <!-- ActivityInputData.java -->
     <string name="aid_showAlertDialogWithMessage_string">Что-то пошло не так</string>
     <string name="aid_showAlertDialogWithMessage_v2_string">Введите значение</string>
-    <string name="aid_showAlertDialogWithMessage_v3_string">Всё очень плохо!</string>
+    <string name="aid_showAlertDialogWithMessage_v3_string">Тысяча извинений, но всё очень плохо. Попробуйте перезапустить приложение.</string>
     <string name="aid_dialogBuilder_positive_button_string">OK</string>
     <string name="aid_wrongPickedDateMessage_string">Выбранная дата ещё не наступила</string>
     <!-- ======================================================================================= -->

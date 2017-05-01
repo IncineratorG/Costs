@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -37,7 +36,7 @@ public class ActivityInputData extends AppCompatActivity implements DialogDatePi
     private TextView toolbarTextView;
 
     private DataUnitExpenses selectedDataUnit;
-    private Button choseDateButton;
+    private Button chooseDateButton;
     private String savedValue = "";
     private long editItemMilliseconds = -1;
 
@@ -95,7 +94,7 @@ public class ActivityInputData extends AppCompatActivity implements DialogDatePi
         // Toolbar имеет разное наполнение в зависимости от того, редактируется ли элемент
         // или вводится новое значение расходов
         if (MODE == Constants.INPUT_MODE) {
-            // При вводе нового значения заполняем toolbar название выбранной
+            // При вводе нового значения заполняем toolbar названием выбранной
             // категории расходов и суммарным значением расходов по этой
             // категории за текущий месяц
             toolbarTextView.setText(costNameString + ": " +
@@ -104,7 +103,7 @@ public class ActivityInputData extends AppCompatActivity implements DialogDatePi
             toolbarExpandExpensesList.setVisibility(View.GONE);
         }
         if (MODE == Constants.EDIT_MODE) {
-            // При редактировании элемента названием выбранного элемента и
+            // При редактировании элемента заполняем toolbar названием выбранного элемента и
             // возможностью открыть список всех существующих категорий расходов
             toolbarTextView.setText(costNameString);
             // При нажатии на "стрелку вниз" появляется диалоговое окно, в котором можно изменить
@@ -132,14 +131,14 @@ public class ActivityInputData extends AppCompatActivity implements DialogDatePi
             // выбранного элемента расходов
             Button dateTodayButton = (Button) findViewById(R.id.activity_input_data_date_today_button);
             Button dateYesterdayButton = (Button) findViewById(R.id.activity_input_data_date_yesterday_button);
-            choseDateButton = (Button) findViewById(R.id.activity_input_data_choose_date_button);
-            choseDateButton.setText(new StringBuilder()
+            chooseDateButton = (Button) findViewById(R.id.activity_input_data_choose_date_button);
+            chooseDateButton.setText(new StringBuilder()
                     .append(selectedDataUnit.getDay())
                     .append(" ")
                     .append(Constants.DECLENSION_MONTH_NAMES[selectedDataUnit.getMonth() - 1])
                     .append(" ")
                     .append(selectedDataUnit.getYear()));
-            choseDateButton.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            chooseDateButton.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
 
             dateTodayButton.setVisibility(View.GONE);
             dateYesterdayButton.setVisibility(View.GONE);
@@ -338,7 +337,8 @@ public class ActivityInputData extends AppCompatActivity implements DialogDatePi
         if (MODE == Constants.EDIT_MODE) {
             cdb = DB_Costs.getInstance(this);
             cdb.removeCostValue(editItemMilliseconds);
-            cdb.addCostInMilliseconds(selectedDataUnit.getExpenseId_N(), inputValueString, selectedDataUnit.getMilliseconds(), inputNoteString);
+            Constants.EDITED_ITEM_MILLISECONDS = cdb.addCostInMilliseconds(selectedDataUnit.getExpenseId_N(), inputValueString,
+                                                                            selectedDataUnit.getMilliseconds(), inputNoteString);
             returnToPreviousActivity();
         }
 
@@ -441,7 +441,7 @@ public class ActivityInputData extends AppCompatActivity implements DialogDatePi
                 selectedDataUnit.setYear(pickedYear);
                 selectedDataUnit.setMilliseconds(pickedTimeInMilliseconds);
 
-                choseDateButton.setText(new StringBuilder()
+                chooseDateButton.setText(new StringBuilder()
                         .append(selectedDataUnit.getDay())
                         .append(" ")
                         .append(Constants.DECLENSION_MONTH_NAMES[selectedDataUnit.getMonth() - 1])

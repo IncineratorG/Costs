@@ -614,22 +614,47 @@ public class DB_Costs extends SQLiteOpenHelper {
         return listOfEntries;
     }
 
-    public List<Long> getLastEnteredMilliseconds(long fromMilliseconds) {
+    // Возвращает заданное число ('numberOfEntries') записей (сумм расходов), занесённых до 'milliseconds'
+    public List<DataUnitExpenses> getEntriesBeforeDateInMilliseconds(long milliseconds, int numberOfEntries) {
         String getLastEntriesQuery = "SELECT " +
-                DATE_IN_MILLISECONDS +
+                ID_N + ", " +
+                DAY + ", " +
+                MONTH + ", " +
+                YEAR + ", " +
+                COST_NAME + ", " +
+                COST_VALUE + ", " +
+                DATE_IN_MILLISECONDS + ", " +
+                TEXT +
                 " FROM " + TABLE_COST_VALUES +
-                " WHERE " + DATE_IN_MILLISECONDS + " > " + fromMilliseconds;
+                " INNER JOIN " + TABLE_COST_NAMES +
+                " ON " + TABLE_COST_VALUES + "." + ID_N_FK + " = " + TABLE_COST_NAMES + "." + ID_N +
+                " WHERE " + DATE_IN_MILLISECONDS + " < " + milliseconds +
+                " ORDER BY " + DATE_IN_MILLISECONDS + " DESC " +
+                " LIMIT " + numberOfEntries;
 
         SQLiteDatabase db = getWritableDatabase();
         Cursor c = null;
-        List<Long> millisecondsList = new ArrayList<>();
+        List<DataUnitExpenses> listOfEntries = new ArrayList<>();
 
         try {
             c = db.rawQuery(getLastEntriesQuery, null);
             c.moveToFirst();
 
             while (!c.isAfterLast()) {
-                millisecondsList.add(c.getLong(c.getColumnIndex(DATE_IN_MILLISECONDS)));
+                DataUnitExpenses singleUnit = new DataUnitExpenses();
+
+                singleUnit.setExpenseId_N(c.getInt(c.getColumnIndex(ID_N)));
+                singleUnit.setDay(c.getInt(c.getColumnIndex(DAY)));
+                singleUnit.setMonth(c.getInt(c.getColumnIndex(MONTH)) + 1);
+                singleUnit.setYear(c.getInt(c.getColumnIndex(YEAR)));
+                singleUnit.setExpenseName(c.getString(c.getColumnIndex(COST_NAME)));
+                double costValueDouble = c.getDouble(c.getColumnIndex(COST_VALUE));
+                singleUnit.setExpenseValueDouble(costValueDouble);
+                singleUnit.setExpenseValueString(Constants.formatDigit(costValueDouble));
+                singleUnit.setMilliseconds(c.getLong(c.getColumnIndex(DATE_IN_MILLISECONDS)));
+                singleUnit.setExpenseNoteString(c.getString(c.getColumnIndex(TEXT)));
+
+                listOfEntries.add(singleUnit);
                 c.moveToNext();
             }
         } catch (Exception e) {
@@ -641,9 +666,129 @@ public class DB_Costs extends SQLiteOpenHelper {
                 db.close();
         }
 
-        return millisecondsList;
+        return listOfEntries;
     }
 
+    // Загружает все записи, внесённые после даты в миллисекундах 'milliseconds',
+    // плюс 20 дополнительных записей, внесённых до 'milliseconds' (число 20 взято просто так).
+    // Запись, соответствующая 'milliseconds', также загружается
+    public List<DataUnitExpenses> getEntriesAfterDateInMilliseconds(long milliseconds) {
+        String getLastEntriesQuery = "SELECT " +
+                ID_N + ", " +
+                DAY + ", " +
+                MONTH + ", " +
+                YEAR + ", " +
+                COST_NAME + ", " +
+                COST_VALUE + ", " +
+                DATE_IN_MILLISECONDS + ", " +
+                TEXT +
+                " FROM " + TABLE_COST_VALUES +
+                " INNER JOIN " + TABLE_COST_NAMES +
+                " ON " + TABLE_COST_VALUES + "." + ID_N_FK + " = " + TABLE_COST_NAMES + "." + ID_N +
+                " WHERE " + DATE_IN_MILLISECONDS + " >= " + milliseconds +
+                " ORDER BY " + DATE_IN_MILLISECONDS + " DESC ";
+//                " UNION ALL " +
+//                " SELECT " +
+//                ID_N + ", " +
+//                DAY + ", " +
+//                MONTH + ", " +
+//                YEAR + ", " +
+//                COST_NAME + ", " +
+//                COST_VALUE + ", " +
+//                DATE_IN_MILLISECONDS + ", " +
+//                TEXT +
+//                " FROM " + TABLE_COST_VALUES +
+//                " INNER JOIN " + TABLE_COST_NAMES +
+//                " ON " + TABLE_COST_VALUES + "." + ID_N_FK + " = " + TABLE_COST_NAMES + "." + ID_N +
+//                " WHERE " + DATE_IN_MILLISECONDS + " < " + milliseconds +
+//                " ORDER BY " + DATE_IN_MILLISECONDS + " DESC " +
+//                " LIMIT " + 20;
+
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor c = null;
+        List<DataUnitExpenses> listOfEntries = new ArrayList<>();
+
+        try {
+            c = db.rawQuery(getLastEntriesQuery, null);
+            c.moveToFirst();
+
+            while (!c.isAfterLast()) {
+                DataUnitExpenses singleUnit = new DataUnitExpenses();
+
+                singleUnit.setExpenseId_N(c.getInt(c.getColumnIndex(ID_N)));
+                singleUnit.setDay(c.getInt(c.getColumnIndex(DAY)));
+                singleUnit.setMonth(c.getInt(c.getColumnIndex(MONTH)) + 1);
+                singleUnit.setYear(c.getInt(c.getColumnIndex(YEAR)));
+                singleUnit.setExpenseName(c.getString(c.getColumnIndex(COST_NAME)));
+                double costValueDouble = c.getDouble(c.getColumnIndex(COST_VALUE));
+                singleUnit.setExpenseValueDouble(costValueDouble);
+                singleUnit.setExpenseValueString(Constants.formatDigit(costValueDouble));
+                singleUnit.setMilliseconds(c.getLong(c.getColumnIndex(DATE_IN_MILLISECONDS)));
+                singleUnit.setExpenseNoteString(c.getString(c.getColumnIndex(TEXT)));
+
+                listOfEntries.add(singleUnit);
+                c.moveToNext();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (c != null)
+                c.close();
+            if (db != null)
+                db.close();
+        }
+
+        getLastEntriesQuery = "SELECT " +
+                ID_N + ", " +
+                DAY + ", " +
+                MONTH + ", " +
+                YEAR + ", " +
+                COST_NAME + ", " +
+                COST_VALUE + ", " +
+                DATE_IN_MILLISECONDS + ", " +
+                TEXT +
+                " FROM " + TABLE_COST_VALUES +
+                " INNER JOIN " + TABLE_COST_NAMES +
+                " ON " + TABLE_COST_VALUES + "." + ID_N_FK + " = " + TABLE_COST_NAMES + "." + ID_N +
+                " WHERE " + DATE_IN_MILLISECONDS + " < " + milliseconds +
+                " ORDER BY " + DATE_IN_MILLISECONDS + " DESC " +
+                " LIMIT " + 20;
+
+        db = getWritableDatabase();
+        c = null;
+
+        try {
+            c = db.rawQuery(getLastEntriesQuery, null);
+            c.moveToFirst();
+
+            while (!c.isAfterLast()) {
+                DataUnitExpenses singleUnit = new DataUnitExpenses();
+
+                singleUnit.setExpenseId_N(c.getInt(c.getColumnIndex(ID_N)));
+                singleUnit.setDay(c.getInt(c.getColumnIndex(DAY)));
+                singleUnit.setMonth(c.getInt(c.getColumnIndex(MONTH)) + 1);
+                singleUnit.setYear(c.getInt(c.getColumnIndex(YEAR)));
+                singleUnit.setExpenseName(c.getString(c.getColumnIndex(COST_NAME)));
+                double costValueDouble = c.getDouble(c.getColumnIndex(COST_VALUE));
+                singleUnit.setExpenseValueDouble(costValueDouble);
+                singleUnit.setExpenseValueString(Constants.formatDigit(costValueDouble));
+                singleUnit.setMilliseconds(c.getLong(c.getColumnIndex(DATE_IN_MILLISECONDS)));
+                singleUnit.setExpenseNoteString(c.getString(c.getColumnIndex(TEXT)));
+
+                listOfEntries.add(singleUnit);
+                c.moveToNext();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (c != null)
+                c.close();
+            if (db != null)
+                db.close();
+        }
+
+        return listOfEntries;
+    }
 
     // Удаляет запись из таблицы TABLE_COST_VALUES, дата в миллисекундах
     // для которой равна "dateInMilliseconds"
@@ -856,60 +1001,6 @@ public class DB_Costs extends SQLiteOpenHelper {
         return expensesDataUnitList;
     }
 
-    public String[] getCostsBetweenDates_V2(long initialDateInMilliseconds, long endingDateInMilliseconds) {
-        String query = "SELECT " +
-                TABLE_COST_NAMES + "." + COST_NAME +
-                ", SUM(" + TABLE_COST_VALUES + "." + COST_VALUE + ") AS SUM, " +
-                TABLE_COST_VALUES + "." + MONTH + ", " +
-                TABLE_COST_VALUES + "." + YEAR + ", " +
-                TABLE_COST_VALUES + "." + DATE_IN_MILLISECONDS + ", " +
-                TABLE_COST_VALUES + "." + ID_N_FK + ", " +
-                TABLE_COST_NAMES + "." + ID_N +
-                " FROM " + TABLE_COST_VALUES +
-                " INNER JOIN " + TABLE_COST_NAMES +
-                " ON " + TABLE_COST_VALUES + "." + ID_N_FK + " = " + TABLE_COST_NAMES + "." + ID_N +
-                " WHERE " + DATE_IN_MILLISECONDS + " BETWEEN " + initialDateInMilliseconds + " AND " + endingDateInMilliseconds +
-                " GROUP BY " + ID_N_FK +
-                " ORDER BY " + "SUM" + " DESC";
-
-        SQLiteDatabase db = getWritableDatabase();
-        Cursor c = null;
-        StringBuilder sb = new StringBuilder();
-        List<String> listOfEntries = new ArrayList<>();
-
-        try {
-            c = db.rawQuery(query, null);
-            c.moveToFirst();
-
-            while (!c.isAfterLast()) {
-                sb.append(c.getString(c.getColumnIndex(COST_NAME)));
-                sb.append(Constants.SEPARATOR_DATE);
-
-                sb.append(c.getString(c.getColumnIndex(MONTH)));
-                sb.append(".");
-                sb.append(c.getString(c.getColumnIndex(YEAR)));
-                sb.append(Constants.SEPARATOR_VALUE);
-
-                sb.append(Constants.formatDigit(c.getDouble(c.getColumnIndex("SUM"))));
-
-                listOfEntries.add(sb.toString());
-                sb.setLength(0);
-                c.moveToNext();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (c != null)
-                c.close();
-            if (db != null)
-                db.close();
-        }
-
-        String[] arrayOfEntries = new String[listOfEntries.size()];
-        listOfEntries.toArray(arrayOfEntries);
-
-        return arrayOfEntries;
-    }
     public List<DataUnitExpenses> getCostsBetweenDates_V3(long initialDateInMilliseconds, long endingDateInMilliseconds) {
         String query = "SELECT " +
                 TABLE_COST_NAMES + "." + COST_NAME +
@@ -959,7 +1050,7 @@ public class DB_Costs extends SQLiteOpenHelper {
     }
 
 
-    public void addCostInMilliseconds(int id_n, String costValue, long milliseconds, String note) {
+    public long addCostInMilliseconds(int id_n, String costValue, long milliseconds, String note) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(milliseconds);
 
@@ -993,5 +1084,7 @@ public class DB_Costs extends SQLiteOpenHelper {
         db.insert(TABLE_COST_VALUES, null, values);
 
         db.close();
+
+        return milliseconds;
     }
 }

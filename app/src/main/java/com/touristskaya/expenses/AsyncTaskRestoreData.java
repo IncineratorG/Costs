@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.util.Xml;
+import android.view.Gravity;
 import android.widget.TextView;
 
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -79,6 +80,7 @@ public class AsyncTaskRestoreData extends AsyncTask<Void, String, Void> {
         AlertDialog.Builder restoringProgressDialogBuilder = new AlertDialog.Builder(context);
         restoringProgressDialogBuilder.setCancelable(false);
         restoringProgressDialogBuilder.setTitle(context.getResources().getString(R.string.atrd_restoringProgressDialogBuilder_Title_string));
+
         restoringProgressDialogBuilder.setMessage(context.getResources().getString(R.string.atrd_restoringProgressDialogBuilder_Message_string));
         restoringProgressDialogBuilder.setPositiveButton(context.getResources().getString(R.string.atrd_restoringProgressDialogBuilder_Cancel_string), new DialogInterface.OnClickListener() {
             @Override
@@ -91,6 +93,7 @@ public class AsyncTaskRestoreData extends AsyncTask<Void, String, Void> {
         restoringProgressDialog.show();
 
         restoringDialogTextView = (TextView) restoringProgressDialog.findViewById(android.R.id.message);
+        restoringDialogTextView.setGravity(Gravity.CENTER_HORIZONTAL);
     }
 
     @Override
