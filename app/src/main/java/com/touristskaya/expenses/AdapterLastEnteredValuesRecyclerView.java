@@ -98,14 +98,14 @@ public class AdapterLastEnteredValuesRecyclerView extends RecyclerView.Adapter<A
         if (millisecondsOfItemToAnimate != -1 &&
                 data.get(position).getMilliseconds() == millisecondsOfItemToAnimate)
         {
-            ObjectAnimator animation1 = ObjectAnimator.ofFloat(holder.itemContainerLayout, "translationX", 0f, 100f);
-            ObjectAnimator animation2 = ObjectAnimator.ofFloat(holder.itemContainerLayout, "translationX", 100f, -100f);
-            ObjectAnimator animation3 = ObjectAnimator.ofFloat(holder.itemContainerLayout, "translationX", -100f, 0f);
+            ObjectAnimator animation1 = ObjectAnimator.ofFloat(holder.itemContainerLayout, "translationX", 0f, 50f);
+            ObjectAnimator animation2 = ObjectAnimator.ofFloat(holder.itemContainerLayout, "translationX", 50f, -50f);
+            ObjectAnimator animation3 = ObjectAnimator.ofFloat(holder.itemContainerLayout, "translationX", -50f, 0f);
 
             AnimatorSet animatorSet = new AnimatorSet();
             animatorSet.setStartDelay(800);
             animatorSet.playSequentially(animation1, animation2, animation3);
-            animatorSet.setDuration(200);
+            animatorSet.setDuration(100);
             animatorSet.start();
 
             millisecondsOfItemToAnimate = -1;
