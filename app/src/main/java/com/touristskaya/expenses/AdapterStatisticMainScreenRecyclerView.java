@@ -48,41 +48,11 @@ public class AdapterStatisticMainScreenRecyclerView extends RecyclerView.Adapter
     @Override
     public void onBindViewHolder(FragmentStatisticMainScreenViewHolder holder, int position) {
         // Группируем список последних введённых значений по году
-        if (position > 0 && data.get(position - 1).getYear() == data.get(position).getYear())
-        {
+        if (position > 0 && data.get(position - 1).getYear() == data.get(position).getYear()) {
             holder.dateLayout.setVisibility(View.GONE);
         }
-        else
-        {
-
+        else {
             calculateTotalExpenseValuesForYear(holder, position);
-
-
-//            holder.dateLayout.setVisibility(View.VISIBLE);
-//            holder.yearTextView.setText(data.get(position).getYear() + context.getResources().getString(R.string.asmsrv_yearTextView_string));
-//
-//            // Получаем величину расходов за один год
-//            double overallExpenseValueForYear = data.get(position).getExpenseValueDouble();
-//            int i = position + 1;
-//            int count = 1;
-//            while (i < data.size() && data.get(i).getYear() == data.get(i - 1).getYear())
-//            {
-//                overallExpenseValueForYear = overallExpenseValueForYear + data.get(i).getExpenseValueDouble();
-//                ++i;
-//                ++count;
-//            }
-//
-//            // Получаем величину расходов в месяц
-//            double expenseValuePerMonth = overallExpenseValueForYear / count;
-//
-//            holder.perMonthValueTextView.setText(Constants.formatDigit(expenseValuePerMonth) + " " +
-//                                                    context.getResources().getString(R.string.rur_string) +
-//                                                    context.getResources().getString(R.string.dot_sign_string) + "/" +
-//                                                    context.getResources().getString(R.string.asmsrv_perMonthValueTextView_string) +
-//                                                    context.getResources().getString(R.string.dot_sign_string));
-//            holder.yearValueTextView.setText(Constants.formatDigit(overallExpenseValueForYear) + " " +
-//                                                    context.getResources().getString(R.string.rur_string) +
-//                                                    context.getResources().getString(R.string.dot_sign_string));
         }
 
         holder.expensesMonthTextView.setText(Constants.MONTH_NAMES[data.get(position).getMonth()]);
