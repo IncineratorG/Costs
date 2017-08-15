@@ -33,12 +33,12 @@
     <string name="abd_statusTextView_noBackupDataFound_string">Резервные копии не найдены</string>
     <string name="abd_statusTextView_backupDataFound_string">Резервные копии найдены</string>
     <string name="abd_restoreButton_string">Восстановить</string>
-    <string name="abd_restoreFromChosenBackupItemDialogBuilder_Title_string">Внимние!</string>
+    <string name="abd_restoreFromChosenBackupItemDialogBuilder_Title_string">Внимание!</string>
     <string name="abd_restoreFromChosenBackupItemDialogBuilder_Message_string">Все записи расходов будут заменены записями из выбранной резервной копии.</string>
     <string name="abd_restoreFromChosenBackupItemDialogBuilder_continue_button_string">Продолжить</string>
     <string name="abd_restoreFromChosenBackupItemDialogBuilder_cancel_button_string">Отмена</string>
     <string name="abd_deleteButton_string">Удалить</string>
-    <string name="abd_deleteBackupItemDialogBuilder_Title_string">Внимние!</string>
+    <string name="abd_deleteBackupItemDialogBuilder_Title_string">Внимание!</string>
     <string name="abd_deleteBackupItemDialogBuilder_Message_string">Удалить выбранную резервную копию?</string>
     <string name="abd_deleteBackupItemDialogBuilder_delete_button_string">Удалить</string>
     <string name="abd_deleteBackupItemDialogBuilder_cancel_button_string">Отмена</string>
@@ -50,6 +50,20 @@
     <string name="abd_dataNotSaved_string">Данные не сохранены!</string>
     <string name="abd_dataRestoredSuccessful_string">Данные восстановлены</string>
     <string name="abd_dataNotRestored_string">Данные не восстановлены!</string>
+    <!-- ======================================================================================= -->
+
+
+    <!-- =========================== ACTIVITY_SMS_EXPENSES_READER ============================== -->
+    <!-- sms_reader_dialog.xml-->
+    <string name="sms_reader_dialog_category_string">Категория</string>
+    <string name="sms_reader_dialog_value_string">Сумма, руб.</string>
+    <string name="sms_reader_dialog_hint_text_string">Заметка</string>
+    <string name="sms_reader_dialog_save_button_string">Сохранить</string>
+    <string name="sms_reader_dialog_cancel_button_string">Отмена</string>
+
+    <!-- sms_reader_dialog_spinner_single_item.java -->
+    <!-- activity_sms_expenses_reader.xml -->
+    <string name="sms_expenses_reader_title_string">Чтение расходов из СМС</string>
     <!-- ======================================================================================= -->
 
 

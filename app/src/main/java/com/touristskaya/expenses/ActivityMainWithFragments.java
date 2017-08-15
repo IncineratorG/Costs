@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -28,6 +29,17 @@ public class ActivityMainWithFragments extends AppCompatActivity {
         mainActivityTabLayout.addTab(mainActivityTabLayout.newTab().setText("Tab 3"));
         mainActivityTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
+        // Переходим на экран чтения данных из СМС
+//        ImageView creditCardImageView = (ImageView) findViewById(R.id.activity_main_credit_card_imageview);
+//        creditCardImageView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                System.out.println("READ_SMS_CLICK");
+//
+//                Intent smsExpensesReaderActivityIntent = new Intent(ActivityMainWithFragments.this, ActivitySmsExpensesReader.class);
+//                startActivity(smsExpensesReaderActivityIntent);
+//            }
+//        });
 
         // Переходим на экран сохранение данных на Google Drive
         ImageView backupDataImageView = (ImageView) findViewById(R.id.activity_main_backup_data_imageview);

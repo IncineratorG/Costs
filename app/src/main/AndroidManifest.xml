@@ -38,6 +38,11 @@
             android:theme="@style/CustomAppStyle"/>
 
         <activity
+            android:name=".ActivitySmsExpensesReader"
+            android:screenOrientation="portrait"
+            android:theme="@style/CustomAppStyle"/>
+
+        <activity
             android:name=".ActivityMainWithFragments"
             android:screenOrientation="portrait"
             android:theme="@style/CustomAppStyle">
