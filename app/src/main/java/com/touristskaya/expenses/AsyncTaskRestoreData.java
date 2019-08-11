@@ -80,7 +80,6 @@ public class AsyncTaskRestoreData extends AsyncTask<Void, String, Void> {
         AlertDialog.Builder restoringProgressDialogBuilder = new AlertDialog.Builder(context);
         restoringProgressDialogBuilder.setCancelable(false);
         restoringProgressDialogBuilder.setTitle(context.getResources().getString(R.string.atrd_restoringProgressDialogBuilder_Title_string));
-
         restoringProgressDialogBuilder.setMessage(context.getResources().getString(R.string.atrd_restoringProgressDialogBuilder_Message_string));
         restoringProgressDialogBuilder.setPositiveButton(context.getResources().getString(R.string.atrd_restoringProgressDialogBuilder_Cancel_string), new DialogInterface.OnClickListener() {
             @Override
@@ -113,6 +112,12 @@ public class AsyncTaskRestoreData extends AsyncTask<Void, String, Void> {
 
     // Получаем данные таблицы TABLE_COST_NAMES из резервной копии
     private void restoreCostNamesData() {
+        if (tableCostNamesBackupFile == null) {
+            countDownLatch.countDown();
+            Log.i(TAG, "tableCostNamesBackupFile IS NULL");
+            return;
+        }
+
         tableCostNamesBackupFile.open(googleApiClient, DriveFile.MODE_READ_ONLY, null).setResultCallback(new ResultCallback<DriveApi.DriveContentsResult>() {
             @Override
             public void onResult(@NonNull DriveApi.DriveContentsResult driveContentsResult) {
@@ -190,6 +195,12 @@ public class AsyncTaskRestoreData extends AsyncTask<Void, String, Void> {
 
     // Получаем данные таблицы TABLE_COST_VALUES из резервной копии
     private void restoreCostValuesData() {
+        if (tableCostValuesBackupFile == null) {
+            Log.i(TAG, "tableCostValuesBackupFile IS NULL");
+            countDownLatch.countDown();
+            return;
+        }
+
         tableCostValuesBackupFile.open(googleApiClient, DriveFile.MODE_READ_ONLY, null).setResultCallback(new ResultCallback<DriveApi.DriveContentsResult>() {
             @Override
             public void onResult(@NonNull DriveApi.DriveContentsResult driveContentsResult) {

@@ -20,9 +20,6 @@ public class Constants {
             "Июл.", "Авг.", "Сен.", "Окт.", "Нояб.", "Дек." };
     public static final String[] DAY_NAMES = {"", "Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"};
 
-//    public static final String SEPARATOR_VALUE = "$";
-//    public static final String SEPARATOR_DATE = "#";
-
     public static final String EXPENSE_DATA_UNIT_LABEL = "expense_data_unit";
     public static final String EDIT_DIALOG_TAG = "edit_dialog_tag";
     public static final String CHOOSE_STATISTIC_PERIOD_DIALOG_TAG = "choose_period_dialog_tag";

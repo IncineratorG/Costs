@@ -30,7 +30,6 @@ public class AdapterStatisticMainScreenRecyclerView extends RecyclerView.Adapter
     public AdapterStatisticMainScreenRecyclerView(List<DataUnitExpenses> data, Context context) {
         this.data = data;
         this.context = context;
-//        calendar = Calendar.getInstance();
         calendar = new GregorianCalendar();
     }
 

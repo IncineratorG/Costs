@@ -106,7 +106,7 @@ public class ActivityStatisticExpenseTypeDetailed extends AppCompatActivity {
                 toolBarTextView.setText(Constants.MONTH_NAMES[chosenExpenseTypeDataUnit.getMonth()] + " " +
                         chosenExpenseTypeDataUnit.getYear());
 
-                // Получаем список всех расходов по выбранной катнгории за выбранной период
+                // Получаем список всех расходов по выбранной категории за выбранной период
                 originalDataUnitList = cdb.getCostValuesArrayOnDateAndCostName_V2(chosenExpenseTypeDataUnit.getMonth(),
                         chosenExpenseTypeDataUnit.getYear(),
                         chosenExpenseTypeDataUnit.getExpenseId_N(),

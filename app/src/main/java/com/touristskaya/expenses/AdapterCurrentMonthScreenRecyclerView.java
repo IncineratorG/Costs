@@ -142,5 +142,6 @@ public class AdapterCurrentMonthScreenRecyclerView extends RecyclerView.Adapter<
                 longClickListener.onItemLongClick(v, getAdapterPosition());
             return true;
         }
+
     }
 }

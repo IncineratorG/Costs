@@ -75,6 +75,7 @@ public class AdapterLastEnteredValuesRecyclerView extends RecyclerView.Adapter<A
 
     @Override
     public void onBindViewHolder(FragmentLastEnteredValuesViewHolder holder, int position) {
+        // Группируем список последних введённых значений по дате занесения элементов в базу
         setHolderDateTextView(holder, position);
 
         holder.expensesTypeTextView.setText(data.get(position).getExpenseName());

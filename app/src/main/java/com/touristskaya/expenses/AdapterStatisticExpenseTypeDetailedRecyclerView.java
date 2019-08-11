@@ -52,7 +52,6 @@ public class AdapterStatisticExpenseTypeDetailedRecyclerView extends RecyclerVie
 
     @Override
     public void onBindViewHolder(StatisticExpenseTypeDetailedViewHolder holder, int position) {
-
         // Группируем список последних введённых значений по дате занесения элементов в базу
         if (position > 0 && (data.get(position - 1).getDay() == data.get(position).getDay() &&
                 data.get(position - 1).getMonth() == data.get(position).getMonth() &&

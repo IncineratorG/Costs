@@ -5,36 +5,32 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class AdapterMainActivityPager extends FragmentStatePagerAdapter {
-    int mNumOfTabs;
+    private int numberOfTabs;
+    private List<Fragment> fragmentsList;
 
-    public AdapterMainActivityPager(FragmentManager fm, int NumOfTabs) {
+    public AdapterMainActivityPager(FragmentManager fm, int numberOfTabs) {
         super(fm);
-        this.mNumOfTabs = NumOfTabs;
+        this.numberOfTabs = numberOfTabs;
+
+        fragmentsList = new ArrayList<>(3);
+        fragmentsList.add(new FragmentCurrentMonthScreen());
+        fragmentsList.add(new FragmentLastEnteredValuesScreen());
+        fragmentsList.add(new FragmentStatisticMainScreen());
     }
 
     @Override
     public Fragment getItem(int position) {
-
-        switch (position) {
-            case 0:
-                FragmentCurrentMonthScreen tab1 = new FragmentCurrentMonthScreen();
-                return tab1;
-            case 1:
-                FragmentLastEnteredValuesScreen tab2 = new FragmentLastEnteredValuesScreen();
-                return tab2;
-            case 2:
-                FragmentStatisticMainScreen tab3 = new FragmentStatisticMainScreen();
-                return tab3;
-            default:
-                return null;
-        }
+        return fragmentsList.get(position);
     }
 
     @Override
     public int getCount() {
-        return mNumOfTabs;
+        return numberOfTabs;
     }
 
     // ================= !!Переделать!! ===================

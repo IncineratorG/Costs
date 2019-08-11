@@ -11,12 +11,10 @@ import java.util.List;
 
 
 class AdapterStatisticDetailedActivityListView extends ArrayAdapter<DataUnitExpenses> {
-
     private Context context;
 
     public AdapterStatisticDetailedActivityListView(Context context, List<DataUnitExpenses> dataUnitList) {
         super(context, R.layout.activity_statistic_detailed_single_item, dataUnitList);
-
         this.context = context;
     }
 
