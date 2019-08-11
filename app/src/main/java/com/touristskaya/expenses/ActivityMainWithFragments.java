@@ -29,18 +29,6 @@ public class ActivityMainWithFragments extends AppCompatActivity {
         mainActivityTabLayout.addTab(mainActivityTabLayout.newTab().setText("Tab 3"));
         mainActivityTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        // Переходим на экран чтения данных из СМС
-//        ImageView creditCardImageView = (ImageView) findViewById(R.id.activity_main_credit_card_imageview);
-//        creditCardImageView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                System.out.println("READ_SMS_CLICK");
-//
-//                Intent smsExpensesReaderActivityIntent = new Intent(ActivityMainWithFragments.this, ActivitySmsExpensesReader.class);
-//                startActivity(smsExpensesReaderActivityIntent);
-//            }
-//        });
-
         // Переходим на экран сохранение данных на Google Drive
         ImageView backupDataImageView = (ImageView) findViewById(R.id.activity_main_backup_data_imageview);
         backupDataImageView.setOnClickListener(new View.OnClickListener() {
