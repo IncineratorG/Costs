@@ -7,8 +7,8 @@ android {
         applicationId "com.touristskaya.expenses"
         minSdkVersion 14
         targetSdkVersion 26
-        versionCode 26
-        versionName "1.149"
+        versionCode 27
+        versionName "1.151"
     }
     buildToolsVersion '28.0.3'
     compileOptions {
@@ -24,6 +24,12 @@ android {
         exclude 'META-INF/NOTICE.txt'
         exclude 'META-INF/notice.txt'
         exclude 'META-INF/ASL2.0'
+    }
+    configurations {
+        all {
+            exclude module: 'httpclient'
+            exclude module: 'commons-logging'
+        }
     }
 }
 
