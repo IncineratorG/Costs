@@ -1,4 +1,4 @@
-package com.touristskaya.expenses;
+package com.touristskaya.expenses.activities.backup;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -39,6 +39,12 @@ import com.google.android.gms.drive.MetadataChangeSet;
 import com.google.android.gms.drive.query.Filters;
 import com.google.android.gms.drive.query.Query;
 import com.google.android.gms.drive.query.SearchableField;
+import com.touristskaya.expenses.ActivityMainWithFragments;
+import com.touristskaya.expenses.AsyncTaskRestoreData;
+import com.touristskaya.expenses.AsyncTaskSaveDeviceData;
+import com.touristskaya.expenses.Constants;
+import com.touristskaya.expenses.DB_Costs;
+import com.touristskaya.expenses.R;
 
 import java.util.ArrayList;
 import java.util.Calendar;
