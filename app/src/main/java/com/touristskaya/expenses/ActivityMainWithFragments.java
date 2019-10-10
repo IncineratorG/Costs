@@ -7,12 +7,14 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 public class ActivityMainWithFragments extends AppCompatActivity {
+    private static final String TAG = "tag";
 
     private int PREVIOUS_ACTIVITY_INDEX = -1;
     private int TARGET_TAB = -1;
@@ -34,8 +36,10 @@ public class ActivityMainWithFragments extends AppCompatActivity {
         backupDataImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent backupDataActivity = new Intent(ActivityMainWithFragments.this, ActivityBackupData.class);
-                startActivity(backupDataActivity);
+                Log.d(TAG, "ActivityMainWithFragments.onCreate()->BACKUP_DATA_IMAGE_VIEW_CLICK");
+
+//                Intent backupDataActivity = new Intent(ActivityMainWithFragments.this, ActivityBackupData.class);
+//                startActivity(backupDataActivity);
             }
         });
 
