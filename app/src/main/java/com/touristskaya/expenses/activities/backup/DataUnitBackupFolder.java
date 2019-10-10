@@ -1,14 +1,13 @@
-package com.touristskaya.expenses;
+package com.touristskaya.expenses.activities.backup;
 
-import com.google.android.gms.drive.DriveId;
+import com.touristskaya.expenses.Constants;
 
 /**
  * TODO: Add a class header comment
  */
 
 public class DataUnitBackupFolder {
-
-    private DriveId driveId;
+    private String driveId;
     private String title;
     public boolean STATUS_OK = false;
 
@@ -23,11 +22,12 @@ public class DataUnitBackupFolder {
     public boolean HAS_COMMENT = false;
 
 
-    DataUnitBackupFolder() {
+    public DataUnitBackupFolder() {
+
     }
 
 
-    public void setDriveId(DriveId driveId) {
+    public void setDriveId(String driveId) {
         this.driveId = driveId;
     }
     public void setTitle(String title) {
@@ -92,7 +92,7 @@ public class DataUnitBackupFolder {
     }
 
 
-    public DriveId getDriveId() {
+    public String getDriveId() {
         return driveId;
     }
     public String getTitle() {

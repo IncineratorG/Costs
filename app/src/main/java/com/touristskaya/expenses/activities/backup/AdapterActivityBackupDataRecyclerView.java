@@ -1,4 +1,4 @@
-package com.touristskaya.expenses;
+package com.touristskaya.expenses.activities.backup;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -6,6 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.touristskaya.expenses.Constants;
+import com.touristskaya.expenses.R;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
