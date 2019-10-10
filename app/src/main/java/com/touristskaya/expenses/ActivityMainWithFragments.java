@@ -4,14 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.touristskaya.expenses.activities.backup.ActivityBackupData;
 
 public class ActivityMainWithFragments extends AppCompatActivity {
     private static final String TAG = "tag";
@@ -36,10 +36,8 @@ public class ActivityMainWithFragments extends AppCompatActivity {
         backupDataImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "ActivityMainWithFragments.onCreate()->BACKUP_DATA_IMAGE_VIEW_CLICK");
-
-//                Intent backupDataActivity = new Intent(ActivityMainWithFragments.this, ActivityBackupData.class);
-//                startActivity(backupDataActivity);
+                Intent backupDataActivity = new Intent(ActivityMainWithFragments.this, ActivityBackupData.class);
+                startActivity(backupDataActivity);
             }
         });
 
@@ -97,6 +95,7 @@ public class ActivityMainWithFragments extends AppCompatActivity {
             TARGET_TAB = bundle.getInt(Constants.TARGET_TAB);
             savedValue = bundle.getString(Constants.SAVED_VALUE);
 
+
             if (savedValue != null && !"".equals(savedValue)) {
                 Snackbar savedValueSnackbar = Snackbar.make(mainActivityViewPager,
                         savedValue + " " +                             // 250
@@ -128,4 +127,22 @@ public class ActivityMainWithFragments extends AppCompatActivity {
         }
     }
 
+//    private boolean isTranslucentNavigationBar(Activity activity) {
+//        Window w = activity.getWindow();
+//        WindowManager.LayoutParams lp = w.getAttributes();
+//        int flags = lp.flags;
+//        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT
+//                && (flags & WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION)
+//                == WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION;
+//
+//    }
+//
+//    private int getNavigationBarHeight() {
+//        Resources resources = this.getResources();
+//        int resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android");
+//        if (resourceId > 0) {
+//            return resources.getDimensionPixelSize(resourceId);
+//        }
+//        return 0;
+//    }
 }
