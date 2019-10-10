@@ -27,10 +27,14 @@ public class DeleteDeviceBackupTask extends AsyncTask<Object, Object, Object> {
 
     @Override
     protected Object doInBackground(Object... objects) {
+        if (mGoogleDriveService == null || mBackupFolderId == null || mBackupFolderId.isEmpty()) {
+            return null;
+        }
+
         try {
             mGoogleDriveService.files().delete(mBackupFolderId).execute();
         } catch (IOException e) {
-            Log.d(TAG, "DeleteDeviceBackupTask->doInBackground()->IOEXCEPTION: " + e.getMessage());
+            Log.d(TAG, "DeleteDeviceBackupTask.doInBackground()->IOEXCEPTION: " + e.getMessage());
             return null;
         }
 

@@ -60,12 +60,15 @@ public class CreateDeviceBackupTask extends AsyncTask<Object, Object, Object> {
 
     @Override
     protected void onCancelled() {
-        mCompletionCallback.complete(false);
+//        Log.d(TAG, "CreateDeviceBackupTask.onCancelled()");
+//        Log.d(TAG, "CreateDeviceBackupTask.onCancelled()->mDeviceBackupFolderId: " + mDeviceBackupFolderId);
+
+        mCompletionCallback.complete(false, mDeviceBackupFolderId);
     }
 
     @Override
     protected void onPostExecute(Object o) {
-        mCompletionCallback.complete(true);
+        mCompletionCallback.complete(true, mDeviceBackupFolderId);
     }
 
     private ByteArrayOutputStream generateTableCostNamesXml() {

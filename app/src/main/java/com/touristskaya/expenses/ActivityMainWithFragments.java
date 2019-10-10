@@ -95,6 +95,7 @@ public class ActivityMainWithFragments extends AppCompatActivity {
             TARGET_TAB = bundle.getInt(Constants.TARGET_TAB);
             savedValue = bundle.getString(Constants.SAVED_VALUE);
 
+
             if (savedValue != null && !"".equals(savedValue)) {
                 Snackbar savedValueSnackbar = Snackbar.make(mainActivityViewPager,
                         savedValue + " " +                             // 250
@@ -126,4 +127,22 @@ public class ActivityMainWithFragments extends AppCompatActivity {
         }
     }
 
+//    private boolean isTranslucentNavigationBar(Activity activity) {
+//        Window w = activity.getWindow();
+//        WindowManager.LayoutParams lp = w.getAttributes();
+//        int flags = lp.flags;
+//        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT
+//                && (flags & WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION)
+//                == WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION;
+//
+//    }
+//
+//    private int getNavigationBarHeight() {
+//        Resources resources = this.getResources();
+//        int resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android");
+//        if (resourceId > 0) {
+//            return resources.getDimensionPixelSize(resourceId);
+//        }
+//        return 0;
+//    }
 }

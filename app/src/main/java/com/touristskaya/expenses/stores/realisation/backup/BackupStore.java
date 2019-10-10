@@ -444,18 +444,18 @@ public class BackupStore extends Store {
         }
 
         Payload setCreateDeviceBackupStatusPayload = new Payload();
-        setCreateDeviceBackupStatusPayload.set("createDeviceBackupStatus", new CreateDeviceBackupStatus(CreateDeviceBackupStatus.InProgress));
+        setCreateDeviceBackupStatusPayload.set("createDeviceBackupStatus", new CreateDeviceBackupStatus(CreateDeviceBackupStatus.InProgress, null));
 
         Action setCreateDeviceBackupStatus = mActionsFactory.getAction(BackupActionsFactory.SetCreateDeviceBackupStatus);
         setCreateDeviceBackupStatus.setPayload(setCreateDeviceBackupStatusPayload);
 
         dispatch(setCreateDeviceBackupStatus);
 
-        mBackupService.createDeviceBackup(googleDriveService, rootFolderId, costsDb, (complete) -> {
+        mBackupService.createDeviceBackup(googleDriveService, rootFolderId, costsDb, (complete, backupFolderId) -> {
             if (complete) {
-                setCreateDeviceBackupStatusPayload.set("createDeviceBackupStatus", new CreateDeviceBackupStatus(CreateDeviceBackupStatus.Complete));
+                setCreateDeviceBackupStatusPayload.set("createDeviceBackupStatus", new CreateDeviceBackupStatus(CreateDeviceBackupStatus.Complete, backupFolderId));
             } else {
-                setCreateDeviceBackupStatusPayload.set("createDeviceBackupStatus", new CreateDeviceBackupStatus(CreateDeviceBackupStatus.NotComplete));
+                setCreateDeviceBackupStatusPayload.set("createDeviceBackupStatus", new CreateDeviceBackupStatus(CreateDeviceBackupStatus.NotComplete, backupFolderId));
             }
             setCreateDeviceBackupStatus.setPayload(setCreateDeviceBackupStatusPayload);
 
