@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,6 +41,7 @@ public class FragmentCurrentMonthScreen extends Fragment {
     private List<DataUnitExpenses> listOfActiveCostNames;
     private Snackbar deleteCategorySnackbar;
     private double overallValueForCurrentMonth;
+    private static int scrollPositionIndex = -1;
 
 
     @Override
@@ -142,6 +144,11 @@ public class FragmentCurrentMonthScreen extends Fragment {
         });
 
         recyclerView.setAdapter(currentMonthScreenAdapter);
+        if (scrollPositionIndex >= 0) {
+            recyclerView.scrollToPosition(scrollPositionIndex);
+            scrollPositionIndex = -1;
+        }
+
         Constants.currentMonthFragmentDataIsActual(true);
     }
 
@@ -150,6 +157,7 @@ public class FragmentCurrentMonthScreen extends Fragment {
         DataUnitExpenses selectedDataUnit = listOfActiveCostNames.get(position);
         // Переходим на экран ввода затрат по выбранной категории
         if (selectedDataUnit.getExpenseId_N() != Integer.MIN_VALUE) {
+            scrollPositionIndex = position;
             Constants.currentMonthFragmentDataIsActual(false);
             Intent inputDataActivityIntent = new Intent(context, ActivityInputData.class);
             inputDataActivityIntent.putExtra(Constants.EXPENSE_DATA_UNIT_LABEL, selectedDataUnit);

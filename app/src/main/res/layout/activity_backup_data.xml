@@ -108,6 +108,14 @@
             android:text="@string/backup_data_backup_button_string"
             android:textColor="@drawable/button_text_color_black" />
 
+        <Button
+            android:id="@+id/backup_data_sign_in_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/keyboard_buttons_custom"
+            android:text="@string/backup_data_sign_in_button_string"
+            android:textColor="@drawable/button_text_color_black" />
+
     </LinearLayout>
 
 </RelativeLayout>

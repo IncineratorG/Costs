@@ -22,6 +22,7 @@
     <string name="backup_data_toolbar_text_view_string">Резервное копирование</string>
     <string name="backup_data_status_textview_string">Status: none</string>
     <string name="backup_data_backup_button_string">Создать резервную копию</string>
+    <string name="backup_data_sign_in_button_string">Войти</string>
 
     <!-- ActivityBackupData.java -->
     <string name="abd_statusTextView_noConnection_string">Нет соединения с сетью</string>

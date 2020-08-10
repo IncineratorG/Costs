@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ public class FragmentStatisticMainScreen extends Fragment {
 //    private ListView periodsListView;
     private RecyclerView recyclerView;
     private Button chooseStatisticPeriodButton;
+    private static int scrollPositionIndex = -1;
 
     @Override
     public void onAttach(Context context) {
@@ -58,6 +60,8 @@ public class FragmentStatisticMainScreen extends Fragment {
         statisticMainScreenRecyclerViewAdapter.setClickListener(new AdapterLastEnteredValuesRecyclerView.OnItemClickListener() {
             @Override
             public void onItemClick(View itemView, int position) {
+                scrollPositionIndex = linearLayoutManager.findFirstCompletelyVisibleItemPosition();
+
                 Intent statisticDetailedActivityIntent = new Intent(context, ActivityStatisticDetailed.class);
                 statisticDetailedActivityIntent.putExtra(Constants.STATISTIC_DETAILED_ACTIVITY_MODE, Constants.STATISTIC_DETAILED_ACTIVITY_MODE_BY_MONTHS);
                 statisticDetailedActivityIntent.putExtra(Constants.DATA_FOR_STATISTIC_DETAILED_ACTIVITY, sumByMonthList.get(position));
@@ -65,6 +69,11 @@ public class FragmentStatisticMainScreen extends Fragment {
             }
         });
         recyclerView.setAdapter(statisticMainScreenRecyclerViewAdapter);
+        if (scrollPositionIndex >= 0) {
+            linearLayoutManager.scrollToPositionWithOffset(scrollPositionIndex, 0);
+            scrollPositionIndex = -1;
+        }
+
         Constants.statisticMainScreenFragmentDataIsActual(true);
     }
 

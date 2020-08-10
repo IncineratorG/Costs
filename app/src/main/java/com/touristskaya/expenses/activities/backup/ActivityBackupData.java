@@ -57,6 +57,7 @@ public class ActivityBackupData extends AppCompatActivity {
     private static final String CLASS_NAME = "ActivityBackupData";
 
     private Button createBackupDataButton;
+    private Button signInButton;
     private TextView statusTextView;
     private ImageView arrowBackImageView;
     private ImageView selectGoogleAccountImageView;
@@ -67,6 +68,7 @@ public class ActivityBackupData extends AppCompatActivity {
     private List<DataUnitBackupFolder> existingDeviceBackupFolders = new ArrayList<>();
 
     private static final int REQUEST_CODE_SIGN_IN = 1;
+    private static boolean needRequestSignIn = true;
 
     private Store mBackupStore;
     private BackupState mBackupState;
@@ -93,6 +95,15 @@ public class ActivityBackupData extends AppCompatActivity {
         createBackupDataButton.setEnabled(false);
         createBackupDataButton.setTextColor(ContextCompat.getColor(this, R.color.lightGrey));
         createBackupDataButton.setOnClickListener((v) -> createDeviceBackup());
+        createBackupDataButton.setVisibility(View.GONE);
+
+        signInButton = (Button) findViewById(R.id.backup_data_sign_in_button);
+        signInButton.setEnabled(true);
+        signInButton.setOnClickListener((v) -> {
+            statusTextView.setText("Вход в аккаунт Google");
+            requestSignIn();
+        });
+        signInButton.setVisibility(View.VISIBLE);
 
         // При нажатии стрелки назад - возвращаемся к предыдущему экрану
         arrowBackImageView = (ImageView) findViewById(R.id.backup_data_arrow_back_imageview);
@@ -115,7 +126,7 @@ public class ActivityBackupData extends AppCompatActivity {
         // Подписываемся на необходимые параметры хранилища.
         setSubscriptions();
 
-        // Все кнопки, кроме кнопки "Назад" делаем неактивными до момента получения данных обфайлах резервных копий.
+        // Все кнопки, кроме кнопки "Назад" делаем неактивными до момента получения данных о файлах резервных копий.
         disableBackground();
 
         mProgressDialog = new ProgressDialog(ActivityBackupData.this);
@@ -138,7 +149,7 @@ public class ActivityBackupData extends AppCompatActivity {
 
         mBackupStore.dispatch(checkInternetConnectionAction);
 
-        if (mBackupState.hasInternetConnection.get()) {
+        if (mBackupState.hasInternetConnection.get() && needRequestSignIn) {
             if (!mBackupState.signedIn.get()) {
                 statusTextView.setText("Вход в аккаунт Google");
                 requestSignIn();
@@ -201,6 +212,26 @@ public class ActivityBackupData extends AppCompatActivity {
             case REQUEST_CODE_SIGN_IN:
                 if (resultCode == Activity.RESULT_OK && resultData != null) {
                     handleSignInResult(resultData);
+
+                    needRequestSignIn = true;
+                } else {
+                    needRequestSignIn = false;
+
+                    if (mBackupState.hasInternetConnection.get()) {
+                        if (!mBackupState.signedIn.get()) {
+                            signInButton.setEnabled(false);
+                            signInButton.setOnClickListener((v) -> {
+                                statusTextView.setText("Вход в аккаунт Google");
+                                requestSignIn();
+                            });
+                            signInButton.setEnabled(true);
+                            signInButton.setVisibility(View.VISIBLE);
+                            createBackupDataButton.setVisibility(View.GONE);
+                        } else {
+                            signInButton.setVisibility(View.GONE);
+                            createBackupDataButton.setVisibility(View.VISIBLE);
+                        }
+                    }
                 }
                 break;
         }
@@ -570,7 +601,10 @@ public class ActivityBackupData extends AppCompatActivity {
             backupDataRecyclerViewAdapter.setClickListener((v, p) -> onBackupItemClick(p));
         }
 
+        signInButton.setVisibility(View.GONE);
+
         createBackupDataButton.setEnabled(true);
+        createBackupDataButton.setVisibility(View.VISIBLE);
         createBackupDataButton.setBackgroundResource(R.drawable.keyboard_buttons_custom);
         createBackupDataButton.setTextColor(getResources().getColorStateList(R.color.button_text_color));
 
