@@ -2,9 +2,9 @@ package com.touristskaya.expenses.src.screens.backup;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -13,6 +13,9 @@ import com.touristskaya.expenses.R;
 import com.touristskaya.expenses.activities.backup.AdapterActivityBackupDataRecyclerView;
 import com.touristskaya.expenses.src.screens.backup.controllers.BackupScreenController;
 import com.touristskaya.expenses.src.screens.backup.models.BackupScreenModel;
+import com.touristskaya.expenses.stores.abstraction.Action;
+import com.touristskaya.expenses.stores.common.Payload;
+import com.touristskaya.expenses.stores.realisation.backup.BackupActionsFactory;
 
 /**
  * TODO: Add a class header comment
@@ -48,11 +51,44 @@ public class BackupScreen extends AppCompatActivity {
         mSignInButton = (Button) findViewById(R.id.backup_data_sign_in_button);
 
         mArrowBackImageView = (ImageView) findViewById(R.id.backup_data_arrow_back_imageview);
+        mArrowBackImageView.setOnClickListener((v) -> mController.backButtonHandler(this));
 
         mSelectGoogleAccountImageView = (ImageView) findViewById(R.id.backup_data_account_imageview);
 
         mStatusTextView = (TextView) findViewById(R.id.backup_data_status_textview);
 
         mProgressDialog = new ProgressDialog(BackupScreen.this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+//        // Проверяем соединение с интернетом.
+//        Payload payload = new Payload();
+//        payload.set("context", this);
+//
+//        Action checkInternetConnectionAction = mBackupStore.getActionFactory().getAction(BackupActionsFactory.CheckInternetConnection);
+//        checkInternetConnectionAction.setPayload(payload);
+//
+//        mBackupStore.dispatch(checkInternetConnectionAction);
+//
+//        if (mBackupState.hasInternetConnection.get() && needRequestSignIn) {
+//            if (!mBackupState.signedIn.get()) {
+//                statusTextView.setText("Вход в аккаунт Google");
+//                requestSignIn();
+//            }
+//        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+//        unsubscribeAll();
+    }
+
+    @Override
+    public void onBackPressed() {
+        mController.backButtonHandler(this);
     }
 }

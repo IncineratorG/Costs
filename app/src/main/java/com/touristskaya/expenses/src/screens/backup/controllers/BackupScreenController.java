@@ -1,7 +1,10 @@
 package com.touristskaya.expenses.src.screens.backup.controllers;
 
+import android.content.Intent;
 import android.util.Log;
 
+import com.touristskaya.expenses.ActivityMainWithFragments;
+import com.touristskaya.expenses.src.screens.backup.BackupScreen;
 import com.touristskaya.expenses.src.screens.backup.models.BackupScreenModel;
 
 /**
@@ -23,8 +26,12 @@ public class BackupScreenController {
         Log.d("tag", "signInButtonHandler()");
     }
 
-    public void arrowBackIconHandler() {
-        Log.d("tag", "arrowBackIconHandler()");
+    public void backButtonHandler(BackupScreen activity) {
+        Log.d("tag", "backButtonHandler()");
+
+        Intent mainActivityWithFragmentsIntent = new Intent(activity, ActivityMainWithFragments.class);
+        mainActivityWithFragmentsIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        activity.startActivity(mainActivityWithFragmentsIntent);
     }
 
     public void selectGoogleAccountIconHandler() {
