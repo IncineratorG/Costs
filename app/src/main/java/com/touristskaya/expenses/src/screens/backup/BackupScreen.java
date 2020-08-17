@@ -10,12 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.touristskaya.expenses.R;
-import com.touristskaya.expenses.activities.backup.AdapterActivityBackupDataRecyclerView;
+import com.touristskaya.expenses.unused.activities.backup.AdapterActivityBackupDataRecyclerView;
 import com.touristskaya.expenses.src.screens.backup.controllers.BackupScreenController;
 import com.touristskaya.expenses.src.screens.backup.models.BackupScreenModel;
-import com.touristskaya.expenses.stores.abstraction.Action;
-import com.touristskaya.expenses.stores.common.Payload;
-import com.touristskaya.expenses.stores.realisation.backup.BackupActionsFactory;
 
 /**
  * TODO: Add a class header comment
@@ -35,18 +32,22 @@ public class BackupScreen extends AppCompatActivity {
 
     private ProgressDialog mProgressDialog;
 
-    private BackupScreenModel mModel = new BackupScreenModel();
-    private BackupScreenController mController = new BackupScreenController(mModel);
+    private BackupScreenModel mModel;
+    private BackupScreenController mController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_backup_data);
 
+        mModel = new BackupScreenModel(this);
+        mController = new BackupScreenController(mModel);
+
         mLinearLayoutManager = new LinearLayoutManager(this);
         mBackupListRecyclerView = (RecyclerView) findViewById(R.id.backup_data_recycler_view);
 
         mCreateBackupDataButton = (Button) findViewById(R.id.backup_data_backup_button);
+        mCreateBackupDataButton.setOnClickListener((v) -> mController.createBackupButtonHandler());
 
         mSignInButton = (Button) findViewById(R.id.backup_data_sign_in_button);
 
@@ -54,6 +55,7 @@ public class BackupScreen extends AppCompatActivity {
         mArrowBackImageView.setOnClickListener((v) -> mController.backButtonHandler(this));
 
         mSelectGoogleAccountImageView = (ImageView) findViewById(R.id.backup_data_account_imageview);
+        mSelectGoogleAccountImageView.setOnClickListener((v) -> mController.selectGoogleAccountIconHandler());
 
         mStatusTextView = (TextView) findViewById(R.id.backup_data_status_textview);
 

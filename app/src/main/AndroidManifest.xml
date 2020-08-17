@@ -33,7 +33,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/CustomAppStyle"/>
         <activity
-            android:name=".activities.backup.ActivityBackupData"
+            android:name=".unused.activities.backup.ActivityBackupData"
             android:screenOrientation="portrait"
             android:theme="@style/CustomAppStyle"/>
 
