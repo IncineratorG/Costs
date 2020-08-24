@@ -1,5 +1,6 @@
 package com.touristskaya.expenses.src.libs.state;
 
+import com.touristskaya.expenses.src.libs.selector.Selector;
 import com.touristskaya.expenses.src.libs.void_function.VoidFunction;
 
 import java.util.Collection;
@@ -10,9 +11,9 @@ import java.util.Map;
  * TODO: Add a class header comment
  */
 
-public class State {
+public abstract class State {
     private int mIdsCounter = 1;
-    private Map<Integer, VoidFunction> mSelectors;
+    private Map<Integer, Selector> mSelectors;
 
     public State() {
         mSelectors = new HashMap<>();
@@ -22,7 +23,7 @@ public class State {
         return ++mIdsCounter;
     }
 
-    public VoidFunction select(VoidFunction selector) {
+    public VoidFunction select(Selector selector) {
         if (selector == null) {
             return null;
         }
@@ -42,8 +43,8 @@ public class State {
 
         updater.invoke();
 
-        Collection<VoidFunction> selectors = mSelectors.values();
-        for (VoidFunction selector : selectors) {
+        Collection<Selector> selectors = mSelectors.values();
+        for (Selector selector : selectors) {
             selector.invoke();
         }
     }

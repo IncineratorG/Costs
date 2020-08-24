@@ -10,6 +10,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.touristskaya.expenses.R;
+import com.touristskaya.expenses.src.libs.selector.Selector;
+import com.touristskaya.expenses.src.screens.backup.store.BackupScreenState;
+import com.touristskaya.expenses.src.stores.AppStore;
+import com.touristskaya.expenses.src.utils.common.system_events.SystemEventsHandler;
 import com.touristskaya.expenses.unused.activities.backup.AdapterActivityBackupDataRecyclerView;
 import com.touristskaya.expenses.src.screens.backup.controllers.BackupScreenController;
 import com.touristskaya.expenses.src.screens.backup.models.BackupScreenModel;
@@ -34,6 +38,7 @@ public class BackupScreen extends AppCompatActivity {
 
     private BackupScreenModel mModel;
     private BackupScreenController mController;
+    private BackupScreenState mState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +47,7 @@ public class BackupScreen extends AppCompatActivity {
 
         mModel = new BackupScreenModel(this);
         mController = new BackupScreenController(mModel);
+        mState = (BackupScreenState) mModel.getState();
 
         mLinearLayoutManager = new LinearLayoutManager(this);
         mBackupListRecyclerView = (RecyclerView) findViewById(R.id.backup_data_recycler_view);
@@ -65,6 +71,17 @@ public class BackupScreen extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        mState.select(new Selector((selector) -> {
+            Boolean prevHasNetworkConnection = (Boolean) selector.getPrevValue();
+            boolean currHasNetworkConnection = mState.hasNetworkConnection;
+
+            if (prevHasNetworkConnection == null || currHasNetworkConnection != prevHasNetworkConnection) {
+                SystemEventsHandler.onInfo("HAS_CONNECTION_FROM_SCREEN: " + currHasNetworkConnection);
+            }
+
+            selector.setPrevValue(currHasNetworkConnection);
+        }));
 
 //        // Проверяем соединение с интернетом.
 //        Payload payload = new Payload();
