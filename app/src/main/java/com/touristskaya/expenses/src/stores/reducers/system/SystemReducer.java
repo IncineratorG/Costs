@@ -19,9 +19,7 @@ public class SystemReducer implements Reducer {
             case (SystemActionTypes.SET_HAS_NETWORK_CONNECTION): {
                 boolean hasNetworkConnection = (boolean) action.getPayload();
 
-                systemState.update(() -> {
-                    systemState.hasNetworkConnection = hasNetworkConnection;
-                });
+                systemState.update(() -> systemState.hasNetworkConnection = hasNetworkConnection);
 
                 break;
             }

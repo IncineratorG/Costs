@@ -1,14 +1,24 @@
 package com.touristskaya.expenses.src.screens.backup.controllers;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.util.Log;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.Scope;
+import com.google.api.services.drive.DriveScopes;
 import com.touristskaya.expenses.ActivityMainWithFragments;
-import com.touristskaya.expenses.src.screens.backup.BackupScreen;
+import com.touristskaya.expenses.src.libs.payload.Payload;
 import com.touristskaya.expenses.src.screens.backup.models.BackupScreenModel;
-import com.touristskaya.expenses.src.services.AppServices;
-import com.touristskaya.expenses.src.services.system.SystemService;
-import com.touristskaya.expenses.src.services.system.data.event_types.SystemServiceEvents;
+import com.touristskaya.expenses.src.screens.backup.store.BackupScreenState;
+import com.touristskaya.expenses.src.stores.AppStore;
+import com.touristskaya.expenses.src.stores.actions.backup.BackupActions;
+import com.touristskaya.expenses.src.utils.common.system_events.SystemEventsHandler;
 
 /**
  * TODO: Add a class header comment
@@ -16,9 +26,11 @@ import com.touristskaya.expenses.src.services.system.data.event_types.SystemServ
 
 public class BackupScreenController {
     private BackupScreenModel mModel;
+    private BackupScreenState mState;
 
     public BackupScreenController(BackupScreenModel model) {
         mModel = model;
+        mState = (BackupScreenState) mModel.getState();
     }
 
     public void createBackupButtonHandler() {
@@ -35,15 +47,45 @@ public class BackupScreenController {
     }
 
     public void signInButtonHandler() {
-        Log.d("tag", "signInButtonHandler()");
+        SystemEventsHandler.onInfo("signInButtonHandler()");
+        requestSignIn();
     }
 
-    public void backButtonHandler(BackupScreen activity) {
+    public void requestSignIn() {
+        GoogleSignInOptions signInOptions =
+                new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                        .requestEmail()
+                        .requestScopes(new Scope(DriveScopes.DRIVE))
+                        .requestScopes(new Scope(DriveScopes.DRIVE_APPDATA))
+                        .requestScopes(new Scope(DriveScopes.DRIVE_FILE))
+                        .build();
+        GoogleSignInClient client = GoogleSignIn.getClient(mState.currentActivity, signInOptions);
+
+        mModel.getDispatcher().dispatch(BackupActions.setGoogleSignInClientAction(client));
+
+        mState.currentActivity.startActivityForResult(client.getSignInIntent(), mState.signInRequestCode);
+    }
+
+    public void activityResultHandler(int requestCode, int resultCode, Intent resultData) {
+        SystemEventsHandler.onInfo("activityResultHandler()");
+
+        if (requestCode == mState.signInRequestCode) {
+            if (resultCode == Activity.RESULT_OK) {
+                handleSignInSuccessfulResult(resultData);
+            } else if (resultCode == Activity.RESULT_CANCELED) {
+                SystemEventsHandler.onInfo("activityResultHandler()->CANCELLED");
+            }
+        } else {
+            SystemEventsHandler.onError("activityResultHandler()->NOT_HERE");
+        }
+    }
+
+    public void backButtonHandler() {
         Log.d("tag", "backButtonHandler()");
 
-        Intent mainActivityWithFragmentsIntent = new Intent(activity, ActivityMainWithFragments.class);
+        Intent mainActivityWithFragmentsIntent = new Intent(mState.currentActivity, ActivityMainWithFragments.class);
         mainActivityWithFragmentsIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        activity.startActivity(mainActivityWithFragmentsIntent);
+        mState.currentActivity.startActivity(mainActivityWithFragmentsIntent);
     }
 
     public void selectGoogleAccountIconHandler() {
@@ -55,5 +97,33 @@ public class BackupScreenController {
 
     public void progressDialogCancelButtonHandler() {
         Log.d("tag", "progressDialogCancelButtonHandler()");
+    }
+
+    private void handleSignInSuccessfulResult(Intent result) {
+        if (result == null) {
+            SystemEventsHandler.onError("handleSignInResult()->DATA_IS_NULL");
+            return;
+        }
+
+        AppStore.dispatch(BackupActions.setSignedInFlagAction(true));
+
+        Payload payload = new Payload();
+        payload.set("resultIntent", result);
+        payload.set("context", mState.currentActivity);
+        payload.set("appLabel", getAppLabel(mState.currentActivity));
+
+        AppStore.dispatch(BackupActions.buildGoogleDriveServiceAction(payload));
+    }
+
+    private String getAppLabel(Context context) {
+        PackageManager packageManager = context.getPackageManager();
+        ApplicationInfo applicationInfo = null;
+        try {
+            applicationInfo = packageManager.getApplicationInfo(context.getApplicationInfo().packageName, 0);
+        } catch (final PackageManager.NameNotFoundException e) {
+            SystemEventsHandler.onError("getAppLabel->NameNotFoundException");
+        }
+
+        return (String) (applicationInfo != null ? packageManager.getApplicationLabel(applicationInfo) : "Unknown");
     }
 }

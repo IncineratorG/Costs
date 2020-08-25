@@ -1,5 +1,6 @@
 package com.touristskaya.expenses.src.services.system;
 
+import android.app.Activity;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -10,10 +11,6 @@ import com.touristskaya.expenses.src.libs.service.Service;
 import com.touristskaya.expenses.src.libs.void_function.VoidFunction;
 import com.touristskaya.expenses.src.services.system.data.event_types.SystemServiceEvents;
 import com.touristskaya.expenses.src.utils.common.notifier.Notifier;
-
-/**
- * TODO: Add a class header comment
- */
 
 public class SystemService implements Service {
     private Notifier mNotifier;
@@ -31,6 +28,10 @@ public class SystemService implements Service {
     }
 
     public void updateNetworkConnectionInfo(Context context) {
+        if (context == null) {
+            return;
+        }
+
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
 

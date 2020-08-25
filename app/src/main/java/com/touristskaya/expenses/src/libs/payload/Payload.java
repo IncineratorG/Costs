@@ -1,11 +1,9 @@
-package com.touristskaya.expenses.unused.stores.common;
+package com.touristskaya.expenses.src.libs.payload;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class Payload {
-    private static final String TAG = "tag";
-
     private Map<String, Object> mMap;
 
 
