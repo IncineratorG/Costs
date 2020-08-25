@@ -3,8 +3,12 @@ package com.touristskaya.expenses.src.stores.middleware.backup.handlers;
 import android.app.Activity;
 import android.content.Intent;
 
+import com.google.api.services.drive.Drive;
 import com.touristskaya.expenses.src.libs.action.Action;
 import com.touristskaya.expenses.src.libs.payload.Payload;
+import com.touristskaya.expenses.src.libs.promise.Promise;
+import com.touristskaya.expenses.src.services.AppServices;
+import com.touristskaya.expenses.src.services.backup.BackupService;
 import com.touristskaya.expenses.src.stores.AppStore;
 import com.touristskaya.expenses.src.stores.actions.backup.BackupActions;
 import com.touristskaya.expenses.src.utils.common.system_events.SystemEventsHandler;
@@ -26,6 +30,18 @@ public class BackupMiddlewareHandlers {
             return;
         }
 
+        BackupService backupService = (BackupService) AppServices.getInstance().get(AppServices.BACKUP_SERVICE);
+        Promise<Drive> promise = backupService.buildGoogleDriveService(intent, activity, appLabel);
+        promise.then(drive -> {
+            if (drive == null) {
+                AppStore.dispatch(BackupActions.buildGoogleDriveServiceErrorAction("DRIVE_SERVICE_IS_NULL"));
+                return;
+            }
 
+            AppStore.dispatch(BackupActions.buildGoogleDriveServiceFinishedAction(drive));
+        });
+        promise.error(errorText -> {
+            SystemEventsHandler.onError("buildGoogleDriveHandler()->PROMISE_ERROR: " + errorText);
+        });
     }
 }

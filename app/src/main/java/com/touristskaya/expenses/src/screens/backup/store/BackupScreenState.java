@@ -3,6 +3,7 @@ package com.touristskaya.expenses.src.screens.backup.store;
 import android.app.Activity;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.api.services.drive.Drive;
 import com.touristskaya.expenses.src.libs.state.State;
 
 /**
@@ -15,4 +16,9 @@ public class BackupScreenState extends State {
     public boolean hasNetworkConnection = false;
     public boolean signedIn = false;
     public GoogleSignInClient googleSignInClient = null;
+
+    public Drive driveService = null;
+    public boolean driveServiceBuilding = false;
+    public boolean driveServiceBuildingHasError = false;
+    public String driveServiceBuildingErrorDescription = "";
 }

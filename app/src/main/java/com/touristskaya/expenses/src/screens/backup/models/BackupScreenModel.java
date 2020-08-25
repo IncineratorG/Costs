@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.api.services.drive.Drive;
 import com.touristskaya.expenses.src.libs.dispatcher.Dispatcher;
 import com.touristskaya.expenses.src.libs.selector.Selector;
 import com.touristskaya.expenses.src.libs.state.State;
@@ -72,6 +73,35 @@ public class BackupScreenModel {
                             }
 
                             selector.setPrevValue("googleSignInClient", currGoogleClient);
+                        })),
+                        AppStore.backupState.select(new Selector((selector) -> {
+                            Drive prevDriveService = (Drive) selector.getPrevValue("driveService");
+                            Boolean prevDriveServiceBuilding = (Boolean) selector.getPrevValue("driveServiceBuilding");
+                            Boolean prevDriveServiceBuildingHasError = (Boolean) selector.getPrevValue("driveServiceBuildingHasError");
+                            String prevDriveServiceBuildingErrorDescription = (String) selector.getPrevValue("driveServiceBuildingErrorDescription");
+
+                            Drive currDriveService = AppStore.backupState.driveService;
+                            boolean currDriveServiceBuilding = AppStore.backupState.driveServiceBuilding;
+                            boolean currDriveServiceBuildingHasError = AppStore.backupState.driveServiceBuildingHasError;
+                            String currDriveServiceBuildingErrorDescription = AppStore.backupState.driveServiceBuildingErrorDescription;
+
+                            if (prevDriveService == null || prevDriveService != currDriveService) {
+                                mState.update(() -> mState.driveService = currDriveService);
+                            }
+                            if (prevDriveServiceBuilding == null || prevDriveServiceBuilding != currDriveServiceBuilding) {
+                                mState.update(() -> mState.driveServiceBuilding = currDriveServiceBuilding);
+                            }
+                            if (prevDriveServiceBuildingHasError == null || prevDriveServiceBuildingHasError != currDriveServiceBuildingHasError) {
+                                mState.update(() -> mState.driveServiceBuildingHasError = currDriveServiceBuildingHasError);
+                            }
+                            if (prevDriveServiceBuildingErrorDescription == null || !prevDriveServiceBuildingErrorDescription.equals(currDriveServiceBuildingErrorDescription)) {
+                                mState.update(() -> mState.driveServiceBuildingErrorDescription = currDriveServiceBuildingErrorDescription);
+                            }
+
+                            selector.setPrevValue("driveService", currDriveService);
+                            selector.setPrevValue("driveServiceBuilding", currDriveServiceBuilding);
+                            selector.setPrevValue("driveServiceBuildingHasError", currDriveServiceBuildingHasError);
+                            selector.setPrevValue("driveServiceBuildingErrorDescription", currDriveServiceBuildingErrorDescription);
                         }))
                 )
         );

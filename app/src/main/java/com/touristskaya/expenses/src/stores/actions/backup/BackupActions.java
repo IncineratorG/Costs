@@ -1,6 +1,7 @@
 package com.touristskaya.expenses.src.stores.actions.backup;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.api.services.drive.Drive;
 import com.touristskaya.expenses.src.libs.action.Action;
 import com.touristskaya.expenses.src.libs.payload.Payload;
 import com.touristskaya.expenses.src.stores.types.backup.BackupActionTypes;
@@ -30,8 +31,8 @@ public class BackupActions {
         return new Action(BackupActionTypes.BUILD_GOOGLE_DRIVE_SERVICE_BEGIN);
     }
 
-    public static Action buildGoogleDriveServiceFinishedAction() {
-        return new Action(BackupActionTypes.BUILD_GOOGLE_DRIVE_SERVICE_FINISHED);
+    public static Action buildGoogleDriveServiceFinishedAction(Drive driveService) {
+        return new Action(BackupActionTypes.BUILD_GOOGLE_DRIVE_SERVICE_FINISHED, driveService);
     }
 
     public static Action buildGoogleDriveServiceErrorAction(String description) {

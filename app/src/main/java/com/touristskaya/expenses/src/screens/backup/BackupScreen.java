@@ -13,9 +13,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.api.services.drive.Drive;
 import com.touristskaya.expenses.R;
 import com.touristskaya.expenses.src.libs.selector.Selector;
 import com.touristskaya.expenses.src.screens.backup.store.BackupScreenState;
+import com.touristskaya.expenses.src.stores.AppStore;
+import com.touristskaya.expenses.src.utils.common.system_events.SystemEventsHandler;
 import com.touristskaya.expenses.unused.activities.backup.AdapterActivityBackupDataRecyclerView;
 import com.touristskaya.expenses.src.screens.backup.controllers.BackupScreenController;
 import com.touristskaya.expenses.src.screens.backup.models.BackupScreenModel;
@@ -97,6 +100,53 @@ public class BackupScreen extends AppCompatActivity {
             }
 
             selector.setPrevValue("hasNetworkConnection", currHasNetworkConnection);
+        }));
+
+        mState.select(new Selector(selector -> {
+            Drive prevDriveService = (Drive) selector.getPrevValue("driveService");
+            Boolean prevDriveServiceBuilding = (Boolean) selector.getPrevValue("driveServiceBuilding");
+            Boolean prevDriveServiceBuildingHasError = (Boolean) selector.getPrevValue("driveServiceBuildingHasError");
+            String prevDriveServiceBuildingErrorDescription = (String) selector.getPrevValue("driveServiceBuildingErrorDescription");
+
+            Drive currDriveService = mState.driveService;
+            boolean currDriveServiceBuilding = mState.driveServiceBuilding;
+            boolean currDriveServiceBuildingHasError = mState.driveServiceBuildingHasError;
+            String currDriveServiceBuildingErrorDescription = mState.driveServiceBuildingErrorDescription;
+
+            if (prevDriveServiceBuilding == null) {
+
+            }
+
+            if (!currDriveServiceBuilding && currDriveService != null) {
+//                SystemEventsHandler.onInfo("NEED_FETCH_DATA");
+            }
+
+            if (prevDriveService == null || !prevDriveService.equals(currDriveService)) {
+//                SystemEventsHandler.onInfo("DriveService->" + (currDriveService != null));
+//                mState.driveService = currDriveService;
+            }
+//            if (prevDriveServiceBuilding == null || prevDriveServiceBuilding != currDriveServiceBuilding) {
+//                if (currDriveServiceBuilding) {
+//                    SystemEventsHandler.onInfo("HERE_HERE");
+//
+//                    mProgressDialog.setTitle(null);
+//                    mProgressDialog.setMessage("Подключение к серверам Google");
+//                    if (!isFinishing()) {
+//                        mProgressDialog.show();
+//                    }
+//                } else {
+//                    mProgressDialog.dismiss();
+//                }
+//            }
+
+//            if (prevDriveServiceBuilding != null && prevDriveServiceBuilding != currDriveServiceBuilding) {
+//                SystemEventsHandler.onInfo("H_HERE");
+//            }
+
+            selector.setPrevValue("driveService", currDriveService);
+            selector.setPrevValue("driveServiceBuilding", currDriveServiceBuilding);
+            selector.setPrevValue("driveServiceBuildingHasError", currDriveServiceBuildingHasError);
+            selector.setPrevValue("driveServiceBuildingErrorDescription", currDriveServiceBuildingErrorDescription);
         }));
     }
 
