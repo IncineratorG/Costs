@@ -14,11 +14,18 @@ import com.google.android.gms.common.api.Scope;
 import com.google.api.services.drive.DriveScopes;
 import com.touristskaya.expenses.ActivityMainWithFragments;
 import com.touristskaya.expenses.src.libs.payload.Payload;
+import com.touristskaya.expenses.src.libs.selector.PropsSelector;
+import com.touristskaya.expenses.src.libs.state_prop.StatePropLike;
 import com.touristskaya.expenses.src.screens.backup.models.BackupScreenModel;
 import com.touristskaya.expenses.src.screens.backup.store.BackupScreenState;
+import com.touristskaya.expenses.src.old_stores.OldAppStore;
+import com.touristskaya.expenses.src.old_stores.actions.backup.BackupActions;
 import com.touristskaya.expenses.src.stores.AppStore;
-import com.touristskaya.expenses.src.stores.actions.backup.BackupActions;
+import com.touristskaya.expenses.src.stores.actions.system.SystemActions;
 import com.touristskaya.expenses.src.utils.common.system_events.SystemEventsHandler;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * TODO: Add a class header comment
@@ -31,6 +38,11 @@ public class BackupScreenController {
     public BackupScreenController(BackupScreenModel model) {
         mModel = model;
         mState = (BackupScreenState) mModel.getState();
+
+        AppStore.systemState.select(new PropsSelector(
+                Arrays.asList(AppStore.systemState.hasNetworkConnection),
+                () -> Log.d("tag", "ON_ACTION: " + AppStore.systemState.hasNetworkConnection.value())
+        ));
     }
 
     public void createBackupButtonHandler() {
@@ -48,7 +60,12 @@ public class BackupScreenController {
 
     public void signInButtonHandler() {
         SystemEventsHandler.onInfo("signInButtonHandler()");
-        requestSignIn();
+
+        AppStore.dispatch(
+                SystemActions.setHasNetworkConnectionAction(true)
+        );
+
+//        requestSignIn();
     }
 
     public void requestSignIn() {
@@ -105,14 +122,14 @@ public class BackupScreenController {
             return;
         }
 
-        AppStore.dispatch(BackupActions.setSignedInFlagAction(true));
+        OldAppStore.dispatch(BackupActions.setSignedInFlagAction(true));
 
         Payload payload = new Payload();
         payload.set("resultIntent", result);
         payload.set("context", mState.currentActivity);
         payload.set("appLabel", getAppLabel(mState.currentActivity));
 
-        AppStore.dispatch(BackupActions.buildGoogleDriveServiceAction(payload));
+        OldAppStore.dispatch(BackupActions.buildGoogleDriveServiceAction(payload));
     }
 
     private String getAppLabel(Context context) {

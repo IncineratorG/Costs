@@ -1,9 +1,9 @@
-package com.touristskaya.expenses.src.stores.middleware.system;
+package com.touristskaya.expenses.src.old_stores.middleware.system;
 
 import com.touristskaya.expenses.src.libs.action.Action;
 import com.touristskaya.expenses.src.libs.middleware.Middleware;
-import com.touristskaya.expenses.src.stores.middleware.system.handlers.SystemMiddlewareHandlers;
-import com.touristskaya.expenses.src.stores.types.system.SystemActionTypes;
+import com.touristskaya.expenses.src.old_stores.middleware.system.handlers.SystemMiddlewareHandlers;
+import com.touristskaya.expenses.src.old_stores.types.system.SystemActionTypes;
 
 /**
  * TODO: Add a class header comment

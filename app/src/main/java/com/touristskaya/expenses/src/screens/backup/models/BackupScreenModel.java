@@ -1,7 +1,6 @@
 package com.touristskaya.expenses.src.screens.backup.models;
 
 import android.app.Activity;
-import android.content.Context;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.api.services.drive.Drive;
@@ -10,14 +9,12 @@ import com.touristskaya.expenses.src.libs.selector.Selector;
 import com.touristskaya.expenses.src.libs.state.State;
 import com.touristskaya.expenses.src.libs.store.Store;
 import com.touristskaya.expenses.src.libs.void_function.VoidFunction;
-import com.touristskaya.expenses.src.screens.backup.BackupScreen;
 import com.touristskaya.expenses.src.screens.backup.store.BackupScreenActions;
 import com.touristskaya.expenses.src.screens.backup.store.BackupScreenReducer;
 import com.touristskaya.expenses.src.screens.backup.store.BackupScreenState;
 import com.touristskaya.expenses.src.services.AppServices;
-import com.touristskaya.expenses.src.stores.AppStore;
-import com.touristskaya.expenses.src.stores.actions.system.SystemActions;
-import com.touristskaya.expenses.src.utils.common.system_events.SystemEventsHandler;
+import com.touristskaya.expenses.src.old_stores.OldAppStore;
+import com.touristskaya.expenses.src.old_stores.actions.system.SystemActions;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -39,14 +36,14 @@ public class BackupScreenModel {
         mDispatcher = new Store(mState, mReducer).getDispatcher();
         mDispatcher.dispatch(BackupScreenActions.setCurrentActivityAction(activity));
 
-        AppStore.init();
+        OldAppStore.init();
         AppServices.getInstance().init();
 
         mSubscriptions = new ArrayList<>(
                 Arrays.asList(
-                        AppStore.systemState.select(new Selector((selector) -> {
+                        OldAppStore.systemState.select(new Selector((selector) -> {
                             Boolean prevHasNetworkConnection = (Boolean) selector.getPrevValue("hasNetworkConnection");
-                            boolean currHasNetworkConnection = AppStore.systemState.hasNetworkConnection;
+                            boolean currHasNetworkConnection = OldAppStore.systemState.hasNetworkConnection;
 
                             if (prevHasNetworkConnection == null || prevHasNetworkConnection != currHasNetworkConnection) {
                                 mDispatcher.dispatch(BackupScreenActions.setHasNetworkConnectionAction(currHasNetworkConnection));
@@ -54,9 +51,9 @@ public class BackupScreenModel {
 
                             selector.setPrevValue("hasNetworkConnection", currHasNetworkConnection);
                         })),
-                        AppStore.backupState.select(new Selector((selector) -> {
+                        OldAppStore.backupState.select(new Selector((selector) -> {
                             Boolean prevSignedIn = (Boolean) selector.getPrevValue("signedIn");
-                            boolean currSignedIn = AppStore.backupState.signedIn;
+                            boolean currSignedIn = OldAppStore.backupState.signedIn;
 
                             if (prevSignedIn == null || prevSignedIn != currSignedIn) {
                                 mDispatcher.dispatch(BackupScreenActions.setSignedInAction(currSignedIn));
@@ -64,9 +61,9 @@ public class BackupScreenModel {
 
                             selector.setPrevValue("signedIn", currSignedIn);
                         })),
-                        AppStore.backupState.select(new Selector((selector) -> {
+                        OldAppStore.backupState.select(new Selector((selector) -> {
                             GoogleSignInClient prevGoogleClient = (GoogleSignInClient) selector.getPrevValue("googleSignInClient");
-                            GoogleSignInClient currGoogleClient = AppStore.backupState.googleSignInClient;
+                            GoogleSignInClient currGoogleClient = OldAppStore.backupState.googleSignInClient;
 
                             if (prevGoogleClient == null || prevGoogleClient != currGoogleClient) {
                                 mDispatcher.dispatch(BackupScreenActions.setGoogleSignInClientAction(currGoogleClient));
@@ -74,16 +71,16 @@ public class BackupScreenModel {
 
                             selector.setPrevValue("googleSignInClient", currGoogleClient);
                         })),
-                        AppStore.backupState.select(new Selector((selector) -> {
+                        OldAppStore.backupState.select(new Selector((selector) -> {
                             Drive prevDriveService = (Drive) selector.getPrevValue("driveService");
                             Boolean prevDriveServiceBuilding = (Boolean) selector.getPrevValue("driveServiceBuilding");
                             Boolean prevDriveServiceBuildingHasError = (Boolean) selector.getPrevValue("driveServiceBuildingHasError");
                             String prevDriveServiceBuildingErrorDescription = (String) selector.getPrevValue("driveServiceBuildingErrorDescription");
 
-                            Drive currDriveService = AppStore.backupState.driveService;
-                            boolean currDriveServiceBuilding = AppStore.backupState.driveServiceBuilding;
-                            boolean currDriveServiceBuildingHasError = AppStore.backupState.driveServiceBuildingHasError;
-                            String currDriveServiceBuildingErrorDescription = AppStore.backupState.driveServiceBuildingErrorDescription;
+                            Drive currDriveService = OldAppStore.backupState.driveService;
+                            boolean currDriveServiceBuilding = OldAppStore.backupState.driveServiceBuilding;
+                            boolean currDriveServiceBuildingHasError = OldAppStore.backupState.driveServiceBuildingHasError;
+                            String currDriveServiceBuildingErrorDescription = OldAppStore.backupState.driveServiceBuildingErrorDescription;
 
                             if (prevDriveService == null || prevDriveService != currDriveService) {
                                 mState.update(() -> mState.driveService = currDriveService);
@@ -106,7 +103,7 @@ public class BackupScreenModel {
                 )
         );
 
-        AppStore.dispatch(SystemActions.updateNetworkConnectionAction(mState.currentActivity));
+        OldAppStore.dispatch(SystemActions.updateNetworkConnectionAction(mState.currentActivity));
     }
 
 

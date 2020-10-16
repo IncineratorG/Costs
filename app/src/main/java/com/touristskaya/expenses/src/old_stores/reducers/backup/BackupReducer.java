@@ -1,12 +1,12 @@
-package com.touristskaya.expenses.src.stores.reducers.backup;
+package com.touristskaya.expenses.src.old_stores.reducers.backup;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.api.services.drive.Drive;
 import com.touristskaya.expenses.src.libs.action.Action;
 import com.touristskaya.expenses.src.libs.reducer.Reducer;
 import com.touristskaya.expenses.src.libs.state.State;
-import com.touristskaya.expenses.src.stores.states.backup.BackupState;
-import com.touristskaya.expenses.src.stores.types.backup.BackupActionTypes;
+import com.touristskaya.expenses.src.old_stores.states.backup.BackupState;
+import com.touristskaya.expenses.src.old_stores.types.backup.BackupActionTypes;
 import com.touristskaya.expenses.src.utils.common.system_events.SystemEventsHandler;
 
 /**

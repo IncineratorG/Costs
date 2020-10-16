@@ -1,4 +1,4 @@
-package com.touristskaya.expenses.src.stores.states.backup;
+package com.touristskaya.expenses.src.old_stores.states.backup;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.api.services.drive.Drive;

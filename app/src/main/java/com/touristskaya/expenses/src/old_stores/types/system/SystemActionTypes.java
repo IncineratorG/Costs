@@ -1,4 +1,4 @@
-package com.touristskaya.expenses.src.stores.types.system;
+package com.touristskaya.expenses.src.old_stores.types.system;
 
 /**
  * TODO: Add a class header comment

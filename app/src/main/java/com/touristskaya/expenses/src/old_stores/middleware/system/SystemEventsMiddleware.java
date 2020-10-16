@@ -1,4 +1,4 @@
-package com.touristskaya.expenses.src.stores.middleware.system;
+package com.touristskaya.expenses.src.old_stores.middleware.system;
 
 import androidx.core.util.Consumer;
 
@@ -7,8 +7,8 @@ import com.touristskaya.expenses.src.libs.void_function.VoidFunction;
 import com.touristskaya.expenses.src.services.AppServices;
 import com.touristskaya.expenses.src.services.system.SystemService;
 import com.touristskaya.expenses.src.services.system.data.event_types.SystemServiceEvents;
-import com.touristskaya.expenses.src.stores.AppStore;
-import com.touristskaya.expenses.src.stores.actions.system.SystemActions;
+import com.touristskaya.expenses.src.old_stores.OldAppStore;
+import com.touristskaya.expenses.src.old_stores.actions.system.SystemActions;
 import com.touristskaya.expenses.src.utils.common.system_events.SystemEventsHandler;
 
 import java.util.ArrayList;
@@ -42,7 +42,7 @@ public class SystemEventsMiddleware implements EventsMiddleware {
         };
         Consumer<Object> hasNetworkConnectionHandler = (hasNetworkConnectionObject) -> {
           boolean hasNetworkConnection = (boolean) hasNetworkConnectionObject;
-          AppStore.dispatch(SystemActions.setHasNetworkConnectionAction(hasNetworkConnection));
+          OldAppStore.dispatch(SystemActions.setHasNetworkConnectionAction(hasNetworkConnection));
         };
 
         VoidFunction testHandlerUnsubscribe = systemService.subscribe(SystemServiceEvents.TEST_EVENT, testHandler);

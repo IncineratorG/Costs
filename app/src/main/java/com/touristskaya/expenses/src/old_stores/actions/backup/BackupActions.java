@@ -1,10 +1,10 @@
-package com.touristskaya.expenses.src.stores.actions.backup;
+package com.touristskaya.expenses.src.old_stores.actions.backup;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.api.services.drive.Drive;
 import com.touristskaya.expenses.src.libs.action.Action;
 import com.touristskaya.expenses.src.libs.payload.Payload;
-import com.touristskaya.expenses.src.stores.types.backup.BackupActionTypes;
+import com.touristskaya.expenses.src.old_stores.types.backup.BackupActionTypes;
 
 /**
  * TODO: Add a class header comment

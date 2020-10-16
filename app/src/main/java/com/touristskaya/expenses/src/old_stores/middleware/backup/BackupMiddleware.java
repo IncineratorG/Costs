@@ -1,9 +1,9 @@
-package com.touristskaya.expenses.src.stores.middleware.backup;
+package com.touristskaya.expenses.src.old_stores.middleware.backup;
 
 import com.touristskaya.expenses.src.libs.action.Action;
 import com.touristskaya.expenses.src.libs.middleware.Middleware;
-import com.touristskaya.expenses.src.stores.middleware.backup.handlers.BackupMiddlewareHandlers;
-import com.touristskaya.expenses.src.stores.types.backup.BackupActionTypes;
+import com.touristskaya.expenses.src.old_stores.middleware.backup.handlers.BackupMiddlewareHandlers;
+import com.touristskaya.expenses.src.old_stores.types.backup.BackupActionTypes;
 
 public class BackupMiddleware implements Middleware {
     private BackupMiddlewareHandlers mBackupHandlers = new BackupMiddlewareHandlers();
