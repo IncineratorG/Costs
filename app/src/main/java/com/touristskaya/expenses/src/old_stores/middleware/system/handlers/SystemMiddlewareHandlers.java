@@ -19,7 +19,7 @@ public class SystemMiddlewareHandlers {
             return;
         }
 
-        SystemService systemService = (SystemService) AppServices.getInstance().get(AppServices.SYSTEM_SERVICE);
+        SystemService systemService = (SystemService) AppServices.get().getService(AppServices.SYSTEM_SERVICE);
         systemService.updateNetworkConnectionInfo(context);
     }
 }

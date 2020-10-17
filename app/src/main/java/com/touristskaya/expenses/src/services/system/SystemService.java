@@ -1,6 +1,5 @@
 package com.touristskaya.expenses.src.services.system;
 
-import android.app.Activity;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;

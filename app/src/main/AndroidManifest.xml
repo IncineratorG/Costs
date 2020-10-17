@@ -43,6 +43,11 @@
             android:theme="@style/CustomAppStyle"/>
 
         <activity
+            android:name=".src.screens.backup_v2.BackupScreen_V2"
+            android:screenOrientation="portrait"
+            android:theme="@style/CustomAppStyle"/>
+
+        <activity
             android:name=".ActivityMainWithFragments"
             android:screenOrientation="portrait"
             android:theme="@style/CustomAppStyle">

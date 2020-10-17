@@ -65,6 +65,11 @@ public class BackupScreen extends AppCompatActivity {
         mSignInButton.setEnabled(true);
         mSignInButton.setVisibility(View.VISIBLE);
         mSignInButton.setOnClickListener((v) -> mController.signInButtonHandler());
+        // ===
+//        mModel.testProp.onChange((val) -> {
+//            mSignInButton.setText(val);
+//        });
+        // ===
 
         mArrowBackImageView = (ImageView) findViewById(R.id.backup_data_arrow_back_imageview);
         mArrowBackImageView.setOnClickListener((v) -> mController.backButtonHandler());

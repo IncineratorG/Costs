@@ -7,6 +7,8 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.util.Log;
 
+import androidx.core.util.Consumer;
+
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -61,9 +63,9 @@ public class BackupScreenController {
     public void signInButtonHandler() {
         SystemEventsHandler.onInfo("signInButtonHandler()");
 
-        AppStore.dispatch(
-                SystemActions.setHasNetworkConnectionAction(true)
-        );
+//        AppStore.dispatch(
+//                SystemActions.setHasNetworkConnectionAction(true)
+//        );
 
 //        requestSignIn();
     }

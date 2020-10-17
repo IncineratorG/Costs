@@ -7,6 +7,7 @@ import com.google.api.services.drive.Drive;
 import com.touristskaya.expenses.src.libs.dispatcher.Dispatcher;
 import com.touristskaya.expenses.src.libs.selector.Selector;
 import com.touristskaya.expenses.src.libs.state.State;
+import com.touristskaya.expenses.src.libs.state_prop.StateProp;
 import com.touristskaya.expenses.src.libs.store.Store;
 import com.touristskaya.expenses.src.libs.void_function.VoidFunction;
 import com.touristskaya.expenses.src.screens.backup.store.BackupScreenActions;
@@ -30,6 +31,9 @@ public class BackupScreenModel {
     private Dispatcher mDispatcher;
     private List<VoidFunction> mSubscriptions;
 
+    public String testValue = "TestV";
+    public StateProp<String> testProp = new StateProp<>("Initial");
+
     public BackupScreenModel(Activity activity) {
         mState = new BackupScreenState();
         mReducer = new BackupScreenReducer();
@@ -37,7 +41,7 @@ public class BackupScreenModel {
         mDispatcher.dispatch(BackupScreenActions.setCurrentActivityAction(activity));
 
         OldAppStore.init();
-        AppServices.getInstance().init();
+        AppServices.get().init();
 
         mSubscriptions = new ArrayList<>(
                 Arrays.asList(

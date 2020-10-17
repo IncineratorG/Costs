@@ -30,7 +30,7 @@ public class BackupMiddlewareHandlers {
             return;
         }
 
-        BackupService backupService = (BackupService) AppServices.getInstance().get(AppServices.BACKUP_SERVICE);
+        BackupService backupService = (BackupService) AppServices.get().getService(AppServices.BACKUP_SERVICE);
         Promise<Drive> promise = backupService.buildGoogleDriveService(intent, activity, appLabel);
         promise.then(drive -> {
             if (drive == null) {

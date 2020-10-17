@@ -33,8 +33,8 @@ public class SystemEventsMiddleware implements EventsMiddleware {
         mUnsubscribeFunctions.clear();
 
         SystemService systemService = (SystemService) AppServices.
-                getInstance()
-                .get(AppServices.SYSTEM_SERVICE);
+                get()
+                .getService(AppServices.SYSTEM_SERVICE);
 
         Consumer<Object> testHandler = (testTextObject) -> {
             String str = (String) testTextObject;

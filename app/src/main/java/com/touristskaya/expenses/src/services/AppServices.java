@@ -10,15 +10,15 @@ public class AppServices {
 
     private static AppServices mInstance = null;
 
-    private SystemService mSystemService;
-    private BackupService mBackupService;
+    public SystemService mSystemService;
+    public BackupService mBackupService;
 
     private AppServices() {
         mSystemService = new SystemService();
         mBackupService = new BackupService();
     }
 
-    public static synchronized AppServices getInstance() {
+    public static synchronized AppServices get() {
         if (mInstance == null) {
             mInstance = new AppServices();
         }
@@ -31,7 +31,7 @@ public class AppServices {
         mBackupService.init();
     }
 
-    public Service get(String serviceType) {
+    public Service getService(String serviceType) {
         switch (serviceType) {
             case SYSTEM_SERVICE: {
                 return mSystemService;
