@@ -60,6 +60,8 @@ public class BackupScreenV2Controller {
                         .build();
         GoogleSignInClient client = GoogleSignIn.getClient(mModel.currentActivity, signInOptions);
 
+        mModel.googleSignInClient.set(client);
+
         mModel.currentActivity.startActivityForResult(client.getSignInIntent(), mModel.SIGN_IN_REQUEST_CODE);
     }
 
