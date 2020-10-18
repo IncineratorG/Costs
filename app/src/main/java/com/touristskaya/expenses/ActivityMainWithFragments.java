@@ -11,8 +11,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.touristskaya.expenses.src.screens.backup.BackupScreen;
-import com.touristskaya.expenses.src.screens.backup_v2.BackupScreen_V2;
+import com.touristskaya.expenses.refactor_v1_active.activities.backup.ActivityBackupData;
 
 public class ActivityMainWithFragments extends AppCompatActivity {
     private static final String TAG = "tag";
@@ -37,7 +36,7 @@ public class ActivityMainWithFragments extends AppCompatActivity {
         backupDataImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent backupDataActivity = new Intent(ActivityMainWithFragments.this, BackupScreen_V2.class);
+                Intent backupDataActivity = new Intent(ActivityMainWithFragments.this, ActivityBackupData.class);
                 startActivity(backupDataActivity);
 
 //                Intent backupDataActivity = new Intent(ActivityMainWithFragments.this, ActivityBackupData.class);

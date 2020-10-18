@@ -33,17 +33,17 @@
             android:screenOrientation="portrait"
             android:theme="@style/CustomAppStyle"/>
         <activity
-            android:name=".unused.activities.backup.ActivityBackupData"
+            android:name=".refactor_v1_active.activities.backup.ActivityBackupData"
             android:screenOrientation="portrait"
             android:theme="@style/CustomAppStyle"/>
 
         <activity
-            android:name=".src.screens.backup.BackupScreen"
+            android:name=".refactor_v2_3.screens.backup.BackupScreen"
             android:screenOrientation="portrait"
             android:theme="@style/CustomAppStyle"/>
 
         <activity
-            android:name=".src.screens.backup_v2.BackupScreen_V2"
+            android:name=".refactor_v2_3.screens.backup_v2.BackupScreen_V2"
             android:screenOrientation="portrait"
             android:theme="@style/CustomAppStyle"/>
 
