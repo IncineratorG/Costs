@@ -2,16 +2,16 @@ package com.touristskaya.expenses;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.tabs.TabLayout;
+import androidx.viewpager.widget.ViewPager;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.touristskaya.expenses.activities.backup.ActivityBackupData;
+import com.touristskaya.expenses.refactor_v1_active.activities.backup.ActivityBackupData;
 
 public class ActivityMainWithFragments extends AppCompatActivity {
     private static final String TAG = "tag";
@@ -38,6 +38,9 @@ public class ActivityMainWithFragments extends AppCompatActivity {
             public void onClick(View v) {
                 Intent backupDataActivity = new Intent(ActivityMainWithFragments.this, ActivityBackupData.class);
                 startActivity(backupDataActivity);
+
+//                Intent backupDataActivity = new Intent(ActivityMainWithFragments.this, ActivityBackupData.class);
+//                startActivity(backupDataActivity);
             }
         });
 
