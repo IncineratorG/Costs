@@ -7,8 +7,8 @@ android {
         applicationId "com.touristskaya.expenses"
         minSdkVersion 14
         targetSdkVersion 29
-        versionCode 28
-        versionName "1.153"
+        versionCode 29
+        versionName "1.155"
     }
     buildToolsVersion '28.0.3'
     compileOptions {
