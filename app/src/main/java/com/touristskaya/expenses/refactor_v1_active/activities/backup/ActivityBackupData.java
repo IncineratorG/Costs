@@ -79,6 +79,7 @@ public class ActivityBackupData extends AppCompatActivity {
     private Subscription mRestoreStatusSubscription;
     private Subscription mCreateDeviceBackupSubscription;
     private Subscription mDeleteDeviceBackupSubscription;
+    private boolean mSubscriptionsSet = false;
 
     private ProgressDialog mProgressDialog;
 
@@ -138,7 +139,16 @@ public class ActivityBackupData extends AppCompatActivity {
 
     @Override
     protected void onResume() {
+//        Log.d("tag", "onResume()");
+
         super.onResume();
+
+        if (!mSubscriptionsSet) {
+//            Log.d(TAG, "onResume()->SUBSCRIPTIONS_NOT_SET");
+            setSubscriptions();
+        } else {
+//            Log.d(TAG, "onResume()->SUBSCRIPTIONS_SET");
+        }
 
         // Проверяем соединение с интернетом.
         Payload payload = new Payload();
@@ -159,6 +169,8 @@ public class ActivityBackupData extends AppCompatActivity {
 
     @Override
     protected void onStop() {
+//        Log.d("tag", "onStop()");
+
         super.onStop();
         unsubscribeAll();
     }
@@ -208,13 +220,28 @@ public class ActivityBackupData extends AppCompatActivity {
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent resultData) {
+//        Log.d(TAG, "onActivityResult(): " + requestCode + " - " + resultCode + " - " + (resultData == null));
+
+        if (!mSubscriptionsSet) {
+//            Log.d(TAG, "onActivityResult()->SUBSCRIPTIONS_NOT_SET");
+            setSubscriptions();
+        } else {
+//            Log.d(TAG, "onActivityResult()->SUBSCRIPTIONS_SET");
+        }
+
         switch (requestCode) {
             case REQUEST_CODE_SIGN_IN:
+//                Log.d(TAG, "onActivityResult(): 1");
+
                 if (resultCode == Activity.RESULT_OK && resultData != null) {
+//                    Log.d(TAG, "onActivityResult(): 11");
+
                     handleSignInResult(resultData);
 
                     needRequestSignIn = true;
                 } else {
+//                    Log.d(TAG, "onActivityResult(): 12");
+
                     needRequestSignIn = false;
 
                     if (mBackupState.hasInternetConnection.get()) {
@@ -234,6 +261,10 @@ public class ActivityBackupData extends AppCompatActivity {
                     }
                 }
                 break;
+
+                default: {
+//                    Log.d(TAG, "onActivityResult(): 2");
+                }
         }
 
         super.onActivityResult(requestCode, resultCode, resultData);
@@ -269,8 +300,12 @@ public class ActivityBackupData extends AppCompatActivity {
         });
 
         mGoogleDriveServiceBundleSubscription = mBackupState.driveServiceBundle.subscribe(() -> {
+//            Log.d("tag", "-1");
+
             switch (mBackupState.driveServiceBundle.get().getDriveServiceStatus()) {
                 case DriveServiceBundle.Set: {
+//                    Log.d("tag", "-2");
+
                     mProgressDialog.dismiss();
 
                     // Получаем данные резервной копии.
@@ -456,6 +491,8 @@ public class ActivityBackupData extends AppCompatActivity {
                 }
             }
         });
+
+        mSubscriptionsSet = true;
     }
 
     private void unsubscribeAll() {
@@ -465,6 +502,8 @@ public class ActivityBackupData extends AppCompatActivity {
         mRestoreStatusSubscription.unsubscribe();
         mCreateDeviceBackupSubscription.unsubscribe();
         mDeleteDeviceBackupSubscription.unsubscribe();
+
+        mSubscriptionsSet = false;
     }
 
     // При нажатии на элемент списка резервных копий - отображаем диалоговое окно,

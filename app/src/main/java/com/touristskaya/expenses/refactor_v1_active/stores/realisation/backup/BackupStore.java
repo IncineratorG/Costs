@@ -273,10 +273,14 @@ public class BackupStore extends Store {
 
 
     private void buildGoogleDriveServiceEffect(Action action) {
+//        Log.d("tag", "1");
+
         if (!(action.getPayload() instanceof Payload)) {
             Log.d(TAG, "BackupStore.buildGoogleDriveServiceEffect()->BAD_PAYLOAD");
             return;
         }
+
+//        Log.d("tag", "2");
 
         Payload payload = (Payload) action.getPayload();
         Intent intent = null;
@@ -301,6 +305,8 @@ public class BackupStore extends Store {
             return;
         }
 
+//        Log.d("tag", "3");
+
         DriveServiceBundle driveServiceBundle = new DriveServiceBundle(null, DriveServiceBundle.Setting);
 
         Action setDriveServiceBundleAction = mActionsFactory.getAction(BackupActionsFactory.SetDriveServiceBundle);
@@ -314,6 +320,8 @@ public class BackupStore extends Store {
                 (googleAccount -> {
 //                    Log.d(TAG, "Signed in as " + googleAccount.getEmail());
 
+//                    Log.d("tag", "4");
+
                     Drive driveService = mBackupService.getGoogleDriveService(googleAccount, finalContext, finalAppName);
                     DriveServiceBundle finalDriveServiceBundle = new DriveServiceBundle(driveService, DriveServiceBundle.Set);
                     setDriveServiceBundleAction.setPayload(finalDriveServiceBundle);
@@ -323,18 +331,26 @@ public class BackupStore extends Store {
                 (exception -> {
 //                    Log.e(TAG, "Unable to sign in.", exception);
 
+//                    Log.d("tag", "5");
+
                     DriveServiceBundle finalDriveServiceBundle = new DriveServiceBundle(null, DriveServiceBundle.NotSet);
                     setDriveServiceBundleAction.setPayload(finalDriveServiceBundle);
 
                     dispatch(setDriveServiceBundleAction);
                 }));
+
+//        Log.d("tag", "777");
     }
 
     private void getBackupDataEffect(Action action) {
+//        Log.d("tag", "01");
+
         if (!(action.getPayload() instanceof Payload)) {
             Log.d(TAG, "BackupStore.getBackupDataEffect()->BAD_PAYLOAD");
             return;
         }
+
+//        Log.d("tag", "02");
 
         Payload payload = (Payload) action.getPayload();
         Drive googleDriveService = null;
@@ -344,6 +360,8 @@ public class BackupStore extends Store {
             Log.d(TAG, "BackupStore.getBackupDataEffect()->BAD_PAYLOAD_DATA");
             return;
         }
+
+//        Log.d("tag", "03");
 
         Payload setBackupDataPayload = new Payload();
         setBackupDataPayload.set("backupData", new BackupData(null, null, BackupData.Setting));
@@ -365,12 +383,16 @@ public class BackupStore extends Store {
                 }
             }
 
+//            Log.d("tag", "04->" + backupFilesList.size());
+
             setBackupDataPayload.set("backupData", new BackupData(rootFolderId, backupFilesList, BackupData.Set));
 
             setBackupData.setPayload(setBackupDataPayload);
 
             dispatch(setBackupData);
         });
+
+//        Log.d("tag", "0777");
     }
 
     private void restoreFromBackupEffect(Action action) {
